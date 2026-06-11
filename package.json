@@ -1,0 +1,13 @@
+{
+  "name": "app-js-presentation",
+  "private": true,
+  "scripts": {
+    "slides": "slidev slides/slides.md --open",
+    "slides:build": "slidev build slides/slides.md",
+    "slides:export": "slidev export slides/slides.md"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.16.0",
+    "@slidev/theme-default": "^0.25.0"
+  }
+}
