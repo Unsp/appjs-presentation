@@ -17,4 +17,4 @@ npm run slides
 - Presenter mode: http://localhost:3030/presenter
 - Export PDF: `npm run slides:export`
 
-Slide source: `slides/slides.md` — see `slides/SLIDEV.md` for syntax rules.
+Slide source: `slides/slides.md` (shell) + `slides/pages/<slot>-<feature>.md` per segment — see `slides/SLIDEV.md`.

@@ -119,7 +119,7 @@ Ignore import sorting errors only when this is the only issue and the project au
 
 ## Demo and slide specifics
 
-- Edit the canonical deck at `slides/slides.md`; follow @slides/SLIDEV.md (no broken frontmatter).
+- Edit segment content in `slides/pages/<slot>-<feature>.md`; add or keep `src:` import in `slides/slides.md` (see @slides/SLIDEV.md). Do not grow inline segment bodies in `slides.md`.
 - Demo code should be short and easy to explain on stage.
 - Avoid risky conditional rendering like `{value && <Component />}` when `value` can be `0` or an empty string.
 - Keep list `renderItem` lightweight and avoid unstable inline objects.

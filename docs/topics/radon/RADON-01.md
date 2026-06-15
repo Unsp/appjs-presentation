@@ -3,7 +3,7 @@
 **Status:** done  
 **Feature:** [docs/topics/radon/README.md](README.md)  
 **Outline:** [docs/outline/README.md](../../outline/README.md) — talk slot 2  
-**Related docs:** [slides/SLIDEV.md](../../../slides/SLIDEV.md), [slides/pages/02-radon-rnrepo.md](../../../slides/pages/02-radon-rnrepo.md) (outdated draft — sync after `slides.md`)
+**Related docs:** [slides/SLIDEV.md](../../../slides/SLIDEV.md), [slides/pages/02-radon-rnrepo.md](../../../slides/pages/02-radon-rnrepo.md) (Radon segment — imported via `src:`)
 
 ## Source links (mandatory re-read)
 
@@ -45,7 +45,7 @@ Content-only task: no demo app, no live Radon on stage.
 - Deck frontmatter and global config in `slides/slides.md` (theme, title, author, transition).
 - Segments **outside** Radon block: talk order list structure, TypeGPU, keyframer slides.
 - Asset files: do not modify PNGs in `slides/assets/radon/` or `slides/assets/radon-eas-rnrepo.png`.
-- No `src:` imports from `slides/pages/` (per `SLIDEV.md`).
+- Radon segment: `slides/pages/02-radon-rnrepo.md` imported via `src:` in `slides/slides.md`.
 - No `src/` demo app changes.
 
 ## Root cause / context
@@ -54,9 +54,9 @@ Planning is complete in [README.md](README.md). The current Radon stub uses outd
 
 ## Implementation plan
 
-### 1. Replace Radon section in `slides/slides.md`
+### 1. Radon segment file + `src:` import
 
-Locate the block starting at `# Radon IDE + rnrepo` through the handoff before `# TypeGPU + Redraw`. Replace entirely.
+Primary edit: `slides/pages/02-radon-rnrepo.md`. In `slides/slides.md`, replace inline Radon stub with `src: ./pages/02-radon-rnrepo.md` import stub only.
 
 **Suggested slide sequence:**
 
@@ -83,9 +83,9 @@ Use relative/absolute CSS or Slidev-compatible HTML — tune percentages at buil
 
 On the talk order slide, rename entry 2 to **Radon + RNRepo** (drop “IDE” if present) — align with feature doc title.
 
-### 4. Sync draft
+### 4. ~~Sync draft~~ — done
 
-Update `slides/pages/02-radon-rnrepo.md` to mirror the new `slides.md` Radon block (draft reference for owner).
+`slides/pages/02-radon-rnrepo.md` is the canonical Radon segment (not a mirror).
 
 ### 5. Feature doc
 
@@ -111,11 +111,8 @@ In `docs/topics/radon/README.md`: mark slides stub status **done** in Artifacts 
 
 ## Related files
 
-- `slides/slides.md` — primary edit
-- `slides/SLIDEV.md` — syntax guardrails
-- `slides/assets/radon/*.png` — read-only assets
-- `slides/assets/radon-eas-rnrepo.png` — read-only asset
-- `slides/pages/02-radon-rnrepo.md` — sync draft
+- `slides/pages/02-radon-rnrepo.md` — primary segment edit
+- `slides/slides.md` — `src:` import + talk-order line only
 - `docs/topics/radon/README.md` — artifact status update
 
 ## Tests (lint / typecheck / manual)

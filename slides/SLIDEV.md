@@ -2,6 +2,8 @@
 
 **Canonical deck:** `slides.md` in this folder.
 
+**Language:** on-slide copy and HTML comments (speaker notes) are **Russian** by default for the whole deck. Keep API/package names in English where conventional. Docs in `docs/` stay English.
+
 ## Slide separator
 
 Use `---` on its own line between slides.
@@ -44,6 +46,24 @@ layout: center
 # Title
 ```
 
-## Do not use `src:` imports yet
+## Split segments via `src:`
 
-Split files under `pages/` are drafts only. Edit `slides.md` directly until we add a safe import setup.
+Each talk segment belongs in **`slides/pages/<slot>-<feature>.md`**. The deck shell `slides.md` imports segments with Slidev `src:` — do not paste long segment bodies into `slides.md`.
+
+| File                         | Segment                                  |
+| ---------------------------- | ---------------------------------------- |
+| `pages/02-radon-rnrepo.md`   | Radon + RNRepo (slot 2) — **wired**      |
+| `pages/04-typegpu-redraw.md` | TypeGPU (slot 4) — migrate from inline   |
+| `pages/06-keyframer.md`      | keyframer (slot 6) — migrate from inline |
+
+Import stub in `slides.md`:
+
+```markdown
+---
+src: ./pages/02-radon-rnrepo.md
+---
+
+<!-- segment content lives in the page file -->
+```
+
+Paths in imported files are relative to that file — assets use `../assets/...`. Both `slides.md` and `slides/pages/` are in `.prettierignore`.

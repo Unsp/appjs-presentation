@@ -4,11 +4,13 @@ Each in-scope talk segment is a **feature** with a main doc in its folder. Imple
 
 Partner (M) segments: [outline](../outline/README.md) only.
 
-| Talk slot | Feature | Main doc |
-| --- | --- | --- |
-| 2 | Radon IDE + rnrepo | [radon/README.md](radon/README.md) |
-| 4 | TypeGPU + Redraw | [typegpu/README.md](typegpu/README.md) |
-| 6 | keyframer.dev | [keyframer/README.md](keyframer/README.md) |
+| Talk slot | Feature          | Main doc                                   | Slide segment                       |
+| --------- | ---------------- | ------------------------------------------ | ----------------------------------- |
+| 2         | Radon + RNRepo   | [radon/README.md](radon/README.md)         | `slides/pages/02-radon-rnrepo.md`   |
+| 4         | TypeGPU + Redraw | [typegpu/README.md](typegpu/README.md)     | `slides/pages/04-typegpu-redraw.md` |
+| 6         | keyframer.dev    | [keyframer/README.md](keyframer/README.md) | `slides/pages/06-keyframer.md`      |
+
+Deck shell and `src:` imports: `slides/slides.md`. Rules: [slides/SLIDEV.md](../../slides/SLIDEV.md).
 
 ## Folder layout
 
@@ -21,3 +23,9 @@ docs/topics/
 ```
 
 **Planner:** read feature `README.md` + [outline](../outline/README.md), then add task files and generate prompts (`generate prompt for <ID>`).
+
+**keyframer:** done (00 + 01); [KEYFRAMER-02](keyframer/KEYFRAMER-02.md) cancelled — Expo deferred to TypeGPU
+
+**TypeGPU:** [TYPEGPU-00](typegpu/TYPEGPU-00.md) → [TYPEGPU-01](typegpu/TYPEGPU-01.md) demo → [TYPEGPU-02](typegpu/TYPEGPU-02.md) slides (inline stub until 02)
+
+**After K segment slides:** run [DECK-01](../outline/DECK-01.md) to polish intro, talk order, presentation title, and closing.

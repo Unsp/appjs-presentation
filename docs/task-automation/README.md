@@ -18,6 +18,7 @@ Standard process for tasks in `app-js-presentation`: specification in `docs/`, i
 
 - All project documentation files committed to the repository must be written in English.
 - Agent-user conversation stays in Russian.
+- **Slide deck copy** (`slides/slides.md`, `slides/pages/*`) and **speaker notes** default to **Russian** — see [outline](../outline/README.md#deck-language).
 
 ---
 
@@ -249,10 +250,11 @@ You can add a "Notes for the agent prompt" section to the task file. It is copie
 - **Features index:** [docs/topics/README.md](../topics/README.md)
 - **radon:** [feature doc](../topics/radon/README.md)
 - **typegpu:** [feature doc](../topics/typegpu/README.md)
-- **keyframer:** [feature doc](../topics/keyframer/README.md)
+- **keyframer:** [feature doc](../topics/keyframer/README.md) — start with [KEYFRAMER-00](../topics/keyframer/KEYFRAMER-00.md) (owner prep)
 - **Talk outline:** [docs/outline/README.md](../outline/README.md)
+- **Deck shell (inter-topic slides):** [DECK-01](../outline/DECK-01.md)
 
-Task files appear under each feature folder when the planner creates them.
+Task files appear under each feature folder when the planner creates them. Cross-cutting deck tasks live under `docs/outline/`.
 
 ---
 

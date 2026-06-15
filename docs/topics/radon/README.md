@@ -120,14 +120,14 @@ All from **currency.com wallet** app in Cursor. Order matches slide flow:
 
 ## Artifacts in repo
 
-| Artifact              | Location                             | Status                    |
-| --------------------- | ------------------------------------ | ------------------------- |
-| Radon screenshots     | `slides/assets/radon/*.png`          | Ready (5 files)           |
-| RNRepo EAS screenshot | `slides/assets/radon-eas-rnrepo.png` | Ready; annotate in Slidev |
-| Slides                | `slides/slides.md`                   | Done (RADON-01)           |
-| Slide draft           | `slides/pages/02-radon-rnrepo.md`    | Synced with slides.md     |
-| MCP                   | —                                    | Text only — no asset      |
-| Demo app              | —                                    | Not required              |
+| Artifact              | Location                                                        | Status                    |
+| --------------------- | --------------------------------------------------------------- | ------------------------- |
+| Radon screenshots     | `slides/assets/radon/*.png`                                     | Ready (5 files)           |
+| RNRepo EAS screenshot | `slides/assets/radon-eas-rnrepo.png`                            | Ready; annotate in Slidev |
+| Slides                | `slides/slides.md` + `pages/02-radon-rnrepo.md` (`src:` import) | Done (RADON-01)           |
+| Slide segment         | `slides/pages/02-radon-rnrepo.md`                               | Canonical Radon block     |
+| MCP                   | —                                                               | Text only — no asset      |
+| Demo app              | —                                                               | Not required              |
 
 ## Open questions
 

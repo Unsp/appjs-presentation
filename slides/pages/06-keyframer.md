@@ -1,49 +1,170 @@
-# keyframer.dev
-
-Segment 6 · designer ↔ developer handoff
-
+---
+layout: full
 ---
 
-## The problem
+<div class="flex items-center justify-center w-full h-full p-8 box-border bg-[#1e1e1e]">
 
-Complex **Reanimated** interactions:
+<div class="max-w-2xl p-8 rounded-xl bg-black/88 text-white shadow-2xl text-center leading-snug">
 
-- Hard to spec in Figma alone
-- Engineers reverse-engineer from video / static frames
-- Slow iteration, mismatched expectations
+<h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">keyframer.dev</h1>
 
----
+<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 6 · Графический редактор анимаций Reanimated</p>
 
-## keyframer.dev
+</div>
 
-Graphical editor → **Reanimated output**
-
-**For designers**
-
-- After Effects–like timeline / keyframes
-- **Node graphs** for non-trivial interaction logic
-
-**For developers**
-
-- Near-ready animation code on export
-- Less translation, fewer “that’s not what I meant” loops
-
----
-
-## Business-app angle
-
-Onboarding, bottom sheets, guided tours, in-app marketing moments — motion authored **with** design, not after.
-
----
-
-## Demo
-
-Medium depth:
-
-1. Editor walkthrough (live or recording)
-2. Export → drop into Expo app
-3. One integrated screen in shared demo app
+</div>
 
 <!--
-TODO: canonical export sample in repo for offline rehearsal
+Speaker note: ~5–7 мин блок keyframer. Hook сразу после opener, затем alpha — manage expectations. Live demo нет — идём по скриншотам редактора.
+-->
+
+---
+layout: full
+---
+
+<div class="flex items-center justify-center w-full h-full p-8 box-border bg-[#1e1e1e]">
+
+<div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Анимация в макете — не готовый код в приложении</h2>
+
+<p class="!text-white !mb-3 text-sm opacity-90">В Figma дизайнер показывает, <strong>как должно двигаться</strong> — прототип, тайминги, кривые. На вебе похожий эффект часто собирают из <strong>CSS-анимаций</strong>.</p>
+
+<p class="!text-white !mb-3 text-sm opacity-90">В React Native путь другой и <strong>сложнее</strong>: жесты, spring, worklets — не CSS transitions. Из Figma это <strong>напрямую не вытащить</strong> — нужен Reanimated-код в проекте.</p>
+
+<p class="!text-white !mb-3 text-sm opacity-90">Разработчик обычно собирает анимацию <strong>вручную</strong> — по видео, скриншотам и устным пояснениям.</p>
+
+<p class="!text-white !mb-0 text-sm opacity-70">Currency.com app — сложные анимации реализовали вручную в Reanimated</p>
+
+</div>
+
+</div>
+
+<!--
+Speaker note: контраст с вебом — CSS vs Reanimated. Figma не экспортирует RN-код. Currency.com app — one-liner без Figma-скрина. keyframer целится сократить разрыв, но пока alpha.
+-->
+
+---
+layout: full
+---
+
+<div class="flex items-center w-full h-full p-8 box-border bg-[#1e1e1e]">
+
+<div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Alpha · ограничения</h2>
+
+<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
+<li>Инструмент в <strong>alpha</strong> — сырой, функции и интерфейс ещё меняются</li>
+<li><strong>Нет публичной документации</strong> — главный ориентир changelog на keyframer.dev</li>
+<li>Подходит для <strong>простых сценариев</strong> — входная анимация, базовые жесты</li>
+<li>Автор — <strong>Catalin Miron</strong> (AnimateReactNative.com): годами строит продукты и обучение на Reanimated — можно ждать полноценный редактор</li>
+</ul>
+
+</div>
+
+</div>
+
+<!--
+Speaker note: manage expectations без техдеталей. Автор — Catalin Miron (AnimateReactNative.com). Не называть «разработчик Reanimated» — евангелист/практик. Дальше скриншоты редактора.
+-->
+
+---
+layout: full
+---
+
+<div class="relative w-full h-full p-4 box-border bg-[#1e1e1e]">
+
+<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Timeline</h2>
+
+<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
+<li><strong>Keyframes</strong> на треках — как в After Effects</li>
+<li><strong>Easing</strong> между кадрами — кривая ускорения и замедления</li>
+<li>Несколько свойств параллельно (opacity, scale, position)</li>
+</ul>
+
+</div>
+
+<img src="../assets/keyframer/editor-timeline.png" class="absolute right-4 top-1/2 -translate-y-1/2 max-h-[calc(100%-2rem)] w-auto max-w-[58%] object-contain rounded-lg" alt="" />
+
+</div>
+
+<!--
+Speaker note: timeline tab в редакторе. Плавность — easing-кривые, без spring на сегментах (ограничение alpha). Проект на скрине — generic demo, название не озвучиваем.
+-->
+
+---
+layout: full
+---
+
+<div class="relative w-full h-full p-4 box-border bg-[#1e1e1e]">
+
+<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Node Graph</h2>
+
+<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
+<li><strong>Жесты и события</strong> → значения анимации</li>
+<li>Значения → <strong>стили на экране</strong> (Animated Style)</li>
+<li>Для <strong>интерактивных</strong> анимаций — пружины, последовательности, интерполяция</li>
+</ul>
+
+</div>
+
+<img src="../assets/keyframer/editor-graph.png" class="absolute right-4 top-1/2 -translate-y-1/2 max-h-[calc(100%-2rem)] w-auto max-w-[58%] object-contain rounded-lg" alt="" />
+
+</div>
+
+<!--
+Speaker note: graph — общая идея node graph. На скрине пример с drag, но не зацикливаться на названии. Runtime reactive input, не Figma prototype chains.
+-->
+
+---
+layout: full
+---
+
+<div class="relative w-full h-full p-4 box-border bg-[#1e1e1e]">
+
+<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Export · Generated Code</h2>
+
+<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
+<li>Генерирует хук <code class="text-xs">useAnimatedScene()</code> — keyframes, <code class="text-xs">useAnimatedStyle</code>, жесты</li>
+<li>В проде <strong>не вставляем как есть</strong> — берём и адаптируем нужные куски</li>
+<li>Стартовая точка: keyframes, интерполяция, pan — в свой layout и код</li>
+</ul>
+
+</div>
+
+<img src="../assets/keyframer/editor-export.png" class="absolute right-4 top-1/2 -translate-y-1/2 max-h-[calc(100%-2rem)] w-auto max-w-[58%] object-contain rounded-lg" alt="" />
+
+</div>
+
+<!--
+Speaker note: useAnimatedScene() — combined export. Честно: не drop-in модуль; вытаскиваем DRAGGABLE/KEYFRAMES, panGesture, useStylez-паттерн под свой экран. Copy — reference, не paste-and-ship.
+-->
+
+---
+layout: full
+---
+
+<div class="flex items-center justify-center w-full h-full p-8 box-border bg-[#1e1e1e]">
+
+<div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl text-center leading-snug">
+
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Когда tool созреет</h2>
+
+<p class="!text-white !mb-3 text-sm opacity-90">Идея сильная — дизайнер и разработчик в одном Reanimated-пайплайне</p>
+
+<p class="!text-white !mb-0 text-sm"><strong>Сегодня — alpha.</strong> Следим за changelog.</p>
+
+</div>
+
+</div>
+
+<!--
+Speaker note: closing сегмента 6. Переход к «Вопросы?» в shell slides.md. Без live keyframer / Storybook / Expo.
 -->

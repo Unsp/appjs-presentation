@@ -17,6 +17,8 @@ Instructions for AI agents (Cursor, Claude Code, etc.) working on tasks in this 
 4. Keep `docs/` aligned with implemented content and demo behavior.
 5. Favor clarity for a live audience over production-app patterns.
 
+**Languages:** docs in English; slide deck copy and speaker notes in **Russian** by default ([outline](docs/outline/README.md#deck-language)); chat with owner in Russian.
+
 ---
 
 ## 2. Quick structure context
@@ -25,7 +27,9 @@ Instructions for AI agents (Cursor, Claude Code, etc.) working on tasks in this 
 app-js-presentation/
 ├── src/                    # Expo demo app (when added)
 ├── slides/
-│   ├── slides.md           # canonical Slidev deck
+│   ├── slides.md           # deck shell + src: imports
+│   ├── pages/              # one markdown file per talk segment
+│   ├── assets/             # segment images
 │   └── SLIDEV.md           # syntax rules
 ├── docs/
 │   ├── topics/             # feature docs + planner-created tasks
