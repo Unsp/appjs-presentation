@@ -55,6 +55,16 @@ layout: full
 </div>
 
 ---
+src: ./pages/01-legend-state.md
+---
+
+<!-- Legend State → pages/01-legend-state.md -->
+
+---
+layout: full
+---
+
+---
 src: ./pages/02-radon-rnrepo.md
 ---
 
