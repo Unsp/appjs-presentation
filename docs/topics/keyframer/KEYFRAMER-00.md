@@ -3,7 +3,7 @@
 **Status:** done  
 **Feature:** [docs/topics/keyframer/README.md](README.md)  
 **Outline:** [docs/outline/README.md](../../outline/README.md) — talk slot 6  
-**Blocks:** ~~KEYFRAMER-02~~ — cancelled (slides-only talk; Expo deferred to TypeGPU)
+**Blocks:** ~~KEYFRAMER-02~~ — cancelled (slides-only talk; Expo deferred to [WebGPU segment](../webgpu/README.md))
 
 ## Closure summary (owner confirmed)
 

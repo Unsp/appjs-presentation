@@ -54,7 +54,7 @@ slides/
 | Talk slot | Segment file                 | In deck                                                                      |
 | --------- | ---------------------------- | ---------------------------------------------------------------------------- |
 | 2         | `pages/02-radon-rnrepo.md`   | imported (`src:`)                                                            |
-| 4         | `pages/04-typegpu-redraw.md` | inline stub — migrate in [TYPEGPU-02](../topics/typegpu/TYPEGPU-02.md)       |
+| 4         | `pages/04-webgpu.md` | inline stub — migrate in [WEBGPU-02](../topics/webgpu/WEBGPU-02.md)       |
 | 6         | `pages/06-keyframer.md`      | imported (`src:`) — [KEYFRAMER-01](../topics/keyframer/KEYFRAMER-01.md) done |
 
 Partner M-segments: `pages/01-legend-state.md`, etc., when material arrives.
@@ -82,7 +82,7 @@ Order follows the shared spreadsheet. **K** = Kirill (in scope for this repo). *
 | 1   | Legend State                            | M     | No — partner |
 | 2   | Radon, Rnrepo                           | K     | **Yes**      |
 | 3   | react-teleport                          | M     | No — partner |
-| 4   | TypeGPU + redraw                        | K     | **Yes**      |
+| 4   | WebGPU in React Native                  | K     | **Yes**      |
 | 5   | expo-observe                            | M     | No — partner |
 | 6   | [keyframer.dev](https://keyframer.dev/) | K     | **Yes**      |
 
@@ -92,11 +92,11 @@ Order follows the shared spreadsheet. **K** = Kirill (in scope for this repo). *
 
 Each segment has a **feature doc** under `docs/topics/<feature>/README.md`. Scoped **tasks** (`<ID>.md`) are created by the planner when breaking down work.
 
-| Slot | Feature            | Doc                                                  | Demo weight         |
-| ---- | ------------------ | ---------------------------------------------------- | ------------------- |
-| 2    | Radon IDE + rnrepo | [radon/README.md](../topics/radon/README.md)         | Light               |
-| 4    | TypeGPU + Redraw   | [typegpu/README.md](../topics/typegpu/README.md)     | **Heavy**           |
-| 6    | keyframer.dev      | [keyframer/README.md](../topics/keyframer/README.md) | Light (slides only) |
+| Slot | Feature                | Doc                                                  | Demo weight         |
+| ---- | ---------------------- | ---------------------------------------------------- | ------------------- |
+| 2    | Radon IDE + rnrepo     | [radon/README.md](../topics/radon/README.md)         | Light               |
+| 4    | WebGPU in React Native | [webgpu/README.md](../topics/webgpu/README.md)     | **Heavy**           |
+| 6    | keyframer.dev          | [keyframer/README.md](../topics/keyframer/README.md) | Light (slides only) |
 
 ---
 
@@ -135,6 +135,6 @@ Until then, K segments should not block on M content but should **avoid hard dep
 1. Set time budget per segment and total talk length.
 2. Planner: break features into tasks in `docs/topics/<feature>/<ID>.md` when ready to implement.
 3. Fill slide content in `slides/pages/<slot>-<feature>.md`; wire via `src:` in `slides/slides.md` (see `slides/SLIDEV.md`).
-4. Bootstrap Expo demo app — [TYPEGPU-00](../topics/typegpu/TYPEGPU-00.md) then [TYPEGPU-01](../topics/typegpu/TYPEGPU-01.md); slides after demo ([TYPEGPU-02](../topics/typegpu/TYPEGPU-02.md)).
+4. Bootstrap Expo demo app — [WEBGPU-00](../topics/webgpu/WEBGPU-00.md) then [WEBGPU-01](../topics/webgpu/WEBGPU-01.md); slides after demo ([WEBGPU-02](../topics/webgpu/WEBGPU-02.md)).
 5. Partner: confirm delivery format and timeline for M segments.
 6. **Last (slides):** [DECK-01](DECK-01.md) — polish deck shell (title, intro, talk order, closing) after K segment slides are stable.

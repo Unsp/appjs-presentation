@@ -2,7 +2,7 @@
 
 **Status:** cancelled  
 **Feature:** [docs/topics/keyframer/README.md](README.md)  
-**Cancelled reason:** Owner decision — **slides only** for keyframer segment; tool too alpha for live demo. Runnable Expo deferred to **TypeGPU** bootstrap (first `src/` in repo).
+**Cancelled reason:** Owner decision — **slides only** for keyframer segment; tool too alpha for live demo. Runnable Expo deferred to **WebGPU segment** demo ([WEBGPU-01](../webgpu/WEBGPU-01.md)) — first `src/` in repo.
 
 ## Original goal
 
@@ -10,7 +10,7 @@ Minimal Expo app under `src/` with keyframer export for live talk (~1–2 min on
 
 ## Why cancelled (not deleted)
 
-Handoff from [KEYFRAMER-00](KEYFRAMER-00.md) remains useful when TypeGPU creates the demo app:
+Handoff from [KEYFRAMER-00](KEYFRAMER-00.md) remains useful when [WEBGPU-01](../webgpu/WEBGPU-01.md) creates the demo app:
 
 - Export conventions: `src/animations/keyframer/timelineScene.ts`, optional `graphScene.ts`
 - Stack: Reanimated 4 + New Architecture + react-native-worklets
@@ -18,10 +18,10 @@ Handoff from [KEYFRAMER-00](KEYFRAMER-00.md) remains useful when TypeGPU creates
 
 ## If revived later
 
-- Attach to TypeGPU-01 or a dedicated demo-bootstrap task — not keyframer talk slot.
+- Attach to [WEBGPU-01](../webgpu/WEBGPU-01.md) or a dedicated demo-bootstrap task — not keyframer talk slot.
 - Owner pastes export from saved keyframer project at integration time.
 
 ## Links
 
 - [Feature doc](README.md)
-  Active work: [TYPEGPU-01](TYPEGPU-01.md) (Expo demo) — see [TYPEGPU-00](TYPEGPU-00.md) research first
+- Active work: [WEBGPU-01](../webgpu/WEBGPU-01.md) (Expo demo) — see [WEBGPU-00](../webgpu/WEBGPU-00.md) research first

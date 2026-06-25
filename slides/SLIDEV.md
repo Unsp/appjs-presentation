@@ -53,7 +53,7 @@ Each talk segment belongs in **`slides/pages/<slot>-<feature>.md`**. The deck sh
 | File                         | Segment                                  |
 | ---------------------------- | ---------------------------------------- |
 | `pages/02-radon-rnrepo.md`   | Radon + RNRepo (slot 2) — **wired**      |
-| `pages/04-typegpu-redraw.md` | TypeGPU (slot 4) — migrate from inline   |
+| `pages/04-webgpu.md` | WebGPU (slot 4) — migrate from inline    |
 | `pages/06-keyframer.md`      | keyframer (slot 6) — migrate from inline |
 
 Import stub in `slides.md`:

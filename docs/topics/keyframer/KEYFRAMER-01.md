@@ -39,12 +39,12 @@ Content-only: no `src/` demo app.
 | 11  | Reanimated 4           | **Reanimated 4** + **New Architecture** footnote                                          |
 | 12  | Layout                 | Radon-style `layout: full` dark cards per `SLIDEV.md`                                     |
 | 13  | Timing                 | Speaker notes ~5–7 min; no live budget                                                    |
-| 14  | Deck regression        | Radon, TypeGPU inline, «Вопросы?» shell unchanged                                         |
+| 14  | Deck regression        | Radon, WebGPU inline, «Вопросы?» shell unchanged                                          |
 
 ## Already OK (must not break)
 
 - Deck frontmatter in `slides/slides.md`.
-- Radon `src:` import; TypeGPU inline block; closing «Вопросы?» slide.
+- Radon `src:` import; WebGPU inline block; closing «Вопросы?» slide.
 - Asset PNGs: do not modify files in `slides/assets/keyframer/`.
 - No `src/` demo app changes.
 

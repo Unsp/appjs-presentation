@@ -45,7 +45,7 @@ layout: full
 <li>Legend State — <strong>M</strong> (партнёр)</li>
 <li>Radon + RNRepo — <strong>K</strong></li>
 <li>react-teleport — <strong>M</strong> (партнёр)</li>
-<li>TypeGPU + Redraw — <strong>K</strong></li>
+<li>WebGPU в React Native — <strong>K</strong></li>
 <li>expo-observe — <strong>M</strong> (партнёр)</li>
 <li>keyframer.dev — <strong>K</strong></li>
 </ol>
@@ -68,9 +68,9 @@ layout: full
 
 <div class="max-w-2xl p-8 rounded-xl bg-black/88 text-white shadow-2xl text-center leading-snug">
 
-<h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">TypeGPU + Redraw</h1>
+<h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">WebGPU в React Native</h1>
 
-<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 4 · GPU для бизнес-UI</p>
+<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 4</p>
 
 </div>
 
@@ -107,14 +107,14 @@ layout: full
 
 <div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
 
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">TypeGPU — выделенный GPU-поток</h2>
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">WebGPU на React Native</h2>
 
-<p class="!text-white !mb-3 text-sm opacity-90">В новых версиях — работа на <strong>выделенном GPU-потоке</strong></p>
+<p class="!text-white !mb-3 text-sm opacity-90">Фундамент — <strong>react-native-wgpu</strong> (WebGPU / Dawn на iOS и Android):</p>
 
 <ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
-<li>В отличие от старой модели (всё на JS + UI)</li>
-<li><strong>Шейдеры на TypeScript</strong> — не нужна команда только на GLSL</li>
-<li>Поддерживаемо в TS / React Native кодовой базе</li>
+<li><strong>Native build</strong> — нативный модуль, `expo prebuild`</li>
+<li><strong>New Architecture</strong> — RN ≥ 0.81</li>
+<li>Низкоуровневый WebGPU API + слои DX сверху</li>
 </ul>
 
 </div>
@@ -129,14 +129,14 @@ layout: full
 
 <div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
 
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Redraw (экспериментальный)</h2>
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Экосистема на WebGPU</h2>
 
-<p class="!text-white !mb-3 text-sm opacity-90">Пакет-сосед — разведка:</p>
+<p class="!text-white !mb-3 text-sm opacity-90">Разные слои на одном стеке:</p>
 
 <ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
-<li>Смотрим полезные API / примеры эффектов</li>
-<li>На слайдах — только то, что пережило оценку</li>
-<li>Без завышенных обещаний</li>
+<li><strong>Skia Graphite</strong> (<code>@next</code>) — Skia на WebGPU</li>
+<li><strong>Redraw</strong> — векторный UI на TypeGPU (preview)</li>
+<li>В демо — только контекст; live = TypeGPU case study</li>
 </ul>
 
 </div>
@@ -151,13 +151,36 @@ layout: full
 
 <div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
 
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Демо-приложение · TypeGPU</h2>
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">TypeGPU</h2>
+
+<p class="!text-white !mb-3 text-sm opacity-90">Case study для демо — шейдеры на TypeScript:</p>
+
+<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
+<li><code>'use gpu'</code> → WGSL через <code>unplugin-typegpu</code></li>
+<li><code>@typegpu/react</code> — хуки поверх canvas</li>
+<li>Live demo: видео → <code>texture_external</code> → shader grade</li>
+</ul>
+
+</div>
+
+</div>
+
+---
+layout: full
+---
+
+<div class="flex items-center w-full h-full p-8 box-border bg-[#1e1e1e]">
+
+<div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Демо-приложение</h2>
 
 <p class="!text-white !mb-3 text-sm"><strong>Тяжёлый сегмент</strong> — переключаемся на Expo demo:</p>
 
 <ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
-<li>GPU blur / animation vs baseline без GPU</li>
-<li>Один mock «бизнес-экрана» (modal + chart?)</li>
+<li>TypeGPU video shader — zero-copy <code>importExternalTexture</code></li>
+<li>Wave chart — <code>'use gpu'</code> живой график</li>
+<li>Два экрана в demo — свайп / стрелки</li>
 <li>Fallback, если GPU-путь не сработает на устройстве</li>
 </ul>
 

@@ -41,11 +41,11 @@ Run **after** K segment slide tasks (or near the end of slide work) so shell cop
 - `src:` imports for wired segments (`02-radon-rnrepo.md`, future `04-`, `06-`).
 - Segment content inside `slides/pages/` — owned by feature tasks.
 - Assets under `slides/assets/`.
-- TypeGPU / keyframer inline blocks in `slides.md` until migrated to `pages/` (do not expand scope into full segment rewrites).
+- WebGPU / keyframer inline blocks in `slides.md` until migrated to `pages/` (do not expand scope into full segment rewrites).
 
 ## Root cause / context
 
-RADON-01 established per-topic files under `slides/pages/` and polished segment styling. The **shell** in `slides/slides.md` still mixes early stub copy, Russian frontmatter with evolving segment names, and inline TypeGPU/keyframer stubs. Inter-topic slides need one coherent pass once segment titles stabilize.
+RADON-01 established per-topic files under `slides/pages/` and polished segment styling. The **shell** in `slides/slides.md` still mixes early stub copy, Russian frontmatter with evolving segment names, and inline WebGPU/keyframer stubs. Inter-topic slides need one coherent pass once segment titles stabilize.
 
 ## Implementation plan
 
@@ -72,7 +72,7 @@ Review and align:
 
 ### 4. Inter-segment shell (light touch)
 
-Between `src:` imports, shell should only contain import stubs — no duplicate segment openers. If TypeGPU/keyframer still inline, do **not** rewrite those blocks (TYPEGPU / KEYFRAMER tasks). Only ensure transitions at `src:` boundaries are clean.
+Between `src:` imports, shell should only contain import stubs — no duplicate segment openers. If WebGPU/keyframer still inline, do **not** rewrite those blocks (WEBGPU / KEYFRAMER tasks). Only ensure transitions at `src:` boundaries are clean.
 
 ### 5. Closing slide
 

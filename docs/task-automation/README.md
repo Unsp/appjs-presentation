@@ -40,7 +40,7 @@ docs/
 
 Recommended prompt path: `@docs/topics/<feature>/<ID>.md`.
 
-Example features: `radon`, `typegpu`, `keyframer`.
+Example features: `radon`, `webgpu`, `keyframer`.
 
 ### Planner workflow
 
@@ -142,7 +142,7 @@ Speaker flow, timing, what to show live vs on slides, fallback if demo fails.
 ## Links
 ```
 
-ID must be unique within the project (`RADON-01`, `TYPEGPU-01`, `KEYFRAMER-01`, etc.).
+ID must be unique within the project (`RADON-01`, `WEBGPU-01`, `KEYFRAMER-01`, etc.).
 
 ---
 
@@ -202,7 +202,7 @@ Long prompts used to break when the fenced block contained **nested** ` ``` ` li
 
 1. One line in Russian: «Скопируй блок кнопкой Copy в новый чат».
 2. Immediately after: open fence `markdown`, full prompt body, close fence.
-3. First line inside the fence = chat title (e.g. `TYPEGPU-01 — TypeGPU + Redraw demo`).
+3. First line inside the fence = chat title (e.g. `WEBGPU-01 — WebGPU segment Expo demo`).
 4. No text after the closing fence.
 
 ### Prompt body rules (inside the single fence)
@@ -249,7 +249,7 @@ You can add a "Notes for the agent prompt" section to the task file. It is copie
 
 - **Features index:** [docs/topics/README.md](../topics/README.md)
 - **radon:** [feature doc](../topics/radon/README.md)
-- **typegpu:** [feature doc](../topics/typegpu/README.md)
+- **webgpu:** [feature doc](../topics/webgpu/README.md)
 - **keyframer:** [feature doc](../topics/keyframer/README.md) — start with [KEYFRAMER-00](../topics/keyframer/KEYFRAMER-00.md) (owner prep)
 - **Talk outline:** [docs/outline/README.md](../outline/README.md)
 - **Deck shell (inter-topic slides):** [DECK-01](../outline/DECK-01.md)

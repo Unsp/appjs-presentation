@@ -37,13 +37,13 @@ Content-only task: no demo app, no live Radon on stage.
 | 10  | RNRepo EAS image       | `slides/assets/radon-eas-rnrepo.png` with Slidev overlay: red line between build **(85)** and **(84)**; labels `RNRepo added`, `~30m → ~20m` |
 | 11  | Version copy           | **Version-agnostic** — no Expo SDK / RN version numbers on Radon slides                                                                      |
 | 12  | Handoff                | Last slide hands off to **react-teleport** (partner)                                                                                         |
-| 13  | Deck regression        | Talk order slide + TypeGPU + keyframer segments unchanged except talk-order label `Radon + RNRepo` if updated                                |
+| 13  | Deck regression        | Talk order slide + WebGPU + keyframer segments unchanged except talk-order label `Radon + RNRepo` if updated                                 |
 | 14  | Speaker notes          | HTML comments on key slides — timing hints (~5–7 min Radon, ~1–2 min RNRepo)                                                                 |
 
 ## Already OK (must not break)
 
 - Deck frontmatter and global config in `slides/slides.md` (theme, title, author, transition).
-- Segments **outside** Radon block: talk order list structure, TypeGPU, keyframer slides.
+- Segments **outside** Radon block: talk order list structure, WebGPU, keyframer slides.
 - Asset files: do not modify PNGs in `slides/assets/radon/` or `slides/assets/radon-eas-rnrepo.png`.
 - Radon segment: `slides/pages/02-radon-rnrepo.md` imported via `src:` in `slides/slides.md`.
 - No `src/` demo app changes.

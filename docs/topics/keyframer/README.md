@@ -31,12 +31,12 @@ Designers deliver **Figma keyframes**; engineers still hand-roll **Reanimated**.
 
 ## Delivery
 
-| Format         | Decision                                                           |
-| -------------- | ------------------------------------------------------------------ |
-| Slides         | Required — narrative + screenshots + optional export code on slide |
-| Live keyframer | **No** — tool too raw; saved project used for assets only          |
-| Live Expo      | **No** — deferred; first Expo bootstrap planned for **TypeGPU**    |
-| Recording      | Optional owner asset for rehearsal; not required for talk          |
+| Format         | Decision                                                                                                               |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Slides         | Required — narrative + screenshots + optional export code on slide                                                     |
+| Live keyframer | **No** — tool too raw; saved project used for assets only                                                              |
+| Live Expo      | **No** — deferred; first Expo bootstrap in [WebGPU segment](../webgpu/README.md) ([WEBGPU-01](../webgpu/WEBGPU-01.md)) |
+| Recording      | Optional owner asset for rehearsal; not required for talk                                                              |
 
 ## Presentation flow
 
@@ -84,10 +84,10 @@ No Storybook live. No keyframer live. No Expo live.
 
 ## Artifacts in repo
 
-| Artifact | Location                                                      | Status                                                   |
-| -------- | ------------------------------------------------------------- | -------------------------------------------------------- |
-| Slides   | `slides/pages/06-keyframer.md` + `src:` in `slides/slides.md` | done — KEYFRAMER-01                                      |
-| Demo app | `src/`                                                        | **Deferred** — TypeGPU (KEYFRAMER-02 cancelled for talk) |
+| Artifact | Location                                                      | Status                                                                               |
+| -------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Slides   | `slides/pages/06-keyframer.md` + `src:` in `slides/slides.md` | done — KEYFRAMER-01                                                                  |
+| Demo app | `src/`                                                        | **Deferred** — [WEBGPU-01](../webgpu/WEBGPU-01.md) (KEYFRAMER-02 cancelled for talk) |
 
 ## Open questions
 
@@ -103,7 +103,7 @@ No Storybook live. No keyframer live. No Expo live.
 
 ### Deferred
 
-- Runnable Expo demo — **TypeGPU** bootstrap or post-talk; see [KEYFRAMER-02](KEYFRAMER-02.md).
+- Runnable Expo demo — [WebGPU segment](../webgpu/README.md) or post-talk; see [KEYFRAMER-02](KEYFRAMER-02.md).
 
 ## Sources
 
@@ -114,8 +114,8 @@ No Storybook live. No keyframer live. No Expo live.
 
 ## Tasks
 
-| ID                              | Title                         | Status    | Notes                                    |
-| ------------------------------- | ----------------------------- | --------- | ---------------------------------------- |
-| [KEYFRAMER-00](KEYFRAMER-00.md) | Owner prep: keyframer project | done      | Generic demo; export for slide snippet   |
-| [KEYFRAMER-01](KEYFRAMER-01.md) | keyframer slide deck          | done      | Slides-only narrative wired via `src:`   |
-| [KEYFRAMER-02](KEYFRAMER-02.md) | Expo demo + export            | cancelled | Deferred to TypeGPU; not needed for talk |
+| ID                              | Title                         | Status    | Notes                                           |
+| ------------------------------- | ----------------------------- | --------- | ----------------------------------------------- |
+| [KEYFRAMER-00](KEYFRAMER-00.md) | Owner prep: keyframer project | done      | Generic demo; export for slide snippet          |
+| [KEYFRAMER-01](KEYFRAMER-01.md) | keyframer slide deck          | done      | Slides-only narrative wired via `src:`          |
+| [KEYFRAMER-02](KEYFRAMER-02.md) | Expo demo + export            | cancelled | Deferred to WebGPU segment; not needed for talk |
