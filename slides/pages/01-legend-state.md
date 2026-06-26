@@ -85,32 +85,6 @@ layout: full
 layout: full
 ---
 
-<div class="relative w-full h-full p-3 box-border flex flex-1 flex-col gap-4">
-
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Что стало в React Native быстрее?</h2>
-
-<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0 flex flex-1 flex-col">
-<li><strong>New Architecture</strong></li>
-<li><strong>Hermes</strong></li>
-<li><strong>Nitro Modules</strong></li>
-<li><strong>Reanimated</strong></li>
-<li><strong>Legend List</strong></li>
-<li><strong>Skia</strong></li>
-<li><strong>Keyboard Controller</strong></li>
-</ul>
-
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Что осталось bottleneck?</h2>
-
-<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0 flex flex-1 flex-col">
-<li><strong>App State</strong></li>
-</ul>
-
-</div>
-
----
-layout: full
----
-
 <div class="relative w-full h-full p-3 box-border flex flex-1 flex-col gap-4 items-center justify-center">
 
 <img src="../assets/legend-state/chat.png" class="max-h-[calc(100%-2rem)] w-auto max-w-[58%] object-contain rounded-lg"/>
