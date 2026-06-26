@@ -8,7 +8,7 @@
 
 ## Audience takeaway
 
-**WebGPU has landed on React Native** — and the ecosystem is already moving: **`react-native-webgpu`** as the foundation, **popular libraries** (e.g. Skia Graphite preview) migrating onto the same stack, plus **new DX layers** like **TypeGPU** for TypeScript shaders. Live demo = **TypeGPU stress test** only; Skia / Redraw = **slides context**, no Skia demo.
+**WebGPU has landed on React Native** — and the ecosystem is already moving: **`react-native-webgpu`** as the foundation, **popular libraries** (e.g. Skia Graphite preview) migrating onto the same stack, plus **new DX layers** like **TypeGPU** for TypeScript shaders. Live demo = **TypeGPU video shader** (`texture_external` + `'use gpu'`); Skia / Redraw = **slides context**, no Skia demo.
 
 ## What to cover
 
@@ -47,7 +47,7 @@ _Blur / frosted glass — already solved by stable Skia; mention as GPU-heavy UI
 
 - **Expo demo app** — repo root, **`src/` FSD layout** + **Tamagui** (pattern from `cx-mobile-app-wallet`) — [WEBGPU-01](WEBGPU-01.md)
 - Multiple screens or toggles: GPU effect vs non-GPU baseline
-- Target: **stress-test** screen only; Redraw / Skia Graphite — slides (WEBGPU-02)
+- Target: **video shader** screen — fullscreen `importExternalTexture`, grade + effect toggles, glass UI in fragment pass
 - Runnable on device during talk; fallback documented below
 
 ## Work order
@@ -55,9 +55,9 @@ _Blur / frosted glass — already solved by stable Skia; mention as GPU-heavy UI
 ```text
 WEBGPU-00  research + owner scope lock  (docs only)     → scope locked 2026-06-16
      ↓
-WEBGPU-01  Expo demo app               (repo root)       → open
+WEBGPU-01  Expo demo app               (repo root)       → done (2026-06-18)
      ↓
-WEBGPU-02  slides from demo results    (slides/pages/)   → open
+WEBGPU-02  slides from demo results    (slides/pages/)   → open (unblocked)
 ```
 
 Slides stay **inline stub** in `slides/slides.md` until WEBGPU-02.
@@ -256,14 +256,15 @@ Owner chose **SDK 56** (Jun 2026) to dogfood upgrade — `typegpu-rn-examples` p
 
 ### Demo beats (final)
 
-| Tab   | Beat                      | Status                                                                   |
-| ----- | ------------------------- | ------------------------------------------------------------------------ |
-| **1** | **Stress test**           | **Implemented** — `src/screens/StressTestScreen`, `src/features/typegpu` |
-| —     | **Redraw**                | **Out** — slides only (subscriber preview)                               |
-| —     | **Confetti**              | **Out**                                                                  |
-| —     | **Skia Graphite `@next`** | **Out of demo** — slides context only                                    |
+| Beat             | Content                                                                                                                     | Status                                      |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| **Video shader** | Fullscreen video → `texture_external` → TypeGPU fragment (grade, vignette/invert/noir/neon toggles, glass play/scrubber UI) | **Done** — `VideoEffectCanvas`              |
+| —                | **Redraw**                                                                                                                  | **Out** — slides only                       |
+| —                | **Confetti**                                                                                                                | **Out**                                     |
+| —                | **Skia Graphite `@next`**                                                                                                   | **Out of demo** — slides context only       |
+| —                | **Stress test** (WEBGPU-00 pitch)                                                                                           | **Deferred** — replaced by video case study |
 
-**Optional stretch (tab 1):** richer chart from `FunctionVisualizer` patterns if time allows.
+**Slide code snippets (WEBGPU-02):** `slides/examples/video-shader-slide.ts`, `slides/examples/video-frame-slide.ts`. Full shader: `src/features/typegpu/lib/videoEffectPipeline.ts`.
 
 ### TypeGPU business use cases (demo mapping)
 
@@ -422,21 +423,22 @@ _Threading / `present()` / worklets — **не отдельный слайд в 
 
 ## Artifacts in repo
 
-| Artifact | Location                             | Status                                         |
-| -------- | ------------------------------------ | ---------------------------------------------- |
-| Research | This README — sections above         | WEBGPU-00 done                                 |
-| Demo app | Repo root — `src/` FSD + Tamagui     | **WEBGPU-01 implemented** — awaiting device QA |
-| Slides   | `slides/pages/04-webgpu.md` + `src:` | Inline stub — WEBGPU-02                        |
+| Artifact       | Location                             | Status                          |
+| -------------- | ------------------------------------ | ------------------------------- |
+| Research       | This README — sections above         | WEBGPU-00 done                  |
+| Demo app       | Repo root — `src/` FSD + Tamagui     | **WEBGPU-01 done** (2026-06-18) |
+| Slide snippets | `slides/examples/video-*.ts`         | Ready for WEBGPU-02             |
+| Slides         | `slides/pages/04-webgpu.md` + `src:` | WEBGPU-02 — open                |
 
 ### Demo app layout
 
 ```text
 src/
-├── app/                 # Expo Router — index (stress test), triangle (smoke)
+├── app/                 # Expo Router — index → DemoScreen
 ├── app-root/providers/  # AppProviders (GestureHandler, SafeArea, Tamagui)
-├── screens/StressTestScreen/
-├── features/typegpu/    # GpuLane, BaselineLane, TriangleSmoke, jsLoad
-└── shared/ui/           # Button, Stacks, theme shorthands
+├── screens/DemoScreen/
+├── features/typegpu/    # VideoEffectCanvas, pipeline, native video player
+└── shared/assets/       # Test_Video_2.mp4
 ```
 
 ### Runbook (iOS primary)
@@ -451,12 +453,13 @@ npm run ios                      # expo run:ios — pick physical device
 
 **Rehearsal checklist:**
 
-1. App opens to stress-test screen (GPU lane + baseline + «Нагрузить JS»).
-2. In `__DEV__`, blue triangle smoke block visible at top; route `/triangle` also works.
-3. Tap «Нагрузить JS» (~3 s) — baseline lane should jank; GPU lane should stay smoother.
-4. If GPU init fails: inline error in GPU lane; baseline still runs (fallback per scope).
+1. App opens to fullscreen video shader (`VideoEffectCanvas`).
+2. Video plays; Vignette / Invert / Noir / Neon toggles change the image.
+3. Play/pause and scrubber work; ripples on scrub (shader).
+4. If GPU or video init fails: `VideoEffectFallback` message (not a crash).
+5. After shader/native changes: **Radon Restart Process** (not `reloadJs`).
 
-**Simulator:** allowed for dev; disable **Metal API Validation** in Xcode scheme (Edit Scheme → Diagnostics). Stage prefers physical device.
+**Simulator:** allowed for dev; disable **Metal API Validation** in Xcode scheme. Stage prefers physical device.
 
 **Android:** best-effort — `npm run android` after prebuild; not a WEBGPU-01 blocker.
 
@@ -478,12 +481,12 @@ npm run ios                      # expo run:ios — pick physical device
 
 ### Slide inputs (handoff → WEBGPU-02)
 
-- Screenshot: stress screen with both lanes + «Нагрузить JS» (capture during/after JS load).
-- Screenshot: blue triangle smoke (`/triangle` or `__DEV__` block).
-- Narrative: GPU lane = `runOnUI` path; do **not** claim dedicated GPU OS thread.
-- Honest limitation bullets: prebuild required, no Expo Go, iOS primary, SDK 56 bumped RN to 0.85.
-- Optional: side-by-side video/GIF of baseline jank vs GPU lane under JS load (owner capture on device).
-- Redraw / Skia Graphite / confetti: **absent** — slides-only context unchanged.
+- Screenshot: video shader — fullscreen + effect toggles active.
+- Screenshot: glass play button + scrubber (shader UI).
+- Narrative: zero-copy `importExternalTexture`; `'use gpu'` fragment; monolith pipeline OK for demo.
+- Honest limitation bullets: prebuild required, no Expo Go, iOS primary, Radon restart after GPU changes.
+- Code slides: `slides/examples/video-shader-slide.ts`, `slides/examples/video-frame-slide.ts`.
+- Redraw / Skia Graphite / confetti / stress test: **absent** — slides-only or deferred.
 
 ---
 
@@ -535,11 +538,11 @@ _None — scope locked (Jun 2026)._
 
 ## Tasks
 
-| ID                        | Title                 | Status      | Notes                           |
-| ------------------------- | --------------------- | ----------- | ------------------------------- |
-| [WEBGPU-00](WEBGPU-00.md) | Research + scope lock | done        | Closed 2026-06-16               |
-| [WEBGPU-01](WEBGPU-01.md) | Expo demo app         | awaiting QA | FSD + Tamagui; SDK 56 + RN 0.85 |
-| [WEBGPU-02](WEBGPU-02.md) | Slide deck from demo  | open        | Blocked until 01                |
+| ID                        | Title                 | Status | Notes                           |
+| ------------------------- | --------------------- | ------ | ------------------------------- |
+| [WEBGPU-00](WEBGPU-00.md) | Research + scope lock | done   | Closed 2026-06-16               |
+| [WEBGPU-01](WEBGPU-01.md) | Expo demo app         | done   | Video shader; closed 2026-06-18 |
+| [WEBGPU-02](WEBGPU-02.md) | Slide deck from demo  | open   | Unblocked                       |
 
 ---
 

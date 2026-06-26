@@ -1,6 +1,7 @@
 # WEBGPU-01 — Expo demo app (WebGPU segment)
 
-**Status:** awaiting QA  
+**Status:** done  
+**Closed:** 2026-06-18 (owner QA — video shader demo ready)  
 **Feature:** [docs/topics/webgpu/README.md](README.md)  
 **Outline:** [docs/outline/README.md](../../outline/README.md) — talk slot 4  
 **Depends on:** [WEBGPU-00](WEBGPU-00.md) — owner-approved demo scope in README  
@@ -23,42 +24,32 @@
 
 ## Goal
 
-Bootstrap the **first Expo demo app** at **repo root** (standard `create-expo-app` layout) and implement the owner-approved **stress-test** screen from WEBGPU-00.
+Bootstrap the **first Expo demo app** at **repo root** (standard `create-expo-app` layout) and ship a **TypeGPU live demo** for talk slot 4.
+
+**Delivered (owner, 2026-06-18):** fullscreen **video shader** — `importExternalTexture` + fragment grade/effects + glass UI in one pass (`VideoEffectCanvas`). Original WEBGPU-00 stress-test pitch deferred; video case study better fits `'use gpu'` + `texture_external` narrative on slides.
 
 **Layout decision (owner, 2026-06-16):** Expo at root — **no conflict with slides** (`slides/` is isolated; separate npm scripts). Do **not** nest demo under `slides/`.
 
-**One screen proves TypeGPU top-3 business pitch** (see README [TypeGPU business use cases](README.md#typegpu-business-use-cases-demo-mapping)):
-
-1. **Custom live viz** — mini chart / shimmer (`'use gpu'` + uniforms) on GPU lane
-2. **GPU under busy JS** — `runOnUI` + `installWebGPU` vs Reanimated baseline; «Нагрузить JS»
-3. **Branded shimmer** — same GPU shader (visual polish)
-
-Optional stretch: richer chart from `FunctionVisualizer` patterns on the same screen.
-
-**Device target:** **iOS primary** — physical device for stage rehearsal (`expo run:ios`). **Android best-effort** — verify only if `expo run:android` works without a dedicated compatibility spike; Android issues are not blockers for WEBGPU-01 completion.
-
-Slides are **out of scope** — WEBGPU-02 consumes demo results.
-
 ## Acceptance (manual / QA)
 
-| #   | Scenario         | Expected                                                                                                           | Status                                  |
-| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------- |
-| 1   | Scope match      | Demo matches **Demo scope decision** in feature README — no scope creep                                            | Agent: OK                               |
-| 2   | Bootstrap        | Expo at **repo root**; extend root `package.json` with `start`, `lint`, `typecheck`, `ios`, etc.                   | Agent: OK                               |
-| 3   | TypeGPU path     | At least one effect runs via `react-native-wgpu` + TypeGPU stack per official RN guide                             | Agent: OK — triangle + GPU lane         |
-| 4   | Baseline         | Non-GPU or JS-thread fallback visible for comparison on same screen                                                | Agent: OK                               |
-| 5   | Redraw           | **Absent** — out of scope per WEBGPU-00                                                                            | Agent: OK                               |
-| 6   | New Architecture | Config matches WEBGPU-00 version pins; prebuild documented                                                         | Agent: OK — `app.json` + README runbook |
-| 7   | Native build     | README documents prebuild / `expo run:ios`; native module requirement clear                                        | Agent: OK                               |
-| 8   | Runbook          | README section: install, prebuild, **iOS device** run, rehearsal checklist                                         | Agent: OK                               |
-| 8b  | Devices          | Stress test verified on **physical iOS**; Android noted in README only if smoke-tested without extra work          | **Owner** — device smoke                |
-| 9   | Fallback         | Documented degraded path if GPU init fails (message UI or skip to baseline)                                        | Agent: OK — GpuLane error UI            |
-| 10  | KEYFRAMER        | **N/A** — no keyframer screen per WEBGPU-00                                                                        | Agent: OK                               |
-| 11  | Tamagui UI       | Shell uses Tamagui (pattern from wallet); validates Tamagui on **Expo SDK 56**                                     | Agent: OK                               |
-| 12  | Import aliases   | `~app`, `~app-root`, `~screens`, `~features`, `~shared` — synced in **babel + tsconfig + eslint** (wallet pattern) | Agent: OK                               |
-| 13  | Lint             | `eslint.config.mjs` from wallet (simplified); `npm run lint` + `npm run typecheck` pass; **`slides/**` ignored\*\* | Agent: OK                               |
-| 14  | Quality          | Above checks green on `src/**`                                                                                     | Agent: OK                               |
-| 15  | Slides untouched | Inline TypeGPU block in `slides/slides.md` unchanged                                                               | Agent: OK                               |
+| #   | Scenario         | Expected                                                                                                           | Status                                      |
+| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------- |
+| 1   | Scope match      | Demo matches **Demo scope decision** in feature README — no scope creep                                            | OK                                          |
+| 2   | Bootstrap        | Expo at **repo root**; extend root `package.json` with `start`, `lint`, `typecheck`, `ios`, etc.                   | OK                                          |
+| 3   | TypeGPU path     | At least one effect runs via `react-native-wgpu` + TypeGPU stack per official RN guide                             | OK — video shader + `importExternalTexture` |
+| 4   | Live viz         | Programmable GPU effect visible on device (not stock RN views only)                                                | OK — grade / toggles / glass UI in shader   |
+| 5   | Redraw           | **Absent** — out of scope per WEBGPU-00                                                                            | OK                                          |
+| 6   | New Architecture | Config matches WEBGPU-00 version pins; prebuild documented                                                         | OK — `app.config.ts` + README runbook       |
+| 7   | Native build     | README documents prebuild / `expo run:ios`; native module requirement clear                                        | OK                                          |
+| 8   | Runbook          | README section: install, prebuild, **iOS device** run, rehearsal checklist                                         | OK                                          |
+| 8b  | Devices          | Demo verified on **physical iOS** (Radon restart, not hot reload after shader changes)                             | **Owner OK** — 2026-06-18                   |
+| 9   | Fallback         | Documented degraded path if GPU init fails (message UI)                                                            | OK — `VideoEffectFallback`                  |
+| 10  | KEYFRAMER        | **N/A** — no keyframer screen per WEBGPU-00                                                                        | OK                                          |
+| 11  | Tamagui UI       | Shell uses Tamagui (pattern from wallet); validates Tamagui on **Expo SDK 56**                                     | OK                                          |
+| 12  | Import aliases   | `~app`, `~app-root`, `~screens`, `~features`, `~shared` — synced in **babel + tsconfig + eslint** (wallet pattern) | OK                                          |
+| 13  | Lint             | `eslint.config.mjs` from wallet (simplified); `npm run lint` + `npm run typecheck` pass; **`slides/**` ignored     | OK                                          |
+| 14  | Quality          | Above checks green on `src/**`                                                                                     | OK                                          |
+| 15  | Slides untouched | Segment stub in `slides/slides.md`; code examples in `slides/examples/` for WEBGPU-02                              | OK                                          |
 
 ## Already OK (must not break)
 
@@ -204,11 +195,12 @@ Leave a short **Slide inputs** bullet list in README: screenshot candidates, met
 
 ## Related files
 
-- `src/**` — Expo app (FSD layout, Tamagui shell)
+- `src/features/typegpu/` — `VideoEffectCanvas`, `videoEffectPipeline.ts`, `useVideoEffectFrame.ts`, `useNativeVideoPlayer.ts`
+- `src/screens/DemoScreen/` — entry screen
+- `slides/examples/video-shader-slide.ts`, `slides/examples/video-frame-slide.ts` — slide code snippets (WEBGPU-02)
 - `tamagui.config.ts`, `babel.config.js`, `tsconfig.json`, `eslint.config.mjs`, `app.config.ts`
 - `package.json` — scripts
 - `docs/topics/webgpu/README.md` — runbook + slide inputs
-- **Reference (read-only):** `/Users/kirillgolubev/WebstormProjects/cx-mobile-app-wallet`
 
 ## Tests
 

@@ -3,7 +3,7 @@
 **Status:** open  
 **Feature:** [docs/topics/webgpu/README.md](README.md)  
 **Outline:** [docs/outline/README.md](../../outline/README.md) — talk slot 4  
-**Depends on:** [WEBGPU-01](WEBGPU-01.md) — runnable demo + README slide inputs  
+**Depends on:** [WEBGPU-01](WEBGPU-01.md) — runnable demo + README slide inputs (**done** 2026-06-18)  
 **Related docs:** [slides/SLIDEV.md](../../../slides/SLIDEV.md), [slides/pages/02-radon-rnrepo.md](../../../slides/pages/02-radon-rnrepo.md) (layout reference)
 
 ## Source links (mandatory re-read)
@@ -83,6 +83,24 @@ Use `<img src="../assets/webgpu/...">` for captures taken from WEBGPU-01.
 
 Add PNGs only if demo captures improve clarity; prefer minimal set (1–3). Do not modify demo source to generate marketing-only assets.
 
+### 3b. Slide code examples (prepared — wire in this task)
+
+Readable snippets for projector code slides — **not** wired into `slides/pages/04-webgpu.md` yet.
+
+| Snippet                                                    | Path                                    | Use on slide                                     |
+| ---------------------------------------------------------- | --------------------------------------- | ------------------------------------------------ |
+| Fragment shader (cover UV → sample → grade → toggle)       | `slides/examples/video-shader-slide.ts` | TypeGPU block — `'use gpu'` + `texture_external` |
+| JS frame loop (`importExternalTexture` → draw → `present`) | `slides/examples/video-frame-slide.ts`  | Companion slide or speaker notes                 |
+
+**Slidev import (from `slides/pages/04-webgpu.md`):**
+
+```markdown
+<<< ../examples/video-shader-slide.ts{17-48}
+<<< ../examples/video-frame-slide.ts
+```
+
+Full live shader stays in `src/features/typegpu/lib/videoEffectPipeline.ts` (~1200 lines, ripples + glass UI) — **do not** put on slides; snippets are simplified extracts only.
+
 ### 4. Feature doc
 
 Update README Artifacts table: slides **done** / awaiting QA; link this task.
@@ -103,6 +121,8 @@ Update README Artifacts table: slides **done** / awaiting QA; link this task.
 
 - `slides/pages/04-webgpu.md`
 - `slides/slides.md`
+- `slides/examples/video-shader-slide.ts` — slide code snippet (fragment)
+- `slides/examples/video-frame-slide.ts` — slide code snippet (frame loop)
 - `slides/assets/webgpu/` (if added)
 - `docs/topics/webgpu/README.md`
 

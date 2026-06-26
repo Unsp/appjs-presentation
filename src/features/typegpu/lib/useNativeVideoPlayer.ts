@@ -121,6 +121,10 @@ export function useNativeVideoPlayer(active: boolean) {
         playerRef.current = player;
         isPlayingRef.current = true;
         frameSizeRef.current = size;
+        const initialFrame = player.copyLatestFrame();
+        if (initialFrame) {
+          lastFrameRef.current = initialFrame;
+        }
         setVideoAspect(aspect);
         setDurationSec(readPlayerDuration(player));
         setPositionSec(player.getCurrentTime());
