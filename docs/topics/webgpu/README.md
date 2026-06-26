@@ -60,7 +60,7 @@ WEBGPU-01  Expo demo app               (repo root)       → done (2026-06-18)
 WEBGPU-02  slides from demo results    (slides/pages/)   → open (unblocked)
 ```
 
-Slides stay **inline stub** in `slides/slides.md` until WEBGPU-02.
+Slides stay in `slides/pages/04-webgpu.md` via `src:` — **WEBGPU-02 awaiting QA**.
 
 ---
 
@@ -91,7 +91,7 @@ Thread wording for slides: avoid “dedicated GPU thread” as a default claim. 
 | Smoke test            | RN integration guide                                                                 | Blue triangle via `useRoot` + `useConfigureContext` + `useFrame` + `ctx.present?.()`           |
 | Redraw (preview)      | —                                                                                    | **Out** — not in `vendors/`                                                                    |
 
-Package rename note: npm publishes both `react-native-wgpu` and `react-native-webgpu` (shim re-export). TypeGPU docs still use `react-native-wgpu` import path — use that for consistency with official examples.
+Package rename note: npm still publishes deprecated shim `react-native-wgpu` → `react-native-webgpu`. **This repo** depends on `react-native-webgpu` directly; `babel.config.js` aliases `react-native-wgpu` for `@typegpu/react` until its peer is updated.
 
 ### Stack maturity (not “alpha”)
 
@@ -207,21 +207,21 @@ Optional: `react-native-webgpu-worklets` (`runOnBackground`) for a dedicated wor
 
 Align with proven `typegpu-rn-examples` pins; bump patch versions at install time.
 
-| Package                          | Proposed pin                                                      | Rationale                                                          |
-| -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Expo SDK                         | **56** (`expo@~56.x` — owner choice)                              | Spike for main-project upgrade; validate WebGPU stack in WEBGPU-01 |
+| Package                          | Proposed pin                                                      | Rationale                                                                    |
+| -------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Expo SDK                         | **56** (`expo@~56.x` — owner choice)                              | Spike for main-project upgrade; validate WebGPU stack in WEBGPU-01           |
 | React Native                     | **0.85.3** (Expo SDK 56 resolved; research pin 0.81.5 superseded) |
-| `react-native-wgpu`              | **^0.5.15**                                                       | Matches npm latest; same as `react-native-webgpu`                  |
-| `typegpu`                        | **^0.11.8**                                                       | Latest npm; examples on 0.11.3                                     |
-| `@typegpu/react`                 | **^0.11.1**                                                       | Matches TypeGPU 0.11 line                                          |
+| `react-native-webgpu`            | **^0.5.15**                                                       | Direct dependency; babel alias for `@typegpu/react` peer `react-native-wgpu` |
+| `typegpu`                        | **^0.11.8**                                                       | Latest npm; examples on 0.11.3                                               |
+| `@typegpu/react`                 | **^0.11.1**                                                       | Matches TypeGPU 0.11 line                                                    |
 | `unplugin-typegpu`               | **^0.11.5** (npm latest; research proposed ^0.11.x)               |
-| `@webgpu/types`                  | **^0.1.69**                                                       | Examples pin                                                       |
-| `react-native-reanimated`        | **^4.3.0** (npm latest 4.4.x OK)                                  | Required peer; examples use 4.3                                    |
-| `react-native-worklets`          | **^0.8.1** (npm latest 0.9.x — verify in 01)                      | TypeGPU RN guide says newest                                       |
-| `typegpu-confetti`               | —                                                                 | **Out** (owner)                                                    |
-| `redraw` + `react-native-redraw` | —                                                                 | **Out**                                                            |
-| `typescript` (optional)          | **`npm:tsover@^5.9.11`**                                          | If Redraw/TypeGPU GPU code uses `+` on vectors                     |
-| `expo` New Architecture          | **`newArchEnabled: true`**                                        | Required                                                           |
+| `@webgpu/types`                  | **^0.1.69**                                                       | Examples pin                                                                 |
+| `react-native-reanimated`        | **^4.3.0** (npm latest 4.4.x OK)                                  | Required peer; examples use 4.3                                              |
+| `react-native-worklets`          | **^0.8.1** (npm latest 0.9.x — verify in 01)                      | TypeGPU RN guide says newest                                                 |
+| `typegpu-confetti`               | —                                                                 | **Out** (owner)                                                              |
+| `redraw` + `react-native-redraw` | —                                                                 | **Out**                                                                      |
+| `typescript` (optional)          | **`npm:tsover@^5.9.11`**                                          | If Redraw/TypeGPU GPU code uses `+` on vectors                               |
+| `expo` New Architecture          | **`newArchEnabled: true`**                                        | Required                                                                     |
 
 Owner chose **SDK 56** (Jun 2026) to dogfood upgrade — `typegpu-rn-examples` pins SDK 54; treat compatibility gaps as WEBGPU-01 findings in README.
 
@@ -324,12 +324,12 @@ Single-screen or minimal shell — stress test only; ~3–5 min live segment.
 
 **One-liner for the room:** WebGPU теперь есть в React Native — и экосистема уже подтягивается: популярные либы переезжают на WebGPU, плюс появляются интересные слои вроде TypeGPU.
 
-| Layer                                | Slides                        | Live demo               |
-| ------------------------------------ | ----------------------------- | ----------------------- |
-| WebGPU on RN (`react-native-webgpu`) | Block A — foundation          | —                       |
-| TypeGPU                              | Block B — DX + threading      | **Yes** — stress test   |
-| Skia Graphite `@next`                | Block C — ecosystem migration | **No** — slides only    |
-| Redraw                               | Optional one-liner on C       | **No** — web screenshot |
+| Layer                                | Slides                                 | Live demo                                    |
+| ------------------------------------ | -------------------------------------- | -------------------------------------------- |
+| WebGPU on RN (`react-native-webgpu`) | Block A — foundation                   | —                                            |
+| TypeGPU                              | Block B — DX + video shader case study | **Yes** — video shader (`VideoEffectCanvas`) |
+| Skia Graphite `@next`                | Block C — ecosystem migration          | **No** — slides only                         |
+| Redraw                               | Optional one-liner on C                | **No** — web screenshot                      |
 
 **Owner order:** Block A → B → C → live demo (D).  
 **Agent scope:** research lives here; **`slides/**` edits only in WEBGPU-02\*\* (earlier inline stub edits left as-is per owner).
@@ -375,12 +375,11 @@ _Threading / `present()` / worklets — **не отдельный слайд в 
 - Пример «интересной штуки» поверх того же стека, что и Skia Graphite — но **другой API** (не SKSL, не часть Skia)
 - Redraw / confetti — sibling libs на TypeGPU; **не в live demo**
 
-**B2 · Threading + live demo preview** _(top-3 business pitch → один экран)_
+**B2 · Video shader case study + threading**
 
-- `context.present()`; GPU lane через **`runOnUI` + `installWebGPU`** vs default JS `useFrame`
-- Stress test: shimmer/mini-chart (`'use gpu'`) vs **Reanimated baseline**; «Нагрузить JS»
-- Pitch: custom viz + branded shimmer + perf under load — **один stress screen**
-- Optional stretch: `FunctionVisualizer` patterns
+- Zero-copy `importExternalTexture`; fragment grade + Vignette/Invert/Noir/Neon toggles; glass play/scrubber in shader
+- `useFrame` on JS thread (rAF) by default; `'use gpu'` runs on GPU — optional `runOnUI` + `installWebGPU` path in docs
+- Pitch: programmable viz + branded effects in one fullscreen video pass — **not** stress test / wave chart
 
 ---
 
@@ -400,7 +399,11 @@ _Threading / `present()` / worklets — **не отдельный слайд в 
 
 ### Block D — Live demo + closing
 
-**D1 · Демо-приложение** — **TypeGPU stress test only** (~3–5 min)
+**D1 · Демо-приложение** — **TypeGPU video shader** (~3–5 min)
+
+- `VideoEffectCanvas` — `importExternalTexture`, grade + toggles, glass UI in shader
+- `VideoEffectFallback` if GPU init fails
+- Radon Restart after shader/native changes
 
 **D2 · Handoff** → **expo-observe** (партнёр)
 
@@ -428,7 +431,7 @@ _Threading / `present()` / worklets — **не отдельный слайд в 
 | Research       | This README — sections above         | WEBGPU-00 done                  |
 | Demo app       | Repo root — `src/` FSD + Tamagui     | **WEBGPU-01 done** (2026-06-18) |
 | Slide snippets | `slides/examples/video-*.ts`         | Ready for WEBGPU-02             |
-| Slides         | `slides/pages/04-webgpu.md` + `src:` | WEBGPU-02 — open                |
+| Slides         | `slides/pages/04-webgpu.md` + `src:` | **WEBGPU-02 awaiting QA**       |
 
 ### Demo app layout
 
@@ -538,11 +541,11 @@ _None — scope locked (Jun 2026)._
 
 ## Tasks
 
-| ID                        | Title                 | Status | Notes                           |
-| ------------------------- | --------------------- | ------ | ------------------------------- |
-| [WEBGPU-00](WEBGPU-00.md) | Research + scope lock | done   | Closed 2026-06-16               |
-| [WEBGPU-01](WEBGPU-01.md) | Expo demo app         | done   | Video shader; closed 2026-06-18 |
-| [WEBGPU-02](WEBGPU-02.md) | Slide deck from demo  | open   | Unblocked                       |
+| ID                        | Title                 | Status      | Notes                               |
+| ------------------------- | --------------------- | ----------- | ----------------------------------- |
+| [WEBGPU-00](WEBGPU-00.md) | Research + scope lock | done        | Closed 2026-06-16                   |
+| [WEBGPU-01](WEBGPU-01.md) | Expo demo app         | done        | Video shader; closed 2026-06-18     |
+| [WEBGPU-02](WEBGPU-02.md) | Slide deck from demo  | awaiting QA | Slides wired; owner QA + PNG assets |
 
 ---
 

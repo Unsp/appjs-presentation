@@ -1,6 +1,6 @@
 # WEBGPU-02 — WebGPU segment slide deck (from demo results)
 
-**Status:** open  
+**Status:** awaiting QA  
 **Feature:** [docs/topics/webgpu/README.md](README.md)  
 **Outline:** [docs/outline/README.md](../../outline/README.md) — talk slot 4  
 **Depends on:** [WEBGPU-01](WEBGPU-01.md) — runnable demo + README slide inputs (**done** 2026-06-18)  

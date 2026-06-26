@@ -1,7 +1,7 @@
 import { Asset } from "expo-asset";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import type { NativeVideoFrame, VideoPlayer } from "react-native-wgpu";
+import type { NativeVideoFrame, VideoPlayer } from "react-native-webgpu";
 
 import { DEMO_VIDEO_DURATION_SEC } from "~features/typegpu/lib/demoVideoMeta";
 import { normalizeLandscapeFrameSize } from "~features/typegpu/lib/useScreenLayout";

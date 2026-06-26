@@ -26,6 +26,6 @@ docs/topics/
 
 **keyframer:** done (00 + 01); [KEYFRAMER-02](keyframer/KEYFRAMER-02.md) cancelled — Expo deferred to WebGPU segment
 
-**WebGPU:** [WEBGPU-00](webgpu/WEBGPU-00.md) done → [WEBGPU-01](webgpu/WEBGPU-01.md) done → [WEBGPU-02](webgpu/WEBGPU-02.md) slides
+**WebGPU:** [WEBGPU-00](webgpu/WEBGPU-00.md) done → [WEBGPU-01](webgpu/WEBGPU-01.md) done → [WEBGPU-02](webgpu/WEBGPU-02.md) awaiting QA
 
 **After K segment slides:** run [DECK-01](../outline/DECK-01.md) to polish intro, talk order, presentation title, and closing.

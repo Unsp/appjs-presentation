@@ -1,0 +1,90 @@
+diff --git a/node_modules/react-native-webgpu/apple/AppleVideoPlayer.mm b/node_modules/react-native-webgpu/apple/AppleVideoPlayer.mm
+index a06144d..202032c 100644
+--- a/node_modules/react-native-webgpu/apple/AppleVideoPlayer.mm
++++ b/node_modules/react-native-webgpu/apple/AppleVideoPlayer.mm
+@@ -108,6 +108,28 @@ VideoFrameHandle copyLatestFrame() override {
+   void play() override { [_player play]; }
+   void pause() override { [_player pause]; }
+ 
++  double getCurrentTimeSeconds() override {
++    return CMTimeGetSeconds(_player.currentTime);
++  }
++
++  double getDurationSeconds() override {
++    AVPlayerItem *item = _player.currentItem;
++    if (!item) {
++      return 0.0;
++    }
++    CMTime duration = item.duration;
++    if (CMTIME_IS_NUMERIC(duration)) {
++      return CMTimeGetSeconds(duration);
++    }
++    return 0.0;
++  }
++
++  void seekToSeconds(double seconds) override {
++    [_player seekToTime:CMTimeMakeWithSeconds(seconds, 600)
++        toleranceBefore:kCMTimeZero
++         toleranceAfter:kCMTimeZero];
++  }
++
+ private:
+   AVPlayer *_player;
+   AVPlayerItemVideoOutput *_output;
+diff --git a/node_modules/react-native-webgpu/cpp/rnwgpu/PlatformContext.h b/node_modules/react-native-webgpu/cpp/rnwgpu/PlatformContext.h
+index fec0492..52e7f14 100644
+--- a/node_modules/react-native-webgpu/cpp/rnwgpu/PlatformContext.h
++++ b/node_modules/react-native-webgpu/cpp/rnwgpu/PlatformContext.h
+@@ -63,6 +63,10 @@ public:
+ 
+   virtual void play() = 0;
+   virtual void pause() = 0;
++
++  virtual double getCurrentTimeSeconds() { return 0.0; }
++  virtual double getDurationSeconds() { return 0.0; }
++  virtual void seekToSeconds(double /*seconds*/) {}
+ };
+ 
+ class PlatformContext {
+diff --git a/node_modules/react-native-webgpu/cpp/rnwgpu/api/VideoPlayer.h b/node_modules/react-native-webgpu/cpp/rnwgpu/api/VideoPlayer.h
+index b97552a..52c11b2 100644
+--- a/node_modules/react-native-webgpu/cpp/rnwgpu/api/VideoPlayer.h
++++ b/node_modules/react-native-webgpu/cpp/rnwgpu/api/VideoPlayer.h
+@@ -51,6 +51,26 @@ public:
+     }
+   }
+ 
++  double getCurrentTime() {
++    if (!_impl) {
++      return 0.0;
++    }
++    return _impl->getCurrentTimeSeconds();
++  }
++
++  double getDuration() {
++    if (!_impl) {
++      return 0.0;
++    }
++    return _impl->getDurationSeconds();
++  }
++
++  void seekTo(double seconds) {
++    if (_impl) {
++      _impl->seekToSeconds(seconds);
++    }
++  }
++
+   void release() { _impl.reset(); }
+ 
+   static void definePrototype(jsi::Runtime &runtime, jsi::Object &prototype) {
+@@ -59,6 +79,10 @@ public:
+                   &VideoPlayer::copyLatestFrame);
+     installMethod(runtime, prototype, "play", &VideoPlayer::play);
+     installMethod(runtime, prototype, "pause", &VideoPlayer::pause);
++    installMethod(runtime, prototype, "getCurrentTime",
++                  &VideoPlayer::getCurrentTime);
++    installMethod(runtime, prototype, "getDuration", &VideoPlayer::getDuration);
++    installMethod(runtime, prototype, "seekTo", &VideoPlayer::seekTo);
+     installMethod(runtime, prototype, "release", &VideoPlayer::release);
+   }
+ 

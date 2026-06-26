@@ -117,7 +117,7 @@ app-js-presentation/
 
 **Do not pull:** Skia (`@shopify/react-native-skia`, `SkiaFontManagerProvider`), `victory-native`, auth/passkeys/MFA/Sentry/AppsFlyer/Sumsub/Kubb, full provider stack, Storybook/EAS/env matrix, wallet product screens, wallet `~env` / Kubb / jest setup unless needed.
 
-**Add fresh (TypeGPU):** `react-native-wgpu`, `typegpu`, `@typegpu/react`, `unplugin-typegpu`, `@webgpu/types`; `src/features/typegpu/**`.
+**Add fresh (TypeGPU):** `react-native-webgpu`, `typegpu`, `@typegpu/react`, `unplugin-typegpu`, `@webgpu/types`; `src/features/typegpu/**`.
 
 #### Import aliases + lint
 

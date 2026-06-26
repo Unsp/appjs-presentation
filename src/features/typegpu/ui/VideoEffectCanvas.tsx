@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import { Canvas } from "react-native-wgpu";
+import { Canvas } from "react-native-webgpu";
 
 import { DEMO_VIDEO_ASPECT } from "~features/typegpu/lib/demoVideoMeta";
 import { supportsNativeVideoTexture } from "~features/typegpu/lib/videoCanvasUtils";
