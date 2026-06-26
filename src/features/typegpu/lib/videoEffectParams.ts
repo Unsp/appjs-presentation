@@ -3,11 +3,11 @@ import type { InferInput } from "typegpu/data";
 
 import { DEMO_VIDEO_ASPECT } from "~features/typegpu/lib/demoVideoMeta";
 import {
-  RIPPLE_IMPULSE_COUNT,
   RIPPLE_IDLE_TIME,
+  RIPPLE_IMPULSE_COUNT,
   type RippleImpulse,
-  type WakeState,
   rippleImpulsesToUniforms,
+  type WakeState,
   wakeToUniforms,
 } from "~features/typegpu/lib/videoRippleImpulses";
 

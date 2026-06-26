@@ -12,6 +12,7 @@ module.exports = function (api) {
             "~screens": "./src/screens",
             "~features": "./src/features",
             "~shared": "./src/shared",
+            "react-native-wgpu": "react-native-webgpu",
           },
           extensions: [".js", ".jsx", ".ts", ".tsx"],
         },

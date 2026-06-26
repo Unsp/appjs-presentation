@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import "react-native-reanimated";
+import "react-native-webgpu";
 
 import { Stack } from "expo-router";
 

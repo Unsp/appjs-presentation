@@ -7,7 +7,7 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import { Canvas } from "react-native-wgpu";
+import { Canvas } from "react-native-webgpu";
 
 import { DEMO_VIDEO_ASPECT } from "~features/typegpu/lib/demoVideoMeta";
 import { supportsNativeVideoTexture } from "~features/typegpu/lib/videoCanvasUtils";
@@ -159,25 +159,27 @@ export function VideoEffectCanvas({ active = true }: VideoEffectCanvasProps) {
     return <VideoEffectFallback message={message} />;
   }
 
-  if (
-    rootStatus.status === "pending" ||
-    !gpuResources ||
-    videoPlayer.status === "loading"
-  ) {
-    return <VideoEffectFallback message="Загрузка видео…" tone="loading" />;
-  }
-
   if (videoPlayer.status === "error") {
     return (
       <VideoEffectFallback message={videoPlayer.error ?? "Видео недоступно"} />
     );
   }
 
-  if (root != null && !supportsNativeVideoTexture(root.device)) {
+  if (
+    root != null &&
+    gpuResources != null &&
+    !supportsNativeVideoTexture(root.device)
+  ) {
     return (
       <VideoEffectFallback message="rnwebgpu/native-texture недоступен на этом устройстве" />
     );
   }
+
+  const gpuReady = root != null && gpuResources != null;
+  const isLoading =
+    rootStatus.status === "pending" ||
+    !gpuResources ||
+    videoPlayer.status === "loading";
 
   const scrubPositionSec =
     scrubPreviewSecRef.current ?? videoPlayer.positionSec;
@@ -185,64 +187,78 @@ export function VideoEffectCanvas({ active = true }: VideoEffectCanvasProps) {
   return (
     <View style={styles.root}>
       <View style={styles.stage}>
-        <View pointerEvents="none" style={styles.canvasLayer}>
-          <Canvas ref={ref} style={styles.canvas} transparent />
-        </View>
+        {gpuReady ? (
+          <View pointerEvents="none" style={styles.canvasLayer}>
+            <Canvas ref={ref} style={styles.canvas} transparent />
+          </View>
+        ) : null}
 
-        {VIDEO_EFFECT_OPTIONS.map(({ flag, label, centerYFromBottom }) => {
-          const isActive = hasEffectFlags(effectFlags, flag);
+        {isLoading ? (
+          <View style={styles.loadingOverlay}>
+            <VideoEffectFallback message="Загрузка видео…" tone="loading" />
+          </View>
+        ) : null}
 
-          return (
+        {!isLoading ? (
+          <>
+            {VIDEO_EFFECT_OPTIONS.map(({ flag, label, centerYFromBottom }) => {
+              const isActive = hasEffectFlags(effectFlags, flag);
+
+              return (
+                <Pressable
+                  key={flag}
+                  accessibilityLabel={label}
+                  accessibilityRole="button"
+                  accessibilityState={{ selected: isActive }}
+                  onPress={() => {
+                    setEffectFlags((current) =>
+                      toggleEffectFlags(current, flag),
+                    );
+                  }}
+                  style={[
+                    getEffectButtonStyle(centerYFromBottom, layoutAspect),
+                    styles.effectCapsule,
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.effectLabel,
+                      isActive && styles.effectLabelActive,
+                    ]}
+                  >
+                    {label}
+                  </Text>
+                </Pressable>
+              );
+            })}
+
             <Pressable
-              key={flag}
-              accessibilityLabel={label}
+              accessibilityLabel={videoPlayer.isPlaying ? "Pause" : "Play"}
               accessibilityRole="button"
-              accessibilityState={{ selected: isActive }}
-              onPress={() => {
-                setEffectFlags((current) => toggleEffectFlags(current, flag));
-              }}
+              hitSlop={8}
+              onPress={videoPlayer.togglePlayback}
+              style={[getPlayButtonStyle(layoutAspect), styles.playPauseHit]}
+            />
+
+            <View
               style={[
-                getEffectButtonStyle(centerYFromBottom, layoutAspect),
-                styles.effectCapsule,
+                styles.scrubberWrap,
+                {
+                  left: `${SCRUB_LEFT_UV * 100}%`,
+                  right: `${(1 - getScrubRightUv(layoutAspect)) * 100}%`,
+                },
               ]}
             >
-              <Text
-                style={[
-                  styles.effectLabel,
-                  isActive && styles.effectLabelActive,
-                ]}
-              >
-                {label}
-              </Text>
-            </Pressable>
-          );
-        })}
-
-        <Pressable
-          accessibilityLabel={videoPlayer.isPlaying ? "Pause" : "Play"}
-          accessibilityRole="button"
-          hitSlop={8}
-          onPress={videoPlayer.togglePlayback}
-          style={[getPlayButtonStyle(layoutAspect), styles.playPauseHit]}
-        />
-
-        <View
-          style={[
-            styles.scrubberWrap,
-            {
-              left: `${SCRUB_LEFT_UV * 100}%`,
-              right: `${(1 - getScrubRightUv(layoutAspect)) * 100}%`,
-            },
-          ]}
-        >
-          <VideoScrubber
-            durationSec={videoPlayer.durationSec}
-            positionSec={scrubPositionSec}
-            onScrubEnd={handleScrubEnd}
-            onScrubMove={setScrubPreview}
-            onScrubStart={handleScrubStart}
-          />
-        </View>
+              <VideoScrubber
+                durationSec={videoPlayer.durationSec}
+                positionSec={scrubPositionSec}
+                onScrubEnd={handleScrubEnd}
+                onScrubMove={setScrubPreview}
+                onScrubStart={handleScrubStart}
+              />
+            </View>
+          </>
+        ) : null}
       </View>
     </View>
   );
@@ -261,6 +277,10 @@ const styles = StyleSheet.create({
   },
   canvasLayer: {
     ...StyleSheet.absoluteFill,
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFill,
+    zIndex: 2,
   },
   canvas: {
     flex: 1,

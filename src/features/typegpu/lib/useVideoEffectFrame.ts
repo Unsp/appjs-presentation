@@ -157,7 +157,13 @@ export function useVideoEffectFrame({
 
       (ctx as WgpuCanvasContext).present?.();
       videoPlayer.tickScrubSeek(elapsedSeconds);
-    } catch {
+    } catch (error) {
+      if (__DEV__) {
+        console.error(
+          "[VideoEffectFrame]",
+          error instanceof Error ? error.message : String(error),
+        );
+      }
       return;
     } finally {
       externalTexture?.destroy();
