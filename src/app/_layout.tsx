@@ -9,7 +9,17 @@ import { AppProviders } from "~app-root";
 export default function RootLayout() {
   return (
     <AppProviders>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="teleport" />
+        <Stack.Screen
+          name="reels/[postId]"
+          options={{
+            animation: "slide_from_bottom",
+            presentation: "fullScreenModal",
+          }}
+        />
+      </Stack>
     </AppProviders>
   );
 }

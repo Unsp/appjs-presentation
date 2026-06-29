@@ -8,7 +8,8 @@
       "env": {},
       "ios": {},
       "android": {},
-      "usePrebuild": false
+      "usePrebuild": false,
+      "kind": "Custom"
     }
   ]
 }

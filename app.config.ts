@@ -16,7 +16,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     package: "com.presentation.webgpudemo",
   },
-  plugins: ["expo-router"],
+  plugins: ["expo-router", "expo-video"],
   experiments: {
     typedRoutes: true,
   },

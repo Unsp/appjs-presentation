@@ -14,7 +14,7 @@ module.exports = function (api) {
             "~shared": "./src/shared",
             "react-native-wgpu": "react-native-webgpu",
           },
-          extensions: [".js", ".jsx", ".ts", ".tsx"],
+          extensions: [".js", ".jsx", ".ts", ".tsx", ".mp4"],
         },
       ],
       "unplugin-typegpu/babel",
