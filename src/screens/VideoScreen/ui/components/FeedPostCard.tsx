@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { usePathname, useRouter } from "expo-router";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -16,6 +16,9 @@ import {
   useToggleFeedMuted,
 } from "~screens/VideoScreen/model/FeedPlaybackContext";
 import type { FeedPost } from "~screens/VideoScreen/model/feedPosts";
+import {
+  setFeedVideoTransitionSource,
+} from "~screens/VideoScreen/model/feedVideoTransitionStore";
 import { FeedActionBar } from "~screens/VideoScreen/ui/components/FeedActionBar";
 import { FeedAvatar } from "~screens/VideoScreen/ui/components/FeedAvatar";
 
@@ -33,6 +36,7 @@ export function FeedPostCard({ post }: FeedPostCardProps) {
   const { width } = useWindowDimensions();
   const videoHeight = width * 1.15;
   const [isLiked, setIsLiked] = useState(false);
+  const videoWrapRef = useRef<View>(null);
 
   const player = useVideoPlayer(post.videoSource, (instance) => {
     instance.loop = true;
@@ -82,12 +86,20 @@ export function FeedPostCard({ post }: FeedPostCardProps) {
         </View>
       </View>
 
-      <View style={[styles.videoWrap, { height: videoHeight, width }]}>
+      <View ref={videoWrapRef} style={[styles.videoWrap, { height: videoHeight, width }]}>
         <Pressable
           accessibilityLabel="Открыть Reels"
           accessibilityRole="button"
           onPress={() => {
-            router.push(`/reels/${post.id}`);
+            videoWrapRef.current?.measureInWindow((x, y, measuredWidth, measuredHeight) => {
+              setFeedVideoTransitionSource({
+                height: measuredHeight,
+                width: measuredWidth,
+                x,
+                y,
+              });
+              router.push(`/reels/${post.id}`);
+            });
           }}
           style={styles.videoPressable}
         >

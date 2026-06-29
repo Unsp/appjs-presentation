@@ -8,6 +8,7 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
+import Animated from "react-native-reanimated";
 import { Portal } from "react-native-teleport";
 
 import {
@@ -15,6 +16,8 @@ import {
   useIsTeleportPostActive,
   useIsTeleportVideoExpanded,
   useTeleportFeedMuted,
+  useTeleportFullscreenChromeStyle,
+  useTeleportFullscreenVideoStyle,
   useToggleTeleportFeedMuted,
 } from "~screens/ReactTeleportDemo/model/TeleportFeedContext";
 import { TELEPORT_VIDEO_HOST } from "~screens/ReactTeleportDemo/model/teleportHost";
@@ -28,14 +31,17 @@ type TeleportFeedPostCardProps = {
 };
 
 export function TeleportFeedPostCard({ post }: TeleportFeedPostCardProps) {
-  const { height: screenHeight, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const videoHeight = width * 1.15;
   const isActive = useIsTeleportPostActive(post.id);
   const isExpanded = useIsTeleportVideoExpanded(post.id);
   const isMuted = useTeleportFeedMuted();
   const toggleMuted = useToggleTeleportFeedMuted();
   const expandVideo = useExpandTeleportVideo();
+  const fullscreenVideoStyle = useTeleportFullscreenVideoStyle();
+  const fullscreenChromeStyle = useTeleportFullscreenChromeStyle();
   const [isLiked, setIsLiked] = useState(false);
+  const videoWrapRef = useRef<View>(null);
 
   const player = useVideoPlayer(post.videoSource, (instance) => {
     instance.loop = true;
@@ -95,38 +101,58 @@ export function TeleportFeedPostCard({ post }: TeleportFeedPostCardProps) {
         </View>
       </View>
 
-      <View style={[styles.videoWrap, { height: videoHeight, width }]}>
+      <View ref={videoWrapRef} style={[styles.videoWrap, { height: videoHeight, width }]}>
         {isExpanded ? <View style={styles.videoPlaceholder} /> : null}
 
         <Portal hostName={isExpanded ? TELEPORT_VIDEO_HOST : undefined}>
-          <View
-            style={
-              isExpanded
-                ? { height: screenHeight, width }
-                : { height: videoHeight, width }
-            }
-          >
-            <Pressable
-              accessibilityLabel={
-                isExpanded ? undefined : "Открыть видео через Teleport"
-              }
-              accessibilityRole="button"
-              disabled={isExpanded}
-              onPress={() => {
-                expandVideo(post.id);
-              }}
-              style={styles.videoPressable}
-            >
-              <VideoView
-                contentFit="cover"
-                nativeControls={false}
-                player={player}
-                style={styles.video}
-              />
-            </Pressable>
+          {isExpanded ? (
+            <Animated.View style={fullscreenVideoStyle}>
+              <Pressable
+                accessibilityRole="button"
+                disabled
+                style={styles.videoPressable}
+              >
+                <VideoView
+                  contentFit="cover"
+                  nativeControls={false}
+                  player={player}
+                  style={styles.video}
+                />
+              </Pressable>
 
-            {isExpanded ? <TeleportFullscreenChrome post={post} /> : null}
-          </View>
+              <Animated.View
+                pointerEvents="box-none"
+                style={[StyleSheet.absoluteFill, fullscreenChromeStyle]}
+              >
+                <TeleportFullscreenChrome post={post} />
+              </Animated.View>
+            </Animated.View>
+          ) : (
+            <View style={{ height: videoHeight, width }}>
+              <Pressable
+                accessibilityLabel="Открыть видео через Teleport"
+                accessibilityRole="button"
+                onPress={() => {
+                  videoWrapRef.current?.measureInWindow((x, y, measuredWidth, measuredHeight) => {
+                    expandVideo(post.id, {
+                      height: measuredHeight,
+                      width: measuredWidth,
+                      x,
+                      y,
+                    });
+                  });
+                }}
+                style={styles.videoPressable}
+              >
+                <VideoView
+                  contentFit="cover"
+                  nativeControls={false}
+                  player={player}
+                  style={styles.video}
+                />
+              </Pressable>
+            </View>
+          )}
         </Portal>
 
         {isActive && !isExpanded ? (

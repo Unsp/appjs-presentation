@@ -1,10 +1,16 @@
 import { createContext, useContext, useMemo } from "react";
+import { type ViewStyle } from "react-native";
+
+import type { VideoSourceLayout } from "~shared/ui/feedVideoFullscreenTransition";
 
 type TeleportFeedContextValue = {
   activePostId: string;
   collapseVideo: () => void;
-  expandVideo: (postId: string) => void;
+  expandVideo: (postId: string, layout: VideoSourceLayout) => void;
   expandedPostId: string | null;
+  fullscreenBackdropStyle: ViewStyle;
+  fullscreenChromeStyle: ViewStyle;
+  fullscreenVideoStyle: ViewStyle;
   isMuted: boolean;
   toggleMuted: () => void;
 };
@@ -17,14 +23,20 @@ export function TeleportFeedProvider({
   collapseVideo,
   expandVideo,
   expandedPostId,
+  fullscreenBackdropStyle,
+  fullscreenChromeStyle,
+  fullscreenVideoStyle,
   isMuted,
   toggleMuted,
 }: {
   activePostId: string;
   children: React.ReactNode;
   collapseVideo: () => void;
-  expandVideo: (postId: string) => void;
+  expandVideo: (postId: string, layout: VideoSourceLayout) => void;
   expandedPostId: string | null;
+  fullscreenBackdropStyle: ViewStyle;
+  fullscreenChromeStyle: ViewStyle;
+  fullscreenVideoStyle: ViewStyle;
   isMuted: boolean;
   toggleMuted: () => void;
 }) {
@@ -34,6 +46,9 @@ export function TeleportFeedProvider({
       collapseVideo,
       expandVideo,
       expandedPostId,
+      fullscreenBackdropStyle,
+      fullscreenChromeStyle,
+      fullscreenVideoStyle,
       isMuted,
       toggleMuted,
     }),
@@ -42,6 +57,9 @@ export function TeleportFeedProvider({
       collapseVideo,
       expandVideo,
       expandedPostId,
+      fullscreenBackdropStyle,
+      fullscreenChromeStyle,
+      fullscreenVideoStyle,
       isMuted,
       toggleMuted,
     ],
@@ -78,7 +96,10 @@ export function useToggleTeleportFeedMuted(): () => void {
   return useTeleportFeed().toggleMuted;
 }
 
-export function useExpandTeleportVideo(): (postId: string) => void {
+export function useExpandTeleportVideo(): (
+  postId: string,
+  layout: VideoSourceLayout,
+) => void {
   return useTeleportFeed().expandVideo;
 }
 
@@ -88,4 +109,16 @@ export function useCollapseTeleportVideo(): () => void {
 
 export function useIsTeleportVideoExpanded(postId: string): boolean {
   return useTeleportFeed().expandedPostId === postId;
+}
+
+export function useTeleportFullscreenVideoStyle(): TeleportFeedContextValue["fullscreenVideoStyle"] {
+  return useTeleportFeed().fullscreenVideoStyle;
+}
+
+export function useTeleportFullscreenChromeStyle(): TeleportFeedContextValue["fullscreenChromeStyle"] {
+  return useTeleportFeed().fullscreenChromeStyle;
+}
+
+export function useTeleportFullscreenBackdropStyle(): TeleportFeedContextValue["fullscreenBackdropStyle"] {
+  return useTeleportFeed().fullscreenBackdropStyle;
 }

@@ -15,8 +15,11 @@ export default function RootLayout() {
         <Stack.Screen
           name="reels/[postId]"
           options={{
-            animation: "slide_from_bottom",
-            presentation: "fullScreenModal",
+            animation: "fade",
+            contentStyle: { backgroundColor: "transparent" },
+            fullScreenGestureEnabled: true,
+            gestureEnabled: true,
+            presentation: "transparentModal",
           }}
         />
       </Stack>

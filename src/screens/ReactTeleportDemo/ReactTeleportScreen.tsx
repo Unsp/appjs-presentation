@@ -9,6 +9,7 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
+import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PortalHost, PortalProvider } from "react-native-teleport";
 
@@ -21,10 +22,25 @@ import {
   type FeedPost,
 } from "~screens/VideoScreen/model/feedPosts";
 import { FeedBottomNav } from "~screens/VideoScreen/ui/components/FeedBottomNav";
+import {
+  useFeedVideoFullscreenTransition,
+  type VideoSourceLayout,
+} from "~shared/ui/feedVideoFullscreenTransition";
+import { FullscreenSwipeDismiss } from "~shared/ui/FullscreenSwipeDismiss";
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export function ReactTeleportScreen() {
   const insets = useSafeAreaInsets();
-  const { width: screenWidth } = useWindowDimensions();
+  const { height: screenHeight, width: screenWidth } = useWindowDimensions();
+  const {
+    backdropStyle: fullscreenBackdropStyle,
+    chromeStyle: fullscreenChromeStyle,
+    prepareSource,
+    runCollapse,
+    runExpand,
+    videoStyle: fullscreenVideoStyle,
+  } = useFeedVideoFullscreenTransition(screenWidth, screenHeight);
   const [listHeight, setListHeight] = useState(0);
   const [activePostId, setActivePostId] = useState<string>(FEED_POSTS[0]?.id ?? "");
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
@@ -37,14 +53,23 @@ export function ReactTeleportScreen() {
     setIsMuted((current) => !current);
   }, []);
 
-  const expandVideo = useCallback((postId: string) => {
-    setExpandedPostId(postId);
-    setActivePostId(postId);
-  }, []);
+  const expandVideo = useCallback(
+    (postId: string, layout: VideoSourceLayout) => {
+      prepareSource(layout);
+      setExpandedPostId(postId);
+      setActivePostId(postId);
+      requestAnimationFrame(() => {
+        runExpand();
+      });
+    },
+    [prepareSource, runExpand],
+  );
 
   const collapseVideo = useCallback(() => {
-    setExpandedPostId(null);
-  }, []);
+    runCollapse(() => {
+      setExpandedPostId(null);
+    });
+  }, [runCollapse]);
 
   const syncActivePost = useCallback(
     (scrollY: number) => {
@@ -96,6 +121,9 @@ export function ReactTeleportScreen() {
         collapseVideo={collapseVideo}
         expandVideo={expandVideo}
         expandedPostId={expandedPostId}
+        fullscreenBackdropStyle={fullscreenBackdropStyle}
+        fullscreenChromeStyle={fullscreenChromeStyle}
+        fullscreenVideoStyle={fullscreenVideoStyle}
         isMuted={isMuted}
         toggleMuted={toggleMuted}
       >
@@ -125,18 +153,28 @@ export function ReactTeleportScreen() {
           <FeedBottomNav activeTab="home" />
 
           {expandedPostId != null ? (
-            <Pressable
-              accessibilityLabel="Закрыть полноэкранное видео"
-              accessibilityRole="button"
-              onPress={collapseVideo}
-              style={styles.backdrop}
-            />
-          ) : null}
+            <FullscreenSwipeDismiss
+              onDismiss={collapseVideo}
+              style={styles.fullscreenOverlay}
+            >
+              <AnimatedPressable
+                accessibilityLabel="Закрыть полноэкранное видео"
+                accessibilityRole="button"
+                onPress={collapseVideo}
+                style={[StyleSheet.absoluteFill, styles.backdrop, fullscreenBackdropStyle]}
+              />
 
-          <PortalHost
-            name={TELEPORT_VIDEO_HOST}
-            style={styles.portalHost}
-          />
+              <PortalHost
+                name={TELEPORT_VIDEO_HOST}
+                style={StyleSheet.absoluteFill}
+              />
+            </FullscreenSwipeDismiss>
+          ) : (
+            <PortalHost
+              name={TELEPORT_VIDEO_HOST}
+              style={styles.portalHostHidden}
+            />
+          )}
         </View>
       </TeleportFeedProvider>
     </PortalProvider>
@@ -155,12 +193,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backdrop: {
+    backgroundColor: "#000000",
+  },
+  fullscreenOverlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: "rgba(0, 0, 0, 0.92)",
     zIndex: 10,
   },
-  portalHost: {
+  portalHostHidden: {
     ...StyleSheet.absoluteFill,
+    pointerEvents: "none",
     zIndex: 20,
   },
 });

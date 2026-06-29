@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -9,22 +9,41 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
+import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import type { FeedPost } from "~screens/VideoScreen/model/feedPosts";
+import {
+  clearFeedVideoTransitionSource,
+  getFeedVideoTransitionSource,
+} from "~screens/VideoScreen/model/feedVideoTransitionStore";
 import { FeedAvatar } from "~screens/VideoScreen/ui/components/FeedAvatar";
 import { ReelsSideActions } from "~screens/VideoScreen/ui/components/ReelsSideActions";
+import { useFeedVideoFullscreenTransition } from "~shared/ui/feedVideoFullscreenTransition";
+import { FullscreenSwipeDismiss } from "~shared/ui/FullscreenSwipeDismiss";
 
 type ReelsPostSlideProps = {
   isActive: boolean;
+  isOpenTarget: boolean;
   post: FeedPost;
 };
 
-export function ReelsPostSlide({ isActive, post }: ReelsPostSlideProps) {
+export function ReelsPostSlide({ isActive, isOpenTarget, post }: ReelsPostSlideProps) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { height, width } = useWindowDimensions();
   const [isLiked, setIsLiked] = useState(true);
+  const didStartOpenTransition = useRef(false);
+  const hasOpenTransition = useRef(isOpenTarget && getFeedVideoTransitionSource() != null);
+
+  const {
+    backdropStyle,
+    chromeStyle,
+    prepareSource,
+    runCollapse,
+    runExpand,
+    videoStyle,
+  } = useFeedVideoFullscreenTransition(width, height);
 
   const player = useVideoPlayer(post.videoSource, (instance) => {
     instance.loop = true;
@@ -40,23 +59,43 @@ export function ReelsPostSlide({ isActive, post }: ReelsPostSlideProps) {
     player.pause();
   }, [isActive, player]);
 
-  return (
-    <View style={[styles.root, { height, width }]}>
-      <VideoView
-        contentFit="cover"
-        nativeControls={false}
-        player={player}
-        style={{ height, width }}
-      />
+  useEffect(() => {
+    if (!isOpenTarget || didStartOpenTransition.current) {
+      return;
+    }
 
+    const sourceLayout = getFeedVideoTransitionSource();
+    if (sourceLayout == null) {
+      return;
+    }
+
+    didStartOpenTransition.current = true;
+    prepareSource(sourceLayout);
+    requestAnimationFrame(() => {
+      runExpand();
+    });
+  }, [isOpenTarget, prepareSource, runExpand]);
+
+  const handleBack = () => {
+    if (hasOpenTransition.current && getFeedVideoTransitionSource() != null) {
+      runCollapse(() => {
+        clearFeedVideoTransitionSource();
+        router.back();
+      });
+      return;
+    }
+
+    router.back();
+  };
+
+  const chrome = (
+    <>
       <View style={[styles.topBar, { paddingTop: insets.top + 8 }]}>
         <Pressable
           accessibilityLabel="Назад"
           accessibilityRole="button"
           hitSlop={12}
-          onPress={() => {
-            router.back();
-          }}
+          onPress={handleBack}
           style={styles.backButton}
         >
           <Ionicons color="#ffffff" name="chevron-back" size={28} />
@@ -128,7 +167,47 @@ export function ReelsPostSlide({ isActive, post }: ReelsPostSlideProps) {
           <Text style={styles.commentPlaceholder}>Добавьте комментарий…</Text>
         </View>
       </View>
-    </View>
+    </>
+  );
+
+  if (hasOpenTransition.current) {
+    return (
+      <FullscreenSwipeDismiss onDismiss={handleBack} style={{ height, width }}>
+        <View style={[styles.root, styles.transparentRoot, { height, width }]}>
+          <Animated.View
+            pointerEvents="none"
+            style={[StyleSheet.absoluteFill, styles.backdrop, backdropStyle]}
+          />
+
+          <Animated.View style={videoStyle}>
+            <VideoView
+              contentFit="cover"
+              nativeControls={false}
+              player={player}
+              style={styles.video}
+            />
+          </Animated.View>
+
+          <Animated.View pointerEvents="box-none" style={[StyleSheet.absoluteFill, chromeStyle]}>
+            {chrome}
+          </Animated.View>
+        </View>
+      </FullscreenSwipeDismiss>
+    );
+  }
+
+  return (
+    <FullscreenSwipeDismiss onDismiss={handleBack} style={{ height, width }}>
+      <View style={[styles.root, { height, width }]}>
+        <VideoView
+          contentFit="cover"
+          nativeControls={false}
+          player={player}
+          style={{ height, width }}
+        />
+        {chrome}
+      </View>
+    </FullscreenSwipeDismiss>
   );
 }
 
@@ -136,6 +215,16 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: "#000000",
     overflow: "hidden",
+  },
+  transparentRoot: {
+    backgroundColor: "transparent",
+  },
+  backdrop: {
+    backgroundColor: "#000000",
+  },
+  video: {
+    height: "100%",
+    width: "100%",
   },
   shadowText: {
     textShadowColor: "rgba(0, 0, 0, 0.85)",

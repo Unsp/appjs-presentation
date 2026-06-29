@@ -57,7 +57,11 @@ export function ReelsViewerScreen({ initialPostId }: ReelsViewerScreenProps) {
         onViewableItemsChanged={onViewableItemsChanged}
         pagingEnabled
         renderItem={({ item }) => (
-          <ReelsPostSlide isActive={item.id === activePostId} post={item} />
+          <ReelsPostSlide
+            isActive={item.id === activePostId}
+            isOpenTarget={item.id === initialPostId}
+            post={item}
+          />
         )}
         showsVerticalScrollIndicator={false}
         snapToAlignment="start"
@@ -70,7 +74,7 @@ export function ReelsViewerScreen({ initialPostId }: ReelsViewerScreenProps) {
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: "#000000",
+    backgroundColor: "transparent",
     flex: 1,
   },
 });
