@@ -162,6 +162,10 @@ function ChatScreen() {
 
 </div>
 
+<!--
+Здесь мы можем увидеть как это будет выглядеть.
+-->
+
 ---
 layout: full
 ---
@@ -224,6 +228,10 @@ layout: full
 
 </div>
 
+<!--
+Это приведет к полной перерисовке экрана
+-->
+
 ---
 layout: full
 ---
@@ -231,6 +239,10 @@ layout: full
 <div class="relative w-full h-full p-3 box-border flex flex-1 flex-col gap-4 items-center justify-center">
   <h2 class="!text-white !mt-0 !mb-2 text-xl font-bold">React Compiler!</h2>
 </div>
+
+<!--
+Реакт компайлер, который добавили в 19 версии реакта должен помочь в оптимизации, но он не спасет если стейт действительно поменялся, что опять таки приведет к перерисовке
+-->
 
 ---
 layout: full
