@@ -265,6 +265,9 @@ function ChatScreen() {
 
 </div>
 
+<!--
+УБЕРИ
+-->
 
 ---
 layout: full
@@ -290,6 +293,9 @@ function ChatScreen() {
 
 </div>
 
+<!--
+УБЕРИ
+-->
 
 ---
 layout: full
