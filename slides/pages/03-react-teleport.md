@@ -17,6 +17,23 @@ layout: full
 layout: full
 ---
 
+<div class="flex flex-col items-start justify-center w-full h-full px-8 py-6 box-border leading-snug max-w-3xl">
+
+<h2 class="!text-white !mt-0 !mb-4 text-2xl font-bold tracking-tight w-full text-left">Основная проблема</h2>
+
+<p class="!text-white !mb-0 text-lg font-normal opacity-90 leading-relaxed text-left">Компонент логически расположен в одном месте, но визуально должен находиться в другом</p>
+
+</div>
+
+<!--
+В мобильных приложениях часто есть UI, который логически принадлежит одному экрану или компоненту, но визуально должен быть отрисован выше, шире или в другом месте дерева.
+Простой пример — tooltip, modal, context menu или fullscreen video.
+-->
+
+---
+layout: full
+---
+
 <style>
 .rt-demo {
   --rt-cycle: 11s;
