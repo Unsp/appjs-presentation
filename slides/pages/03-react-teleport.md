@@ -169,6 +169,28 @@ Modal умеет показать UI поверх всего, но не дает
 layout: full
 ---
 
+<div class="flex flex-col items-start justify-center w-full h-full px-8 py-6 box-border leading-snug max-w-3xl gap-4">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">Существующие RN portals и как они работают</h2>
+
+<ul class="!text-white text-lg font-normal opacity-90 space-y-3 list-disc pl-5 m-0 leading-relaxed">
+<li>PortalHost регистрируется в shared store</li>
+<li>Portal добавляет children в store</li>
+<li>PortalHost рендерит полученные children</li>
+</ul>
+
+</div>
+
+<!--
+Большинство portal-библиотек в React Native используют похожий подход.
+Есть PortalHost, который регистрируется в shared registry.
+Потом Portal кладет children в этот registry, а PortalHost рендерит их у себя
+-->
+
+---
+layout: full
+---
+
 <style>
 .rt-demo {
   --rt-cycle: 11s;
