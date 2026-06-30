@@ -2,9 +2,13 @@
 layout: full
 ---
 
-<div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center leading-snug max-w-2xl mx-auto">
+<div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center max-w-2xl mx-auto gap-4">
 
-<h1 class="!text-white !mt-0 !mb-0 text-3xl font-bold">Illusion of Portals</h1>
+<h1 class="!text-white !m-0 text-3xl font-bold leading-tight">Illusion of Portals</h1>
+
+<h1 class="!text-white !m-0 text-3xl font-bold leading-tight">&</h1>
+
+<h1 class="!text-white !m-0 text-3xl font-bold leading-tight">react-native-teleport</h1>
 
 </div>
 
@@ -298,7 +302,7 @@ layout: full
 
 <div class="flex flex-col items-center w-full h-full px-6 pt-4 pb-4 box-border min-h-0">
 
-<h2 class="!text-white !mt-0 !mb-3 text-2xl font-bold tracking-tight text-center shrink-0 whitespace-nowrap">Демо без react-teleport</h2>
+<h2 class="!text-white !mt-0 !mb-3 text-2xl font-bold tracking-tight text-center shrink-0 whitespace-nowrap">Демо</h2>
 
 <div class="flex flex-1 w-full min-h-0 items-center justify-center overflow-hidden">
 
@@ -386,6 +390,41 @@ layout: full
 react-native-teleport меняет подход.
 Он не просит React пересоздать компонент в другом месте.
 React сохраняет ownership компонента, а native layer переносит view в другой container.
+-->
+
+---
+layout: full
+---
+
+<div class="flex flex-col items-start justify-start w-full h-full px-8 pt-4 pb-6 box-border leading-snug max-w-5xl gap-4 min-h-0">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">Как выглядит Teleport API</h2>
+
+<div class="flex w-max max-w-full flex-col gap-4 [&_pre]:!m-0 [&_pre]:!w-full [&_pre]:!text-sm">
+
+```tsx {maxHeight:'220px'}
+<PortalProvider>
+  <App />
+
+  <PortalHost name="fullscreen" />
+</PortalProvider>
+```
+
+```tsx {maxHeight:'220px'}
+<Portal hostName={isFullscreen ? "fullscreen" : "feed"}>
+  <VideoPlayer source={video} />
+</Portal>
+```
+
+</div>
+
+</div>
+
+<!--
+API достаточно простой.
+PortalProvider хранит portal infrastructure.
+PortalHost — это destination, место куда можно перенести view.
+Portal говорит: вот этот UI должен быть размещен в конкретном host.
 -->
 
 ---
