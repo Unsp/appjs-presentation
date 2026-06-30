@@ -145,5 +145,5 @@ layout: full
 </div>
 
 <!--
-Speaker note: переключиться на Expo app (~3–5 мин). VideoEffectCanvas: video shader, toggles Vignette/Invert/Noir/Neon, play/scrubber с ripples в шейдере. VideoEffectFallback если GPU не поднялся. После правок шейдера — Radon Restart, не hot reload.
+Я накидал небольшое демо с TypeGPU, это видео плеер, все элементы на нем нарисованы в TypeGpu, искажения обрабатываются в шейдере, также поверх кадра наслаиваются разные фильтры
 -->
