@@ -296,6 +296,43 @@ layout: full
 layout: full
 ---
 
+<div class="flex flex-col items-center w-full h-full px-6 pt-4 pb-4 box-border min-h-0">
+
+<h2 class="!text-white !mt-0 !mb-3 text-2xl font-bold tracking-tight text-center shrink-0 whitespace-nowrap">Демо без react-teleport</h2>
+
+<div class="flex flex-1 w-full min-h-0 items-center justify-center overflow-hidden">
+
+<div class="aspect-[9/16] h-full max-w-full w-auto shrink-0">
+
+<video
+  class="block h-full w-full cursor-pointer rounded-lg object-contain shadow-[0_12px_32px_rgba(0,0,0,0.45)]"
+  src="../assets/react-teleport/bad-example.mp4"
+  preload="metadata"
+  playsinline
+  loop
+  @click="$event.currentTarget.paused ? $event.currentTarget.play() : $event.currentTarget.pause()"
+/>
+
+</div>
+
+</div>
+
+</div>
+
+<!--
+Для демонстрации я сделал Instagram-like feed.
+Видео играет прямо в ленте.
+Пользователь нажимает на него и ожидает, что оно просто раскроется в fullscreen — без рестарта, без black frame, без потери текущего таймкода.
+
+Без Teleport типичная реализация выглядит так: мы нажимаем на video, открываем fullscreen screen, и там рендерится новый VideoPlayer.
+Старый player из feed размонтируется, новый player создается.
+Можно руками передать currentTime, но это workaround. Сам player все равно пересоздается.
+-->
+
+---
+layout: full
+---
+
 <style>
 .rt-demo {
   --rt-cycle: 11s;
