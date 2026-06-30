@@ -149,6 +149,26 @@ React-компонент остается частью своего логиче
 layout: full
 ---
 
+<div class="flex flex-col items-start justify-center w-full h-full px-8 py-6 box-border leading-snug max-w-3xl gap-4">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">В React Native аналогов нет</h2>
+
+<p class="!text-white !mb-0 text-lg font-normal opacity-90 leading-relaxed text-left">Но есть примитив Modal</p>
+
+<p v-click class="!text-white !mb-0 text-lg font-normal opacity-90 leading-relaxed text-left">Modal ≠ full portal system</p>
+
+</div>
+
+<!--
+В React Native нет прямого аналога createPortal.
+Есть Modal, но это не полноценный portal primitive.
+Modal умеет показать UI поверх всего, но не дает гибкого контроля, где именно этот UI должен жить в hierarchy.
+-->
+
+---
+layout: full
+---
+
 <style>
 .rt-demo {
   --rt-cycle: 11s;
