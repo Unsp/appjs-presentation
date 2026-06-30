@@ -191,6 +191,39 @@ layout: full
 layout: full
 ---
 
+<div class="flex flex-col items-start justify-center w-full h-full px-8 py-6 box-border leading-snug max-w-3xl gap-4">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">The illusion of portals</h2>
+
+<ul class="!text-white text-lg font-normal opacity-90 space-y-3 list-disc pl-5 m-0 leading-relaxed">
+<li>Выглядят как portal</li>
+<li>Ощущаются как portal</li>
+<li><strong>НО!</strong> React tree было изменено</li>
+</ul>
+
+</div>
+
+<!--
+Визуально это работает. Компонент действительно появляется в другом месте.
+Но проблема в том, что это не настоящий portal в смысле web.
+Мы фактически меняем место, где компонент рендерится в React tree.
+Поэтому могут ломаться context, state continuity и predictable lifecycle.
+-->
+
+---
+layout: full
+---
+
+<div class="flex flex-col items-start justify-center w-full h-full px-8 py-6 box-border leading-snug max-w-3xl">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left">У React нет операции "переместить"</h2>
+
+</div>
+
+---
+layout: full
+---
+
 <style>
 .rt-demo {
   --rt-cycle: 11s;
