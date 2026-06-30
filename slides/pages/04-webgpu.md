@@ -114,7 +114,9 @@ layout: full
 
 <div class="relative w-full h-full p-3 box-border">
 
-<div class="absolute inset-3 z-0 grid grid-cols-2 gap-0 min-h-0">
+<h2 class="absolute left-1/2 top-2 -translate-x-1/2 z-10 !text-white !mt-0 !mb-0 text-2xl font-bold text-center">Redraw</h2>
+
+<div class="absolute left-3 right-3 top-11 bottom-11 z-0 grid grid-cols-2 gap-0 min-h-0">
 
 <img src="../assets/webgpu/redraw-dpad.png" class="w-full h-full object-contain object-center" alt="" />
 
@@ -122,25 +124,14 @@ layout: full
 
 </div>
 
-<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[56%] max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
-
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Redraw</h2>
-
-<p class="!text-white !mb-3 text-sm opacity-90">2D UI-toolkit — <strong>построен на TypeGPU</strong> и <strong>react-native-webgpu</strong>.</p>
-
-<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
-<li>Векторный UI, frosted glass, кастомные материалы через <code>'use gpu'</code></li>
-<li>Отдельный слой поверх WebGPU — не часть Skia</li>
-<li>Сейчас <strong>subscriber preview</strong> — RN-пакеты не в публичном npm</li>
-<li>Примеры и редактор — <strong>wcandillon.github.io/redraw</strong></li>
-</ul>
-
-</div>
+<p class="absolute left-1/2 bottom-2 -translate-x-1/2 z-10 !text-white !mb-0 text-sm opacity-90 text-center">
+<strong>wcandillon.github.io/redraw</strong>
+</p>
 
 </div>
 
 <!--
-Speaker note: ~1 мин. Скриншоты с wcandillon.github.io/redraw — не live demo. Greenfield на TypeGPU + react-native-webgpu. Subscriber preview, не public npm. William Candillon — и webgpu, и RN Skia.
+В этом году также показали инстересный 2d-ui toolkit на TypeGPU, он позволяет легко делать эффекты типа блура, объемность, анимацию и подсветку SVG. Пока проект в заркытом превью, хотя с ним можно поиграться их сандбоксе
 -->
 
 ---
