@@ -251,8 +251,8 @@ You can add a "Notes for the agent prompt" section to the task file. It is copie
 - **radon:** [feature doc](../topics/radon/README.md)
 - **webgpu:** [feature doc](../topics/webgpu/README.md)
 - **keyframer:** [feature doc](../topics/keyframer/README.md) — start with [KEYFRAMER-00](../topics/keyframer/KEYFRAMER-00.md) (owner prep)
-- **Talk outline:** [docs/outline/README.md](../outline/README.md)
-- **Deck shell (inter-topic slides):** [DECK-01](../outline/DECK-01.md)
+- **Deck polish:** [DECK-02](../outline/DECK-02.md) (full deck) · [DECK-01](../outline/DECK-01.md) (shell + full-bleed dark canvas)
+- **Deck shell + global styling:** [DECK-01](../outline/DECK-01.md)
 
 Task files appear under each feature folder when the planner creates them. Cross-cutting deck tasks live under `docs/outline/`.
 

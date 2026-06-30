@@ -1,6 +1,6 @@
 # keyframer.dev
 
-**Talk slot:** 6 (after expo-observe, partner)  
+**Talk slot:** 5 (deck order — after react-teleport, partner)  
 **Owner:** K  
 **Demo weight:** light — **slides only** (no live keyframer, no live Expo)
 

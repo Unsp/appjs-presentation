@@ -2,17 +2,13 @@
 layout: full
 ---
 
-<div class="flex items-center justify-center w-full h-full p-8 box-border bg-[#1e1e1e]">
-
-<div class="max-w-2xl p-8 rounded-xl bg-black/88 text-white shadow-2xl text-center leading-snug">
+<div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center leading-snug max-w-2xl mx-auto">
 
 <h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">Radon</h1>
 
 <h2 class="!text-white !mt-0 !mb-4 text-lg font-normal opacity-90">Обёртка над эмулятором в Cursor — не «ещё одна IDE»</h2>
 
-<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 2 · после Legend State</p>
-
-</div>
+<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 1</p>
 
 </div>
 
@@ -50,9 +46,9 @@ Speaker note: скриншоты production wallet app. Комментируем
 layout: full
 ---
 
-<div class="relative w-full h-full p-4 box-border bg-[#1e1e1e]">
+<div class="relative w-full h-full p-4 box-border">
 
-<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 leading-snug">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Несколько эмуляторов</h2>
 
@@ -72,9 +68,9 @@ layout: full
 layout: full
 ---
 
-<div class="relative w-full h-full p-4 box-border bg-[#1e1e1e]">
+<div class="relative w-full h-full p-4 box-border">
 
-<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 leading-snug">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold whitespace-nowrap">Inspect → source</h2>
 
@@ -94,9 +90,9 @@ layout: full
 layout: full
 ---
 
-<div class="grid grid-rows-[auto_1fr] w-full h-full p-4 gap-3 box-border bg-[#1e1e1e]">
+<div class="grid grid-rows-[auto_1fr] w-full h-full p-4 gap-3 box-border">
 
-<div class="p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+<div class="p-5 leading-snug">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Сетевой инспектор</h2>
 
@@ -146,9 +142,9 @@ layout: full
 layout: full
 ---
 
-<div class="relative w-full h-full p-4 box-border bg-[#1e1e1e]">
+<div class="relative w-full h-full p-4 box-border">
 
-<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 leading-snug">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Встроенные инструменты</h2>
 
@@ -168,11 +164,11 @@ layout: full
 layout: full
 ---
 
-<div class="flex flex-col gap-3 w-full h-full p-4 box-border bg-[#1e1e1e]">
+<div class="flex flex-col gap-3 w-full h-full p-4 box-border">
 
 <div class="grid grid-cols-[1fr_auto] gap-6 items-center flex-1 min-h-0">
 
-<div class="p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug min-w-0">
+<div class="p-5 leading-snug min-w-0">
 
 <h2 class="!text-white !mt-0 !mb-2 text-xl font-bold whitespace-nowrap">Агенты + MCP</h2>
 
@@ -191,7 +187,7 @@ layout: full
 
 </div>
 
-<div class="px-4 py-2.5 rounded-xl bg-black/88 text-white shadow-2xl shrink-0">
+<div class="px-4 py-2.5 shrink-0">
 
 <div class="flex items-center gap-5 text-sm">
 
@@ -258,22 +254,4 @@ layout: full
 
 <!--
 Speaker note: ~1–2 мин финал RNRepo. Красная линия между build 1.0.17 (85) 22m 4s и (84) 31m 22s. Overlay top ~59.5% — подстроить в preview при необходимости. Без monorepo pitch; без vendor «up to 2×».
--->
-
----
-layout: full
----
-
-<div class="flex items-center justify-center w-full h-full p-8 box-border bg-[#1e1e1e]">
-
-<div class="p-6 rounded-xl bg-black/88 text-white shadow-2xl text-center text-lg leading-snug">
-
-Передаём слово → <strong>react-teleport</strong> (партнёр)
-
-</div>
-
-</div>
-
-<!--
-Speaker note: конец сегмента 2 — партнёр продолжает react-teleport.
 -->

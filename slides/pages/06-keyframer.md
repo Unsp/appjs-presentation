@@ -2,29 +2,23 @@
 layout: full
 ---
 
-<div class="flex items-center justify-center w-full h-full p-8 box-border bg-[#1e1e1e]">
-
-<div class="max-w-2xl p-8 rounded-xl bg-black/88 text-white shadow-2xl text-center leading-snug">
+<div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center leading-snug max-w-2xl mx-auto">
 
 <h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">keyframer.dev</h1>
 
-<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 6 · Графический редактор анимаций Reanimated</p>
-
-</div>
+<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 5 · Графический редактор анимаций Reanimated</p>
 
 </div>
 
 <!--
-Speaker note: ~5–7 мин блок keyframer. Hook сразу после opener, затем alpha — manage expectations. Live demo нет — идём по скриншотам редактора.
+Speaker note: ~5–7 мин блок keyframer. Сегмент 5 — последний перед Q&A.
 -->
 
 ---
 layout: full
 ---
 
-<div class="flex items-center justify-center w-full h-full p-8 box-border bg-[#1e1e1e]">
-
-<div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+<div class="flex flex-col justify-center w-full h-full p-8 box-border max-w-2xl leading-snug">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Анимация в макете — не готовый код в приложении</h2>
 
@@ -38,8 +32,6 @@ layout: full
 
 </div>
 
-</div>
-
 <!--
 Speaker note: контраст с вебом — CSS vs Reanimated. Figma не экспортирует RN-код. Currency.com app — one-liner без Figma-скрина. keyframer целится сократить разрыв, но пока alpha.
 -->
@@ -48,9 +40,7 @@ Speaker note: контраст с вебом — CSS vs Reanimated. Figma не �
 layout: full
 ---
 
-<div class="flex items-center w-full h-full p-8 box-border bg-[#1e1e1e]">
-
-<div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+<div class="flex flex-col justify-center w-full h-full p-8 box-border max-w-2xl leading-snug">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Alpha · ограничения</h2>
 
@@ -63,8 +53,6 @@ layout: full
 
 </div>
 
-</div>
-
 <!--
 Speaker note: manage expectations без техдеталей. Автор — Catalin Miron (AnimateReactNative.com). Не называть «разработчик Reanimated» — евангелист/практик. Дальше скриншоты редактора.
 -->
@@ -73,9 +61,9 @@ Speaker note: manage expectations без техдеталей. Автор — Ca
 layout: full
 ---
 
-<div class="relative w-full h-full p-4 box-border bg-[#1e1e1e]">
+<div class="relative w-full h-full p-4 box-border">
 
-<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 leading-snug">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Timeline</h2>
 
@@ -99,9 +87,9 @@ Speaker note: timeline tab в редакторе. Плавность — easing-
 layout: full
 ---
 
-<div class="relative w-full h-full p-4 box-border bg-[#1e1e1e]">
+<div class="relative w-full h-full p-4 box-border">
 
-<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 leading-snug">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Node Graph</h2>
 
@@ -125,9 +113,9 @@ Speaker note: graph — общая идея node graph. На скрине при
 layout: full
 ---
 
-<div class="relative w-full h-full p-4 box-border bg-[#1e1e1e]">
+<div class="relative w-full h-full p-4 box-border">
 
-<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 rounded-xl bg-black/88 text-white shadow-2xl leading-snug">
+<div class="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-[36%] max-w-md p-5 leading-snug">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Export · Generated Code</h2>
 
@@ -151,17 +139,13 @@ Speaker note: useAnimatedScene() — combined export. Честно: не drop-in
 layout: full
 ---
 
-<div class="flex items-center justify-center w-full h-full p-8 box-border bg-[#1e1e1e]">
-
-<div class="max-w-2xl p-6 rounded-xl bg-black/88 text-white shadow-2xl text-center leading-snug">
+<div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center leading-snug max-w-2xl mx-auto">
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Когда tool созреет</h2>
 
 <p class="!text-white !mb-3 text-sm opacity-90">Идея сильная — дизайнер и разработчик в одном Reanimated-пайплайне</p>
 
 <p class="!text-white !mb-0 text-sm"><strong>Сегодня — alpha.</strong> Следим за changelog.</p>
-
-</div>
 
 </div>
 

@@ -1,6 +1,7 @@
 # WebGPU in React Native
 
-**Talk slot:** 4 (after react-teleport, partner)  
+**Talk slot:** 3 (deck order — after Legend State, partner)  
+**After:** react-teleport (partner, deck #4)  
 **Owner:** K  
 **Demo weight:** heavy — core technical showcase  
 **Slide segment title:** **WebGPU в React Native** — TypeGPU is a **separate slide**, not in the segment header  
@@ -405,7 +406,7 @@ _Threading / `present()` / worklets — **не отдельный слайд в 
 - `VideoEffectFallback` if GPU init fails
 - Radon Restart after shader/native changes
 
-**D2 · Handoff** → **expo-observe** (партнёр)
+**D2 · Handoff** → **react-teleport** (партнёр)
 
 ---
 

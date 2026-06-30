@@ -2,17 +2,13 @@
 layout: full
 ---
 
-<div class="flex items-center justify-center w-full h-full p-8 box-border bg-[#1e1e1e]">
-
-<div class="max-w-2xl p-8 rounded-xl bg-black/88 text-white shadow-2xl text-center leading-snug">
+<div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center leading-snug max-w-2xl mx-auto">
 
 <h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">Render Once:</h1>
 
 <h2 class="!text-white !mt-0 !mb-4 text-lg font-normal opacity-90">Новый подход к архитектуре React Native приложений с Legend-State</h2>
 
-<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 1</p>
-
-</div>
+<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 2</p>
 
 </div>
 

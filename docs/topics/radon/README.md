@@ -1,6 +1,7 @@
 # Radon + RNRepo
 
-**Talk slot:** 2 (after Legend State, partner)  
+**Talk slot:** 1 (opens talk — deck order)  
+**After:** Legend State (partner, deck #2)  
 **Owner:** K  
 **Demo weight:** light
 
@@ -28,7 +29,7 @@ Angle for **business apps**: real API debugging, breakpoints, navigation across 
 | ------- | -------- | ---------------------------------------- |
 | Radon   | ~5–7 min | Main segment                             |
 | RNRepo  | ~1–2 min | Closing mention only — no setup on stage |
-| Handoff | —        | → react-teleport (partner)               |
+| Handoff | —        | → Legend State (partner)                 |
 
 ## What to cover — Radon
 
@@ -91,7 +92,7 @@ Independent from Radon; **do not** link as “same ecosystem” or monorepo tool
 3. Inspect → Network → Debug (inspect.png, network.png, debug.png)
 4. MCP: Figma → implement → Radon verify (text slide only)
 5. RNRepo closing (1–2 min, radon-eas-rnrepo.png)
-6. Handoff → react-teleport
+6. Handoff → Legend State
 ```
 
 ## Demo plan
