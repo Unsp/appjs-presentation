@@ -111,7 +111,7 @@ layout: full
 
 <div class="rt-demo flex flex-col items-center gap-2 min-w-0">
 
-<h2 class="!text-[#ef5350] !mt-0 !mb-0 text-sm font-semibold shrink-0 tracking-tight text-center leading-tight">✗ Render on top of screen</h2>
+<h2 class="!text-[#34e86a] !mt-0 !mb-0 text-sm font-semibold shrink-0 tracking-tight text-center leading-tight">✓ Render on top of screen</h2>
 
 <div class="rt-phone-frame relative w-[min(19vw,155px)] shrink-0 aspect-[9/19.5] rounded-[1.6rem] border-[2px] border-[#6a6a6a] bg-[#2a2a2a] p-[5px] shadow-[0_12px_28px_rgba(0,0,0,0.35)]">
 
@@ -259,7 +259,7 @@ layout: full
 
 <div class="rt-demo flex flex-col items-center gap-2 min-w-0">
 
-<h2 class="!text-[#34e86a] !mt-0 !mb-0 text-sm font-semibold shrink-0 tracking-tight text-center leading-tight">✓ Render in Modal</h2>
+<h2 class="!text-[#ef5350] !mt-0 !mb-0 text-sm font-semibold shrink-0 tracking-tight text-center leading-tight">✗ Render in modal</h2>
 
 <div class="rt-phone-frame relative w-[min(19vw,155px)] shrink-0 aspect-[9/19.5] rounded-[1.6rem] border-[2px] border-[#6a6a6a] bg-[#2a2a2a] p-[5px] shadow-[0_12px_28px_rgba(0,0,0,0.35)]">
 
@@ -267,9 +267,9 @@ layout: full
 
 <div class="rt-phone-screen relative h-full w-full overflow-hidden rounded-[1.25rem] bg-[#f2f2f2]">
 
-<div class="absolute left-1/2 top-[5px] z-40 h-[14px] w-[50px] -translate-x-1/2 rounded-full bg-black"></div>
+<div class="absolute left-1/2 top-[5px] z-40 h-[15px] w-[56px] -translate-x-1/2 rounded-full bg-black"></div>
 
-<div class="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-3 pt-[20px] pb-0.5 text-[7px] font-semibold text-black pointer-events-none">
+<div class="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-3 pt-[21px] pb-0.5 text-[7px] font-semibold text-black pointer-events-none">
 <span>09:41</span>
 <div class="flex items-center gap-0.5">
 <svg class="h-[6px] w-[8px]" viewBox="0 0 10 8" fill="currentColor"><rect x="0" y="5" width="2" height="3" rx="0.5"/><rect x="3" y="3" width="2" height="5" rx="0.5"/><rect x="6" y="1" width="2" height="7" rx="0.5"/><rect x="9" y="0" width="1" height="8" rx="0.5"/></svg>
@@ -280,108 +280,108 @@ layout: full
 </div>
 </div>
 
-<div class="absolute inset-0 z-0 flex flex-col pt-[34px] px-1.5 pb-1.5">
+<div class="absolute inset-0 z-0 flex flex-col pt-[36px] px-1.5 pb-1.5">
 
 <div class="px-1 pb-1.5">
-<span class="text-[10px] font-bold text-black">Chats</span>
+<span class="text-[11px] font-bold text-black">Chats</span>
 </div>
 
 <div class="flex flex-1 flex-col overflow-hidden rounded-xl bg-white shadow-[0_1px_4px_rgba(0,0,0,0.06)]">
 
 <div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] text-[6px] font-bold text-white">K</div>
+<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] text-[7px] font-bold text-white">K</div>
 <div class="min-w-0 flex-1">
 <div class="flex items-baseline justify-between gap-1">
-<span class="text-[6px] font-bold text-black">Kirill</span>
-<span class="shrink-0 text-[5px] text-[#999]">09:41</span>
+<span class="text-[7px] font-bold text-black">Kirill</span>
+<span class="shrink-0 text-[6px] text-[#999]">09:41</span>
 </div>
 <div class="flex items-center justify-between gap-1">
-<span class="truncate text-[5px] text-[#888]">Sure, let's go for a walk?</span>
-<span class="flex h-2.5 min-w-2.5 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] px-0.5 text-[4px] font-bold text-white">2</span>
+<span class="truncate text-[6px] text-[#888]">Sure, let's go for a walk?</span>
+<span class="flex h-3 min-w-3 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] px-0.5 text-[5px] font-bold text-white">2</span>
 </div>
 </div>
 </div>
 
 <div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#9b7fd4] text-[5px] font-bold text-white">DT</div>
+<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#9b7fd4] text-[6px] font-bold text-white">DT</div>
 <div class="min-w-0 flex-1">
 <div class="flex items-baseline justify-between gap-1">
-<span class="text-[6px] font-bold text-black">Design Team</span>
-<span class="shrink-0 text-[5px] text-[#999]">08:16</span>
+<span class="text-[7px] font-bold text-black">Design Team</span>
+<span class="shrink-0 text-[6px] text-[#999]">08:16</span>
 </div>
-<span class="block truncate text-[5px] text-[#888]">Slides are ready for the conference dry r…</span>
+<span class="block truncate text-[6px] text-[#888]">Slides are ready for the conference dry r…</span>
 </div>
 </div>
 
 <div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#d47fa8] text-[6px] font-bold text-white">A</div>
+<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#d47fa8] text-[7px] font-bold text-white">A</div>
 <div class="min-w-0 flex-1">
 <div class="flex items-baseline justify-between gap-1">
-<span class="text-[6px] font-bold text-black">Anna</span>
-<span class="shrink-0 text-[5px] text-[#999]">Yesterday</span>
+<span class="text-[7px] font-bold text-black">Anna</span>
+<span class="shrink-0 text-[6px] text-[#999]">Yesterday</span>
 </div>
-<span class="block truncate text-[5px] text-[#888]">Let's keep the sticker animation alive in t…</span>
+<span class="block truncate text-[6px] text-[#888]">Let's keep the sticker animation alive in t…</span>
 </div>
 </div>
 
 <div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#6fbf8a] text-[5px] font-bold text-white">MC</div>
+<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#6fbf8a] text-[6px] font-bold text-white">MC</div>
 <div class="min-w-0 flex-1">
 <div class="flex items-baseline justify-between gap-1">
-<span class="text-[6px] font-bold text-black">Mobile Core</span>
-<span class="shrink-0 text-[5px] text-[#999]">Yesterday</span>
+<span class="text-[7px] font-bold text-black">Mobile Core</span>
+<span class="shrink-0 text-[6px] text-[#999]">Yesterday</span>
 </div>
 <div class="flex items-center justify-between gap-1">
-<span class="truncate text-[5px] text-[#888]">React Native 0.81 build is green on…</span>
-<span class="flex h-2.5 min-w-2.5 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] px-0.5 text-[4px] font-bold text-white">5</span>
+<span class="truncate text-[6px] text-[#888]">React Native 0.81 build is green on…</span>
+<span class="flex h-3 min-w-3 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] px-0.5 text-[5px] font-bold text-white">5</span>
 </div>
 </div>
 </div>
 
 <div class="flex items-start gap-1.5 px-2 py-1.5">
-<div class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#e8a04a] text-[6px] font-bold text-white">E</div>
+<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#e8a04a] text-[7px] font-bold text-white">E</div>
 <div class="min-w-0 flex-1">
 <div class="flex items-baseline justify-between gap-1">
-<span class="text-[6px] font-bold text-black">Events</span>
-<span class="shrink-0 text-[5px] text-[#999]">Thu</span>
+<span class="text-[7px] font-bold text-black">Events</span>
+<span class="shrink-0 text-[6px] text-[#999]">Thu</span>
 </div>
-<span class="block truncate text-[5px] text-[#888]">Reminder: speaker check-in opens at 7:30.</span>
-</div>
-</div>
-
+<span class="block truncate text-[6px] text-[#888]">Reminder: speaker check-in opens at 7:30.</span>
 </div>
 </div>
 
-<div class="rt-chat-overlay absolute inset-0 z-10 flex flex-col bg-[#ececec] pt-[34px]">
+</div>
+</div>
 
-<div class="relative flex items-center justify-between border-b border-black/5 bg-white px-2 py-1.5">
-<div class="flex items-center gap-0.5 text-[7px] font-medium text-black">
+<div class="rt-chat-overlay absolute inset-0 z-10 flex flex-col bg-[#ececec] pt-[36px]">
+
+<div class="relative flex items-center justify-between border-b border-black/5 bg-white px-2.5 py-2">
+<div class="flex items-center gap-0.5 text-[8px] font-medium text-black">
 <svg class="h-2.5 w-2.5" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 1L2 6l4 5"/></svg>
 <span>Back</span>
 </div>
-<span class="text-[8px] font-semibold text-black">Kirill</span>
+<span class="text-[9px] font-semibold text-black">Kirill</span>
 <div class="rt-menu-dot flex h-4 w-4 items-center justify-center rounded-full">
 <svg class="h-3 w-3" viewBox="0 0 4 16" fill="currentColor"><circle cx="2" cy="2" r="1.5"/><circle cx="2" cy="8" r="1.5"/><circle cx="2" cy="14" r="1.5"/></svg>
 </div>
 </div>
 
-<div class="flex flex-col gap-1.5 px-2 py-2">
+<div class="flex flex-col gap-1.5 px-2.5 py-2.5">
 
-<div class="max-w-[80%] self-start rounded-2xl rounded-bl-md bg-white px-2 py-1 text-[6px] leading-snug text-[#333] shadow-sm">Hello, not too bad! You?</div>
+<div class="max-w-[80%] self-start rounded-2xl rounded-bl-md bg-white px-2.5 py-1.5 text-[7px] leading-snug text-[#333] shadow-sm">Hello, not too bad! You?</div>
 
-<div class="max-w-[80%] self-end rounded-2xl rounded-br-md bg-[#d8f5de] px-2 py-1 text-[6px] leading-snug text-[#1a1a1a] shadow-sm">What is your plan for evening today?</div>
+<div class="max-w-[80%] self-end rounded-2xl rounded-br-md bg-[#d8f5de] px-2.5 py-1.5 text-[7px] leading-snug text-[#1a1a1a] shadow-sm">What is your plan for evening today?</div>
 
-<div class="max-w-[80%] self-start rounded-2xl rounded-bl-md bg-white px-2 py-1 text-[6px] leading-snug text-[#333] shadow-sm">I'm not sure yet... Any ideas?</div>
+<div class="max-w-[80%] self-start rounded-2xl rounded-bl-md bg-white px-2.5 py-1.5 text-[7px] leading-snug text-[#333] shadow-sm">I'm not sure yet... Any ideas?</div>
 
-<div class="max-w-[80%] self-end rounded-2xl rounded-br-md bg-[#d8f5de] px-2 py-1 text-[6px] leading-snug text-[#1a1a1a] shadow-sm">Sure, let's go for a walk?</div>
-
-</div>
+<div class="max-w-[80%] self-end rounded-2xl rounded-br-md bg-[#d8f5de] px-2.5 py-1.5 text-[7px] leading-snug text-[#1a1a1a] shadow-sm">Sure, let's go for a walk?</div>
 
 </div>
 
 </div>
 
-<div class="rt-menu-on-screen absolute right-1.5 top-[22%] z-[60] w-[94px] overflow-hidden rounded-lg bg-white shadow-[0_8px_20px_rgba(0,0,0,0.18)]">
+</div>
+
+<div class="rt-menu-on-screen absolute right-1.5 top-[54px] z-[60] w-[94px] overflow-hidden rounded-lg bg-white shadow-[0_8px_20px_rgba(0,0,0,0.16)]">
 
 <div class="flex items-center justify-between border-b border-black/5 px-2 py-1.5 text-[6px] text-black">
 <span>View details</span>
