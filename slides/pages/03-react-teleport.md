@@ -35,6 +35,121 @@ layout: full
 ---
 
 <style>
+.rt-portal-tree {
+  position: relative;
+  width: 168px;
+  height: 118px;
+}
+
+.rt-portal-tree-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.rt-portal-tree-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: #fff;
+  color: #111;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+}
+
+.rt-portal-tree-node--0 {
+  left: 8px;
+  top: 8px;
+}
+
+.rt-portal-tree-node--1 {
+  left: 56px;
+  top: 40px;
+}
+
+.rt-portal-tree-node--2 {
+  left: 104px;
+  top: 72px;
+}
+
+.rt-portal-tree-node--wide {
+  width: 58px;
+  height: 48px;
+  font-size: 7px;
+  letter-spacing: -0.02em;
+}
+
+.rt-portal-tree-node--wide.rt-portal-tree-node--1 {
+  left: 51px;
+}
+</style>
+
+<div class="flex flex-col items-start justify-center w-full h-full px-8 py-6 box-border leading-snug max-w-4xl gap-5">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">В Web есть portals</h2>
+
+<div class="flex w-full items-start gap-10 min-h-0 pt-4">
+
+<div class="min-w-0 shrink-0 w-[42%] -mt-1 [&_pre]:!m-0 [&_pre]:!text-sm">
+
+```ts {maxHeight:'120px'}
+createPortal(children, domNode)
+```
+
+</div>
+
+<div class="flex shrink-0 flex-col gap-5 ml-auto">
+
+<div class="flex flex-col gap-2">
+<span class="text-xs font-semibold text-white/60">React tree:</span>
+<div class="rt-portal-tree">
+<svg class="rt-portal-tree-lines" viewBox="0 0 168 118" fill="none" aria-hidden="true">
+<line x1="32" y1="32" x2="80" y2="64" stroke="#fff" stroke-width="1.5"/>
+<line x1="80" y1="64" x2="128" y2="96" stroke="#fff" stroke-width="1.5"/>
+</svg>
+<span class="rt-portal-tree-node rt-portal-tree-node--0">App</span>
+<span class="rt-portal-tree-node rt-portal-tree-node--1">Button</span>
+<span class="rt-portal-tree-node rt-portal-tree-node--2">Modal</span>
+</div>
+</div>
+
+<div class="flex flex-col gap-2">
+<span class="text-xs font-semibold text-white/60">DOM tree:</span>
+<div class="rt-portal-tree">
+<svg class="rt-portal-tree-lines" viewBox="0 0 168 118" fill="none" aria-hidden="true">
+<line x1="32" y1="32" x2="80" y2="64" stroke="#fff" stroke-width="1.5"/>
+<line x1="80" y1="64" x2="133" y2="96" stroke="#fff" stroke-width="1.5"/>
+</svg>
+<span class="rt-portal-tree-node rt-portal-tree-node--0">body</span>
+<span class="rt-portal-tree-node rt-portal-tree-node--1 rt-portal-tree-node--wide">#modal-root</span>
+<span class="rt-portal-tree-node rt-portal-tree-node--2">Modal</span>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!--
+На web эта проблема решается через createPortal.
+React-компонент остается частью своего логического React-дерева, но DOM-элемент появляется в другом месте, например внутри body или специального modal-root.
+-->
+
+---
+layout: full
+---
+
+<style>
 .rt-demo {
   --rt-cycle: 11s;
 }
