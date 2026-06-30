@@ -9,7 +9,7 @@
     "prebuild": "expo prebuild",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "slides": "slidev slides/slides.md --open",
+    "slides": "slidev slides/slides.md --open --remote",
     "slides:build": "slidev build slides/slides.md",
     "slides:export": "slidev export slides/slides.md",
     "postinstall": "patch-package"

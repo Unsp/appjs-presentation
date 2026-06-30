@@ -6,9 +6,7 @@ layout: full
 
 <h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">Render Once:</h1>
 
-<h2 class="!text-white !mt-0 !mb-4 text-lg font-normal opacity-90">Новый подход к архитектуре React Native приложений с Legend-State</h2>
-
-<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 2</p>
+<h2 class="!text-white !mt-0 !mb-0 text-lg font-normal opacity-90">Новый подход к архитектуре React Native приложений с Legend-State</h2>
 
 </div>
 

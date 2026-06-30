@@ -1,10 +1,11 @@
 # DECK-02 — Cross-topic slide polish (full deck pass)
 
-**Status:** open  
+**Status:** cancelled  
 **Scope:** talk-level — all segments + shell coherence  
+**Cancelled reason:** Owner decision (2026-06) — deck satisfies QA after [DECK-01](DECK-01.md); handoff slides and cross-segment polish not needed.  
 **Outline:** [README.md](README.md)  
 **Depends on:** K segment slide tasks done or stable; M segments wired or placeholder  
-**Related:** [DECK-01](DECK-01.md) (shell-only subset)  
+**Related:** [DECK-01](DECK-01.md) (completed — shell + full-bleed dark canvas)  
 **Related docs:** [slides/SLIDEV.md](../../slides/SLIDEV.md), [docs/topics/README.md](../topics/README.md)
 
 ## Talk order (locked — owner 2026-06)

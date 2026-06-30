@@ -6,9 +6,7 @@ layout: full
 
 <h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">WebGPU в React Native</h1>
 
-<p class="!text-white !mb-2 text-lg font-normal opacity-90">Теперь это полноценный native-стек</p>
-
-<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 3</p>
+<p class="!text-white !mb-0 text-lg font-normal opacity-90">Теперь это полноценный native-стек</p>
 
 </div>
 

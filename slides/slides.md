@@ -17,7 +17,7 @@ layout: full
 
 <h1 class="!text-white !mt-0 !mb-4 text-4xl font-bold">React Native & Expo</h1>
 
-<h2 class="!text-white !mt-0 !mb-4 text-xl font-normal opacity-90">Инструменты экосистемы для бизнес-приложений</h2>
+<h2 class="!text-white !mt-0 !mb-4 text-xl font-normal opacity-90">App.js Conf 2026</h2>
 
 <p class="!text-white !mb-0 text-sm opacity-70">Kirill Golubev и Mikhail Soosaar</p>
 

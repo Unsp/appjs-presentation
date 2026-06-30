@@ -1,6 +1,6 @@
 # DECK-01 — Deck shell, global styling, and inter-topic slides
 
-**Status:** awaiting QA  
+**Status:** done  
 **Scope:** talk-level (not a feature topic)  
 **Outline:** [README.md](README.md)  
 **Related docs:** [slides/SLIDEV.md](../../slides/SLIDEV.md), [docs/topics/README.md](../topics/README.md)
@@ -43,7 +43,7 @@ Repo-only for narrative copy — final title and speaker names come from owner Q
 
 Run when segment titles are stable (after K slide tasks or in parallel with final WebGPU QA).
 
-**Note:** Narrative polish and handoff copy across segments remain [DECK-02](DECK-02.md). DECK-01 owns shell + deck-wide canvas styling only.
+**Note:** Optional cross-topic polish was scoped in [DECK-02](DECK-02.md) — **cancelled**; owner satisfied with deck after DECK-01.
 
 ## Acceptance (manual / QA)
 
@@ -120,7 +120,7 @@ Apply the same mechanical fix everywhere a gray halo appears:
 ## Presentation notes
 
 - **Timing:** run when owner says segment names are stable.
-- **Out of scope:** partner M narrative authoring, new screenshots, handoff copy polish (DECK-02), demo app.
+- **Out of scope:** partner M narrative authoring, new screenshots, demo app. (Optional handoff polish was [DECK-02](DECK-02.md) — cancelled.)
 - **Language:** shell slides in **Russian** (deck-wide default).
 
 ## Notes for the agent prompt
@@ -146,5 +146,5 @@ Apply the same mechanical fix everywhere a gray halo appears:
 ## Links
 
 - [Talk outline](README.md)
-- [DECK-02](DECK-02.md) — cross-topic narrative/handoff polish (after DECK-01)
+- [DECK-02](DECK-02.md) — cross-topic polish (cancelled)
 - [Task automation](../task-automation/README.md)

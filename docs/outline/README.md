@@ -141,4 +141,4 @@ Until then, K segments should not block on M content but should **avoid hard dep
 3. Fill slide content in `slides/pages/<slot>-<feature>.md`; wire via `src:` in `slides/slides.md` (see `slides/SLIDEV.md`).
 4. Bootstrap Expo demo app — [WEBGPU-00](../topics/webgpu/WEBGPU-00.md) then [WEBGPU-01](../topics/webgpu/WEBGPU-01.md); slides after demo ([WEBGPU-02](../topics/webgpu/WEBGPU-02.md)).
 5. Partner: confirm delivery format and timeline for M segments.
-6. **Last (slides):** [DECK-02](DECK-02.md) — cross-topic polish (shell, handoffs, M placeholders, visual coherence) after K segment slides stable. [DECK-01](DECK-01.md) — shell-only subset.
+6. **Deck shell + styling:** [DECK-01](DECK-01.md) — done. [DECK-02](DECK-02.md) — cancelled (owner satisfied with current deck).

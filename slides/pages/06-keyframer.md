@@ -6,7 +6,7 @@ layout: full
 
 <h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">keyframer.dev</h1>
 
-<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 5 · Графический редактор анимаций Reanimated</p>
+<h2 class="!text-white !mt-0 !mb-0 text-lg font-normal opacity-90">Графический редактор анимаций Reanimated</h2>
 
 </div>
 

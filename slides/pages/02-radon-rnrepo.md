@@ -4,16 +4,14 @@ layout: full
 
 <div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center leading-snug max-w-2xl mx-auto">
 
-<h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">Radon</h1>
+<h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">Radon IDE</h1>
 
-<h2 class="!text-white !mt-0 !mb-4 text-lg font-normal opacity-90">Обёртка над эмулятором в Cursor — не «ещё одна IDE»</h2>
-
-<p class="!text-white !mb-0 text-sm opacity-70">Сегмент 1</p>
+<h2 class="!text-white !mt-0 !mb-0 text-lg font-normal opacity-90">Обертка над эмулятором в VSCode/Cursor</h2>
 
 </div>
 
 <!--
-Speaker note: ~5–7 мин блок Radon. Позиционирование — обёртка над эмулятором в VS Code / Cursor, не «ещё одна RN IDE». Лицензию на слайд не выносим — если спросят: Cursor marketplace, пробный период 14 дней; про credit card не говорить.
+Первая тема о которой хочу рассказать - radon IDE. Познакомились с ним еще в прошлом году, когда ездили на эту же конференцию и он сильно упростил жизнь за это время.
 -->
 
 ---
@@ -31,7 +29,6 @@ layout: full
 <ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
 <li><strong>Встроенное превью</strong> — iOS Simulator и Android emulator внутри Cursor / VS Code</li>
 <li><strong>Сборки под капотом</strong> — Radon сам собирает под эмулятор</li>
-<li><strong>Бизнес-приложения</strong> — API, навигация и отладка в одном окне</li>
 </ul>
 
 </div>
@@ -39,7 +36,9 @@ layout: full
 </div>
 
 <!--
-Speaker note: скриншоты production wallet app. Комментируем по PNG — без live Radon на проекторе.
+Не отдельная IDE.
+Надстройка над эмуляторами IOS и Android.
+Умеет сам собирать билды на нужную платформу при запуске
 -->
 
 ---
@@ -64,6 +63,10 @@ layout: full
 
 </div>
 
+<!--
+Радон позволяет запустить сразу с несколько эмуляторов. Единственное ограничение сейчас - нельзя одновременно показать сразу несколько девайсов.
+-->
+
 ---
 layout: full
 ---
@@ -85,6 +88,10 @@ layout: full
 <img src="../assets/radon/inspect.png" class="absolute right-4 top-1/2 -translate-y-1/2 max-h-[calc(100%-2rem)] w-auto max-w-[58%] object-contain rounded-lg" alt="" />
 
 </div>
+
+<!--
+Правый клик по любому элементу на эмуляторе позволяет быстро перейти к его коду. Это упрощает навигацию и позволяет быстрее разобраться в чужом коде
+-->
 
 ---
 layout: full
@@ -113,7 +120,7 @@ layout: full
 </div>
 
 <!--
-Speaker note: WebSocket пока не поддерживается — не обещать inspect WS. Про throttling на слайдах не говорить.
+В экспо часто проблемы с нетворк инспектором, он открывается в чемто вроде хром дев тулс, и не всегда реагирует на запросы. В радоне этот функционал стабилен, и встроен прямо в ИДЕ
 -->
 
 ---
@@ -138,6 +145,10 @@ layout: full
 
 </div>
 
+<!--
+Наконец-то есть нормальная возможность дебага кода прямо в иде. Ставим брейкпойнты, смотрим переменные и коллстек, все в лучших традициях бакэнд дебага
+-->
+
 ---
 layout: full
 ---
@@ -159,6 +170,10 @@ layout: full
 <img src="../assets/radon/built-in-tools.png" class="absolute right-4 top-1/2 -translate-y-1/2 max-h-[calc(100%-2rem)] w-auto max-w-[58%] object-contain rounded-lg" alt="" />
 
 </div>
+
+<!--
+У радона есть куча встроенных инструментов для упрощения работы с часто используемым функционалом. Можно вручную навигироваться на люьбой экран, открывать дип линки. Есть поддержка тестирования биометрии прямо в эмуляторе, запись экрана, а также нативная поддержка tanstack dev tools
+-->
 
 ---
 layout: full
@@ -214,7 +229,23 @@ layout: full
 </div>
 
 <!--
-Speaker note: ~1 мин. Панель Radon MCP справа — без live demo. Раскрыть устно: скриншот/tree для UI, логи+network без копипасты, query_documentation вместо training data, reload после фикса. Пример: Figma MCP → правка UI → view_screenshot для сверки с макетом.
+Кроме того из коробки есть функционал связи с AI агентами через mcp сервер. он позволяет аишке смотреть скрины прямо с эмулятора, читать логи, нетворк, а также агент может сам посмотреть докуметацию реакт рейтива. В заключении хочу отметить что тул оказался очень полезным и сильно упросил мне процесс разработки.
+-->
+
+---
+layout: full
+---
+
+<div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center leading-snug max-w-2xl mx-auto">
+
+<h1 class="!text-white !mt-0 !mb-3 text-3xl font-bold">RNRepo</h1>
+
+<h2 class="!text-white !mt-0 !mb-0 text-lg font-normal opacity-90">Готовые нативные артефакты для популярных RN-библиотек</h2>
+
+</div>
+
+<!--
+Перед тьем
 -->
 
 ---
@@ -251,7 +282,3 @@ layout: full
 </div>
 
 </div>
-
-<!--
-Speaker note: ~1–2 мин финал RNRepo. Красная линия между build 1.0.17 (85) 22m 4s и (84) 31m 22s. Overlay top ~59.5% — подстроить в preview при необходимости. Без monorepo pitch; без vendor «up to 2×».
--->

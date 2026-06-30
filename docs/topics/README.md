@@ -28,4 +28,4 @@ docs/topics/
 
 **WebGPU:** [WEBGPU-00](webgpu/WEBGPU-00.md) done → [WEBGPU-01](webgpu/WEBGPU-01.md) done → [WEBGPU-02](webgpu/WEBGPU-02.md) awaiting QA
 
-**After K segment slides:** [DECK-01](../outline/DECK-01.md) (shell + full-bleed dark canvas) → [DECK-02](../outline/DECK-02.md) (handoffs + cross-topic polish).
+**Deck polish:** [DECK-01](../outline/DECK-01.md) done. [DECK-02](../outline/DECK-02.md) cancelled — owner satisfied with current deck.
