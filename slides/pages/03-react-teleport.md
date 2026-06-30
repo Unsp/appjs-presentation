@@ -9,7 +9,8 @@ layout: full
 </div>
 
 <!--
-Speaker note: placeholder — TBD. После WebGPU.
+Сегодня я расскажу про react-native-teleport — библиотеку, которая добавляет в React Native возможность переносить UI между разными контейнерами без пересоздания компонента.
+Основная идея простая: не destroy/create, а move
 -->
 
 ---
