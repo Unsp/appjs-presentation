@@ -81,7 +81,7 @@ layout: full
 </div>
 
 <!--
-Speaker note: Software Mansion. Акцент: TS вместо WGSL в строках, 'use gpu', хуки для canvas. Не углубляться в API — на следующем слайде код.
+TypeGPU - Библиотека TypeScript, расширяющая API WebGPU и позволяющая управлять ресурсами безопасным с точки зрения типов и декларативным способом.
 -->
 
 ---
@@ -105,29 +105,7 @@ layout: full
 </div>
 
 <!--
-Speaker note: ~30 с. Упрощённый фрагмент из демо — sample, grade, toggle. Не зачитывать построчно. Полный pipeline (~800 строк) в приложении, на слайд не лезет.
--->
-
----
-layout: full
----
-
-<div class="flex flex-col justify-center w-full h-full p-8 box-border max-w-2xl leading-snug">
-
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Свой GPU-эффект</h2>
-
-<p class="!text-white !mb-3 text-sm opacity-90">Когда обычного UI и Skia мало:</p>
-
-<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
-<li><strong>Шейдеры на TypeScript</strong> — typesafe, автокомплит, привычный синтаксис; GPU-логику всё равно нужно понимать, но писать удобнее</li>
-<li><strong>Свой сценарий обработки</strong> — например, кадр видео → обработка на GPU → экран; не через готовый 2D-canvas</li>
-<li><strong>Любая логика в одном месте</strong> — цвет, маски, кнопки в шейдере; не набор стандартных фильтров</li>
-</ul>
-
-</div>
-
-<!--
-Speaker note: честно: blur/glass и много 2D — уже Skia. TypeGPU — свой pipeline (video → GPU → экран), TS typesafe. Shader-разработчики никуда не делись — DX удобнее, не «RN-дев всё поймёт сам». Мост к live demo.
+Так выглядит шейдер написаный с использованием TypeGPU - есть адекватная подсветка и автокомплит кода, не нужно держать простыни кода в обычных строках
 -->
 
 ---
