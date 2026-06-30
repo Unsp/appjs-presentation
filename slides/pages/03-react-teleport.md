@@ -4,7 +4,7 @@ layout: full
 
 <div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center leading-snug max-w-2xl mx-auto">
 
-<h1 class="!text-white !mt-0 !mb-0 text-3xl font-bold">react-teleport</h1>
+<h1 class="!text-white !mt-0 !mb-0 text-3xl font-bold">Illusion of Portals</h1>
 
 </div>
 
@@ -105,7 +105,11 @@ layout: full
 }
 </style>
 
-<div class="flex flex-col items-center justify-center gap-2 w-full h-full p-3 box-border min-h-0 overflow-hidden">
+<div class="flex flex-col items-start gap-3 w-full h-full pt-2 pb-4 box-border min-h-0 overflow-hidden">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight shrink-0 w-full text-left">Illusion of Portals</h2>
+
+<div class="flex flex-1 w-full min-h-0 items-end justify-center">
 
 <div class="grid grid-cols-2 gap-5 items-end justify-items-center max-w-3xl w-full">
 
@@ -401,6 +405,8 @@ layout: full
 </div>
 
 </div>
+</div>
+
 </div>
 
 </div>
