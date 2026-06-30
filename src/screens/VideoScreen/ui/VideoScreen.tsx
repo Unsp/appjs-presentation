@@ -1,5 +1,7 @@
-import { LegendList, LegendListRenderItemProps } from "@legendapp/list/react-native";
-import { StatusBar } from "expo-status-bar";
+import {
+  LegendList,
+  LegendListRenderItemProps,
+} from "@legendapp/list/react-native";
 import { useCallback, useEffect } from "react";
 import {
   NativeScrollEvent,
@@ -10,10 +12,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import {
-  FeedPlaybackProvider,
-  useFeedPlaybackStore,
-} from "~screens/VideoScreen/model/FeedPlaybackContext";
+import { useFeedPlaybackStore } from "~screens/VideoScreen/model/FeedPlaybackContext";
 import {
   setFeedListHeight,
   setFeedScrollY,
@@ -23,7 +22,6 @@ import {
   FEED_POSTS,
   type FeedPost,
 } from "~screens/VideoScreen/model/feedPosts";
-import { FeedBottomNav } from "~screens/VideoScreen/ui/components/FeedBottomNav";
 import { FeedPostCard } from "~screens/VideoScreen/ui/components/FeedPostCard";
 
 function FeedListBootstrap({
@@ -41,7 +39,12 @@ function FeedListBootstrap({
         return;
       }
 
-      syncFeedActivePost(store$, store$.scrollY.get(), safeAreaTop, screenWidth);
+      syncFeedActivePost(
+        store$,
+        store$.scrollY.get(),
+        safeAreaTop,
+        screenWidth,
+      );
     });
   }, [safeAreaTop, screenWidth, store$]);
 
@@ -100,23 +103,24 @@ export function VideoScreen() {
   const { width: screenWidth } = useWindowDimensions();
 
   return (
-    <FeedPlaybackProvider>
-      <View style={styles.root}>
-        <StatusBar style="light" />
+    <></>
+    // <FeedPlaybackProvider>
+    //   <View style={styles.root}>
+    //     <StatusBar style="light" />
 
-        <FeedListBootstrap
-          safeAreaTop={insets.top}
-          screenWidth={screenWidth}
-        />
+    //     <FeedListBootstrap
+    //       safeAreaTop={insets.top}
+    //       screenWidth={screenWidth}
+    //     />
 
-        <FeedList
-          safeAreaTop={insets.top}
-          screenWidth={screenWidth}
-        />
+    //     <FeedList
+    //       safeAreaTop={insets.top}
+    //       screenWidth={screenWidth}
+    //     />
 
-        <FeedBottomNav activeTab="home" />
-      </View>
-    </FeedPlaybackProvider>
+    //     <FeedBottomNav activeTab="home" />
+    //   </View>
+    // </FeedPlaybackProvider>
   );
 }
 

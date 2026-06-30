@@ -11,50 +11,7 @@ layout: full
 </div>
 
 <!--
-Speaker note: ~5–7 мин блок keyframer. Сегмент 5 — последний перед Q&A.
--->
-
----
-layout: full
----
-
-<div class="flex flex-col justify-center w-full h-full p-8 box-border max-w-2xl leading-snug">
-
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Анимация в макете — не готовый код в приложении</h2>
-
-<p class="!text-white !mb-3 text-sm opacity-90">В Figma дизайнер показывает, <strong>как должно двигаться</strong> — прототип, тайминги, кривые. На вебе похожий эффект часто собирают из <strong>CSS-анимаций</strong>.</p>
-
-<p class="!text-white !mb-3 text-sm opacity-90">В React Native путь другой и <strong>сложнее</strong>: жесты, spring, worklets — не CSS transitions. Из Figma это <strong>напрямую не вытащить</strong> — нужен Reanimated-код в проекте.</p>
-
-<p class="!text-white !mb-3 text-sm opacity-90">Разработчик обычно собирает анимацию <strong>вручную</strong> — по видео, скриншотам и устным пояснениям.</p>
-
-<p class="!text-white !mb-0 text-sm opacity-70">Currency.com app — сложные анимации реализовали вручную в Reanimated</p>
-
-</div>
-
-<!--
-Speaker note: контраст с вебом — CSS vs Reanimated. Figma не экспортирует RN-код. Currency.com app — one-liner без Figma-скрина. keyframer целится сократить разрыв, но пока alpha.
--->
-
----
-layout: full
----
-
-<div class="flex flex-col justify-center w-full h-full p-8 box-border max-w-2xl leading-snug">
-
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Alpha · ограничения</h2>
-
-<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
-<li>Инструмент в <strong>alpha</strong> — сырой, функции и интерфейс ещё меняются</li>
-<li><strong>Нет публичной документации</strong> — главный ориентир changelog на keyframer.dev</li>
-<li>Подходит для <strong>простых сценариев</strong> — входная анимация, базовые жесты</li>
-<li>Автор — <strong>Catalin Miron</strong> (AnimateReactNative.com): годами строит продукты и обучение на Reanimated — можно ждать полноценный редактор</li>
-</ul>
-
-</div>
-
-<!--
-Speaker note: manage expectations без техдеталей. Автор — Catalin Miron (AnimateReactNative.com). Не называть «разработчик Reanimated» — евангелист/практик. Дальше скриншоты редактора.
+В прошлом году мы на проекте карренси делали достаточно сложные анимации, Дизайнер в Фигме рисовал что он хочет видеть в приложении, а я переносил это в код. Те кто знаком работал с анимациями знает на сколько это может быть долгий и неудобный процесс. Особенно в реакт нейтив, где нельзя просто заэкспортить CSS анимацию из фигмы и вставить в код. На конференции в этом году показали интересный проект который может успростить эту задачу и называется он Keyframer
 -->
 
 ---
@@ -80,7 +37,7 @@ layout: full
 </div>
 
 <!--
-Speaker note: timeline tab в редакторе. Плавность — easing-кривые, без spring на сегментах (ограничение alpha). Проект на скрине — generic demo, название не озвучиваем.
+Инструмент умеет работать в 2 режимах, первый из них - Timeline. Те, кто использовали After Effects или ему подобные редакторы наверное сразу узнают интерфейс. Делаем кейфреймы, в них двигаем объекты, в то состояние, в котором они должны находиться в этом фрейме, настраиваем переход - готово.
 -->
 
 ---
@@ -106,7 +63,7 @@ layout: full
 </div>
 
 <!--
-Speaker note: graph — общая идея node graph. На скрине пример с drag, но не зацикливаться на названии. Runtime reactive input, не Figma prototype chains.
+2й режим для более сложных и детальных анимаций, node graph, тут интерфейс больше похож на Blueprint из Unreal Engine. Можно детально настраивать все параметры анимации, подключать ввод пользователя, например тут на скрине показан пример перетаскивания объекта.
 -->
 
 ---
@@ -132,23 +89,26 @@ layout: full
 </div>
 
 <!--
-Speaker note: useAnimatedScene() — combined export. Честно: не drop-in модуль; вытаскиваем DRAGGABLE/KEYFRAMES, panGesture, useStylez-паттерн под свой экран. Copy — reference, не paste-and-ship.
+На выходе мы получаем готовый код, который можно запустить в приложении. Не скажу что он идеален, но целом - взять оттуда отдельные куски со значениями анимации может сильно ускорить процесс. Этот тул можно использовать на пару с дизайнером - он рисует то что хочет увидеть в знакомом UI и сразу смотрит на результат со всей спецификой реакт нейтива, а разработчик получает заготовку анимации, которую можно переносить в проект, может и не в полном объеме.
 -->
 
 ---
 layout: full
 ---
 
-<div class="flex flex-col items-center justify-center w-full h-full p-8 box-border text-center leading-snug max-w-2xl mx-auto">
+<div class="flex flex-col justify-center w-full h-full p-8 box-border max-w-2xl leading-snug">
 
-<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Когда tool созреет</h2>
+<h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Alpha · ограничения</h2>
 
-<p class="!text-white !mb-3 text-sm opacity-90">Идея сильная — дизайнер и разработчик в одном Reanimated-пайплайне</p>
-
-<p class="!text-white !mb-0 text-sm"><strong>Сегодня — alpha.</strong> Следим за changelog.</p>
+<ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
+<li>Инструмент в <strong>alpha</strong> — сырой, функции и интерфейс ещё меняются</li>
+<li><strong>Нет публичной документации</strong> — главный ориентир changelog на keyframer.dev</li>
+<li>Подходит для <strong>простых сценариев</strong> — входная анимация, базовые жесты</li>
+<li>Автор — <strong>Catalin Miron</strong> (AnimateReactNative.com): годами строит продукты и обучение на Reanimated — можно ждать полноценный редактор</li>
+</ul>
 
 </div>
 
 <!--
-Speaker note: closing сегмента 6. Переход к «Вопросы?» в shell slides.md. Без live keyframer / Storybook / Expo.
+Я планировал реализовать через keyframer анимацию, с которой мы мучались в прошлом году, но на данный момент тул очень сырой, особенно когда нужны кастомные переходы, отсутствие документации как таковой тоже не упрощает жизнь. Но есть надежда что в будущем получится удобный инструмент для коллаборации.
 -->
