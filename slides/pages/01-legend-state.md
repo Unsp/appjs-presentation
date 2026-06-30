@@ -911,9 +911,14 @@ Render once не означает никаких апдейтов
 
 </div>
 
+<!--
+render once - не значит что апдейтов не должно быть впринципе, это означает что ререндеров должно быть по минимуму, а главный контейнер-компонент не должен перерисовываться вообще
+-->
+
 ---
 layout: full
 ---
+
 <h2 class="!text-white !mt-0 !mb-0 text-base font-bold text-center shrink-0 leading-tight">
 Legend State
 </h2>
@@ -991,3 +996,7 @@ It's extremely optimized with fine-grained reactivity and massively reduces re-r
 </div>
 
 </div>
+
+<!--
+И все это возможно благодаря библиотеке Legend State, однако на сегодняшний день остаются и другие стейт менеджеры, но LS является одним из наиболее быстрых
+-->
