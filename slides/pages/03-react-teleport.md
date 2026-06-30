@@ -362,6 +362,36 @@ layout: full
 layout: full
 ---
 
+<div class="flex flex-col items-start justify-start w-full h-full px-8 pt-4 pb-6 box-border leading-snug max-w-4xl gap-5">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">Что Teleport меняет?</h2>
+
+<div class="flex w-full flex-col gap-4">
+
+<div class="grid w-full grid-cols-[10rem_1fr] items-center gap-x-4 rounded-lg border border-red-800/70 bg-red-950/45 px-5 py-4">
+<strong class="text-lg leading-snug text-red-100">Без Teleport:</strong>
+<span class="text-lg leading-snug opacity-90">создаётся новый полноэкранный видеоплеер</span>
+</div>
+
+<div class="grid w-full grid-cols-[10rem_1fr] items-center gap-x-4 rounded-lg border border-emerald-800/70 bg-emerald-950/45 px-5 py-4">
+<strong class="text-lg leading-snug text-emerald-100">С Teleport:</strong>
+<span class="text-lg leading-snug opacity-90">существующий нативный видеоплеер просто перемещается</span>
+</div>
+
+</div>
+
+</div>
+
+<!--
+react-native-teleport меняет подход.
+Он не просит React пересоздать компонент в другом месте.
+React сохраняет ownership компонента, а native layer переносит view в другой container.
+-->
+
+---
+layout: full
+---
+
 <style>
 .rt-demo {
   --rt-cycle: 11s;
