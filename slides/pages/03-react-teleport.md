@@ -333,6 +333,35 @@ layout: full
 layout: full
 ---
 
+<div class="flex flex-col items-start justify-start w-full h-full px-8 pt-4 pb-6 box-border leading-snug max-w-3xl gap-4">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">Почему просто сохранить currentTime не достаточно?</h2>
+
+<p class="!text-white !mb-0 text-lg font-normal opacity-90 leading-relaxed text-left">Можно ли просто передать currentTime?</p>
+
+<p class="!text-white !mb-0 text-lg font-normal opacity-90 leading-relaxed text-left">Да, но мы всё равно потеряем:</p>
+
+<ul class="!text-white text-lg font-normal opacity-90 space-y-2 list-disc pl-5 m-0 leading-relaxed">
+<li>экземпляр нативного плеера</li>
+<li>буфер</li>
+<li>внутреннее состояние</li>
+<li>состояние анимаций</li>
+<li>состояние жестов</li>
+<li>уже декодированные кадры</li>
+</ul>
+
+</div>
+
+<!--
+Да, часть проблемы можно решить вручную: сохранить currentTime, передать его на новый экран и вызвать seek.
+Но это не то же самое, что сохранить player.
+Мы все равно пересоздаем native instance, заново инициализируем видео, можем потерять buffer и получить визуальный разрыв.
+-->
+
+---
+layout: full
+---
+
 <style>
 .rt-demo {
   --rt-cycle: 11s;
