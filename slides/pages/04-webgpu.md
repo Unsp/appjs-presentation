@@ -22,7 +22,8 @@ layout: full
 
 <h2 class="!text-white !mt-0 !mb-3 text-xl font-bold">Что это значит на практике</h2>
 
-<p class="!text-white !mb-3 text-sm opacity-90"><strong>react-native-webgpu</strong> — WebGPU на iOS и Android через <strong>Dawn</strong>. API совпадает с вебом: canvas, WGSL, тот же mental model, что в Chrome.</p>
+<p class="!text-white !mb-3 text-sm opacity-90"><strong>react-native-webgpu</strong> — WebGPU на iOS и Android через <strong>Dawn</strong>. API совпадает с вебом: canvas, WGSL.
+</p>
 
 <ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
 <li><strong>Native build</strong> — <code>expo prebuild</code></li>
@@ -33,7 +34,7 @@ layout: full
 </div>
 
 <!--
-Speaker note: react-native-webgpu, не react-native-wgpu. prebuild + New Arch — обязательны. Maturity: «молодой, но реальный» — не keyframer-alpha.
+WebGPU стал доступен на мобильных платформах благодаря гугловской имплементации Dawn. Использует нативные инструменты платформы, доступен только на новой архитектуре
 -->
 
 ---
@@ -47,15 +48,17 @@ layout: full
 <p class="!text-white !mb-3 text-sm opacity-90"><strong>react-native-webgpu</strong> — общий фундамент; сверху разные слои:</p>
 
 <ul class="!text-white text-sm space-y-2 list-disc pl-4 m-0">
-<li><strong>React Native Skia</strong> — переход с <strong>Ganesh</strong> (Metal / OpenGL) на <strong>Graphite</strong> / WebGPU (<code>@next</code>); тот же <code>&lt;Canvas&gt;</code>, шейдеры SKSL</li>
-<li><strong>Redraw</strong> — 2D UI на TypeGPU</li>
-<li><strong>Three.js / R3F</strong> — 3D в RN уже строится на том же WebGPU-стеке</li>
+<li><strong>React Native Skia</strong></li>
+<li><strong>Redraw</strong></li>
+<li><strong>Three.js / R3F</strong></li>
 </ul>
 
 </div>
 
 <!--
-Speaker note: ~1 мин обзор. Только Skia — реальная миграция backend (Ganesh → Graphite). Redraw — новый toolkit на TypeGPU, не «переезд». R3F изначально на этом стеке. Дальше: TypeGPU → код → зачем в продукте → Redraw подробнее...
+1. Skia — переход с Ganesh (Metal / OpenGL) на Graphite -  WebGPU 
+2. Redraw — 2D UI Kit на TypeGPU
+3. Three.js / R3F — 3D в RN уже строится на том же WebGPU-стеке
 -->
 
 ---
