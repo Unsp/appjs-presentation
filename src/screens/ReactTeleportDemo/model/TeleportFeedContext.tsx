@@ -1,68 +1,43 @@
-import { createContext, useContext, useMemo } from "react";
+import { useSelector } from "@legendapp/state/react";
+import { createContext, type RefObject,useContext, useMemo, useRef } from "react";
 import { type ViewStyle } from "react-native";
 
-import type { VideoSourceLayout } from "~shared/ui/feedVideoFullscreenTransition";
+import {
+  collapseTeleportVideo,
+  createTeleportFeedStore,
+  expandTeleportVideo,
+  type TeleportFeedStore,
+  toggleTeleportFeedMuted,
+} from "~screens/ReactTeleportDemo/model/teleportFeedStore";
+import type {
+  FeedVideoFullscreenTransition,
+  VideoSourceLayout,
+} from "~shared/ui/feedVideoFullscreenTransition";
 
 type TeleportFeedContextValue = {
-  activePostId: string;
-  collapseVideo: () => void;
-  expandVideo: (postId: string, layout: VideoSourceLayout) => void;
-  expandedPostId: string | null;
-  fullscreenBackdropStyle: ViewStyle;
-  fullscreenChromeStyle: ViewStyle;
-  fullscreenVideoStyle: ViewStyle;
-  isMuted: boolean;
-  toggleMuted: () => void;
+  store$: TeleportFeedStore;
+  transitionRef: RefObject<FeedVideoFullscreenTransition>;
 };
 
 const TeleportFeedContext = createContext<TeleportFeedContextValue | null>(null);
 
 export function TeleportFeedProvider({
-  activePostId,
   children,
-  collapseVideo,
-  expandVideo,
-  expandedPostId,
-  fullscreenBackdropStyle,
-  fullscreenChromeStyle,
-  fullscreenVideoStyle,
-  isMuted,
-  toggleMuted,
+  transition,
 }: {
-  activePostId: string;
   children: React.ReactNode;
-  collapseVideo: () => void;
-  expandVideo: (postId: string, layout: VideoSourceLayout) => void;
-  expandedPostId: string | null;
-  fullscreenBackdropStyle: ViewStyle;
-  fullscreenChromeStyle: ViewStyle;
-  fullscreenVideoStyle: ViewStyle;
-  isMuted: boolean;
-  toggleMuted: () => void;
+  transition: FeedVideoFullscreenTransition;
 }) {
+  const store$ = useMemo(() => createTeleportFeedStore(), []);
+  const transitionRef = useRef(transition);
+  transitionRef.current = transition;
+
   const value = useMemo(
     () => ({
-      activePostId,
-      collapseVideo,
-      expandVideo,
-      expandedPostId,
-      fullscreenBackdropStyle,
-      fullscreenChromeStyle,
-      fullscreenVideoStyle,
-      isMuted,
-      toggleMuted,
+      store$,
+      transitionRef,
     }),
-    [
-      activePostId,
-      collapseVideo,
-      expandVideo,
-      expandedPostId,
-      fullscreenBackdropStyle,
-      fullscreenChromeStyle,
-      fullscreenVideoStyle,
-      isMuted,
-      toggleMuted,
-    ],
+    [store$],
   );
 
   return (
@@ -72,53 +47,99 @@ export function TeleportFeedProvider({
   );
 }
 
-function useTeleportFeed(): TeleportFeedContextValue {
+function useTeleportFeedContext(): TeleportFeedContextValue {
   const value = useContext(TeleportFeedContext);
   if (value == null) {
-    throw new Error("useTeleportFeed must be used within TeleportFeedProvider");
+    throw new Error("useTeleportFeedContext must be used within TeleportFeedProvider");
   }
   return value;
 }
 
+export function useTeleportFeedStore(): TeleportFeedStore {
+  return useTeleportFeedContext().store$;
+}
+
 export function useIsTeleportPostActive(postId: string): boolean {
-  const { activePostId, expandedPostId } = useTeleportFeed();
-  if (expandedPostId != null) {
-    return expandedPostId === postId;
-  }
-  return activePostId === postId;
+  const { store$ } = useTeleportFeedContext();
+
+  return useSelector(() => {
+    const expandedPostId = store$.expandedPostId.get();
+    if (expandedPostId != null) {
+      return expandedPostId === postId;
+    }
+
+    return store$.activePostId.get() === postId;
+  });
+}
+
+export function useIsTeleportVideoExpanded(postId: string): boolean {
+  const { store$ } = useTeleportFeedContext();
+
+  return useSelector(() => store$.expandedPostId.get() === postId);
+}
+
+export function useTeleportFeedExpandedPostId(): string | null {
+  const { store$ } = useTeleportFeedContext();
+
+  return useSelector(() => store$.expandedPostId.get());
 }
 
 export function useTeleportFeedMuted(): boolean {
-  return useTeleportFeed().isMuted;
+  const { store$ } = useTeleportFeedContext();
+
+  return useSelector(() => store$.isMuted.get());
 }
 
 export function useToggleTeleportFeedMuted(): () => void {
-  return useTeleportFeed().toggleMuted;
+  const { store$ } = useTeleportFeedContext();
+
+  return useMemo(
+    () => () => {
+      toggleTeleportFeedMuted(store$);
+    },
+    [store$],
+  );
 }
 
 export function useExpandTeleportVideo(): (
   postId: string,
   layout: VideoSourceLayout,
 ) => void {
-  return useTeleportFeed().expandVideo;
+  const { store$, transitionRef } = useTeleportFeedContext();
+
+  return useMemo(
+    () => (postId: string, layout: VideoSourceLayout) => {
+      expandTeleportVideo(store$, transitionRef.current, postId, layout);
+    },
+    [store$, transitionRef],
+  );
 }
 
 export function useCollapseTeleportVideo(): () => void {
-  return useTeleportFeed().collapseVideo;
+  const { store$, transitionRef } = useTeleportFeedContext();
+
+  return useMemo(
+    () => () => {
+      collapseTeleportVideo(store$, transitionRef.current);
+    },
+    [store$, transitionRef],
+  );
 }
 
-export function useIsTeleportVideoExpanded(postId: string): boolean {
-  return useTeleportFeed().expandedPostId === postId;
+export function useTeleportFullscreenVideoStyle(): ViewStyle {
+  const { transitionRef } = useTeleportFeedContext();
+
+  return transitionRef.current.videoStyle;
 }
 
-export function useTeleportFullscreenVideoStyle(): TeleportFeedContextValue["fullscreenVideoStyle"] {
-  return useTeleportFeed().fullscreenVideoStyle;
+export function useTeleportFullscreenChromeStyle(): ViewStyle {
+  const { transitionRef } = useTeleportFeedContext();
+
+  return transitionRef.current.chromeStyle;
 }
 
-export function useTeleportFullscreenChromeStyle(): TeleportFeedContextValue["fullscreenChromeStyle"] {
-  return useTeleportFeed().fullscreenChromeStyle;
-}
+export function useTeleportFullscreenBackdropStyle(): ViewStyle {
+  const { transitionRef } = useTeleportFeedContext();
 
-export function useTeleportFullscreenBackdropStyle(): TeleportFeedContextValue["fullscreenBackdropStyle"] {
-  return useTeleportFeed().fullscreenBackdropStyle;
+  return transitionRef.current.backdropStyle;
 }

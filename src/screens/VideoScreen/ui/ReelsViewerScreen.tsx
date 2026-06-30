@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -13,6 +13,10 @@ import {
   type FeedPost,
   getFeedPostIndex,
 } from "~screens/VideoScreen/model/feedPosts";
+import {
+  createReelsViewerStore,
+  setReelsActivePostId,
+} from "~screens/VideoScreen/model/reelsViewerStore";
 import { ReelsPostSlide } from "~screens/VideoScreen/ui/components/ReelsPostSlide";
 
 type ReelsViewerScreenProps = {
@@ -22,18 +26,20 @@ type ReelsViewerScreenProps = {
 export function ReelsViewerScreen({ initialPostId }: ReelsViewerScreenProps) {
   const { height } = useWindowDimensions();
   const initialIndex = getFeedPostIndex(initialPostId);
-  const [activePostId, setActivePostId] = useState<string>(
-    FEED_POSTS[initialIndex]?.id ?? FEED_POSTS[0]?.id ?? "",
+  const initialActivePostId = FEED_POSTS[initialIndex]?.id ?? FEED_POSTS[0]?.id ?? "";
+  const store$ = useMemo(
+    () => createReelsViewerStore(initialActivePostId),
+    [initialActivePostId],
   );
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: ViewToken<FeedPost>[] }) => {
       const nextActiveId = viewableItems.find((item) => item.isViewable)?.item.id;
       if (nextActiveId) {
-        setActivePostId(nextActiveId);
+        setReelsActivePostId(store$, nextActiveId);
       }
     },
-    [],
+    [store$],
   );
 
   const viewabilityConfig = useRef({
@@ -58,9 +64,9 @@ export function ReelsViewerScreen({ initialPostId }: ReelsViewerScreenProps) {
         pagingEnabled
         renderItem={({ item }) => (
           <ReelsPostSlide
-            isActive={item.id === activePostId}
             isOpenTarget={item.id === initialPostId}
             post={item}
+            store$={store$}
           />
         )}
         showsVerticalScrollIndicator={false}

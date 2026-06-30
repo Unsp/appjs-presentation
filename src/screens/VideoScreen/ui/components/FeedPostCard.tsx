@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useObservable, useSelector } from "@legendapp/state/react";
 import { usePathname, useRouter } from "expo-router";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -35,7 +36,8 @@ export function FeedPostCard({ post }: FeedPostCardProps) {
   const isFeedVisible = !pathname.startsWith("/reels");
   const { width } = useWindowDimensions();
   const videoHeight = width * 1.15;
-  const [isLiked, setIsLiked] = useState(false);
+  const isLiked$ = useObservable(false);
+  const isLiked = useSelector(() => isLiked$.get());
   const videoWrapRef = useRef<View>(null);
 
   const player = useVideoPlayer(post.videoSource, (instance) => {
@@ -133,7 +135,7 @@ export function FeedPostCard({ post }: FeedPostCardProps) {
         isLiked={isLiked}
         likesLabel={post.likesLabel}
         onToggleLike={() => {
-          setIsLiked((current) => !current);
+          isLiked$.set((current) => !current);
         }}
         onToggleSave={() => {}}
         savesLabel={post.savesLabel}

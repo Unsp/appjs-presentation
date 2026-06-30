@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useObservable, useSelector } from "@legendapp/state/react";
 import { useRouter } from "expo-router";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -17,22 +18,25 @@ import {
   clearFeedVideoTransitionSource,
   getFeedVideoTransitionSource,
 } from "~screens/VideoScreen/model/feedVideoTransitionStore";
+import type { ReelsViewerStore } from "~screens/VideoScreen/model/reelsViewerStore";
 import { FeedAvatar } from "~screens/VideoScreen/ui/components/FeedAvatar";
 import { ReelsSideActions } from "~screens/VideoScreen/ui/components/ReelsSideActions";
 import { useFeedVideoFullscreenTransition } from "~shared/ui/feedVideoFullscreenTransition";
 import { FullscreenSwipeDismiss } from "~shared/ui/FullscreenSwipeDismiss";
 
 type ReelsPostSlideProps = {
-  isActive: boolean;
   isOpenTarget: boolean;
   post: FeedPost;
+  store$: ReelsViewerStore;
 };
 
-export function ReelsPostSlide({ isActive, isOpenTarget, post }: ReelsPostSlideProps) {
+export function ReelsPostSlide({ isOpenTarget, post, store$ }: ReelsPostSlideProps) {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { height, width } = useWindowDimensions();
-  const [isLiked, setIsLiked] = useState(true);
+  const isActive = useSelector(() => store$.activePostId.get() === post.id);
+  const isLiked$ = useObservable(true);
+  const isLiked = useSelector(() => isLiked$.get());
   const didStartOpenTransition = useRef(false);
   const hasOpenTransition = useRef(isOpenTarget && getFeedVideoTransitionSource() != null);
 
@@ -157,7 +161,7 @@ export function ReelsPostSlide({ isActive, isOpenTarget, post }: ReelsPostSlideP
             isLiked={isLiked}
             likesLabel={post.likesLabel}
             onToggleLike={() => {
-              setIsLiked((current) => !current);
+              isLiked$.set((current) => !current);
             }}
             sharesLabel={post.sharesLabel}
           />

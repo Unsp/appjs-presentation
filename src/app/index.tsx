@@ -1,5 +1,5 @@
-import { ReactTeleportScreen } from "~screens/ReactTeleportDemo/ReactTeleportScreen";
+import {DemoScreen} from "~screens/DemoScreen";
 
 export default function IndexRoute() {
-  return <ReactTeleportScreen />;
+  return <DemoScreen />;
 }

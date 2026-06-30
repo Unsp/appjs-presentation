@@ -1,6 +1,6 @@
 import { LegendList, LegendListRenderItemProps } from "@legendapp/list/react-native";
 import { StatusBar } from "expo-status-bar";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -10,8 +10,15 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { FeedPlaybackProvider } from "~screens/VideoScreen/model/FeedPlaybackContext";
-import { findActivePostIdForViewportCenter } from "~screens/VideoScreen/model/feedPostLayout";
+import {
+  FeedPlaybackProvider,
+  useFeedPlaybackStore,
+} from "~screens/VideoScreen/model/FeedPlaybackContext";
+import {
+  setFeedListHeight,
+  setFeedScrollY,
+  syncFeedActivePost,
+} from "~screens/VideoScreen/model/feedPlaybackStore";
 import {
   FEED_POSTS,
   type FeedPost,
@@ -19,45 +26,44 @@ import {
 import { FeedBottomNav } from "~screens/VideoScreen/ui/components/FeedBottomNav";
 import { FeedPostCard } from "~screens/VideoScreen/ui/components/FeedPostCard";
 
-export function VideoScreen() {
-  const insets = useSafeAreaInsets();
-  const { width: screenWidth } = useWindowDimensions();
-  const [listHeight, setListHeight] = useState(0);
-  const [activePostId, setActivePostId] = useState<string>(FEED_POSTS[0]?.id ?? "");
-  const [isMuted, setIsMuted] = useState(true);
+function FeedListBootstrap({
+  safeAreaTop,
+  screenWidth,
+}: {
+  safeAreaTop: number;
+  screenWidth: number;
+}) {
+  const store$ = useFeedPlaybackStore();
 
-  const toggleMuted = useCallback(() => {
-    setIsMuted((current) => !current);
-  }, []);
-
-  const syncActivePost = useCallback(
-    (scrollY: number) => {
-      if (listHeight <= 0) {
+  useEffect(() => {
+    return store$.listHeight.onChange(({ value }) => {
+      if (value <= 0) {
         return;
       }
 
-      const nextId = findActivePostIdForViewportCenter(
-        scrollY,
-        listHeight,
-        insets.top,
-        screenWidth,
-        FEED_POSTS,
-      );
+      syncFeedActivePost(store$, store$.scrollY.get(), safeAreaTop, screenWidth);
+    });
+  }, [safeAreaTop, screenWidth, store$]);
 
-      setActivePostId((current) => (current === nextId ? current : nextId));
-    },
-    [insets.top, listHeight, screenWidth],
-  );
+  return null;
+}
 
-  useEffect(() => {
-    syncActivePost(0);
-  }, [syncActivePost]);
+function FeedList({
+  safeAreaTop,
+  screenWidth,
+}: {
+  safeAreaTop: number;
+  screenWidth: number;
+}) {
+  const store$ = useFeedPlaybackStore();
 
   const onScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-      syncActivePost(event.nativeEvent.contentOffset.y);
+      const scrollY = event.nativeEvent.contentOffset.y;
+      setFeedScrollY(store$, scrollY);
+      syncFeedActivePost(store$, scrollY, safeAreaTop, screenWidth);
     },
-    [syncActivePost],
+    [safeAreaTop, screenWidth, store$],
   );
 
   const renderItem = useCallback(
@@ -68,32 +74,45 @@ export function VideoScreen() {
   );
 
   return (
-    <FeedPlaybackProvider
-      activePostId={activePostId}
-      isMuted={isMuted}
-      toggleMuted={toggleMuted}
+    <View
+      onLayout={(event) => {
+        setFeedListHeight(store$, event.nativeEvent.layout.height);
+      }}
+      style={styles.listWrap}
     >
+      <LegendList
+        contentContainerStyle={{ paddingTop: safeAreaTop }}
+        data={FEED_POSTS}
+        keyExtractor={(item) => item.id}
+        maintainVisibleContentPosition
+        onScroll={onScroll}
+        renderItem={renderItem}
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        style={styles.list}
+      />
+    </View>
+  );
+}
+
+export function VideoScreen() {
+  const insets = useSafeAreaInsets();
+  const { width: screenWidth } = useWindowDimensions();
+
+  return (
+    <FeedPlaybackProvider>
       <View style={styles.root}>
         <StatusBar style="light" />
 
-        <View
-          onLayout={(event) => {
-            setListHeight(event.nativeEvent.layout.height);
-          }}
-          style={styles.listWrap}
-        >
-          <LegendList
-            contentContainerStyle={{ paddingTop: insets.top }}
-            data={FEED_POSTS}
-            keyExtractor={(item) => item.id}
-            maintainVisibleContentPosition
-            onScroll={onScroll}
-            renderItem={renderItem}
-            scrollEventThrottle={16}
-            showsVerticalScrollIndicator={false}
-            style={styles.list}
-          />
-        </View>
+        <FeedListBootstrap
+          safeAreaTop={insets.top}
+          screenWidth={screenWidth}
+        />
+
+        <FeedList
+          safeAreaTop={insets.top}
+          screenWidth={screenWidth}
+        />
 
         <FeedBottomNav activeTab="home" />
       </View>

@@ -1,56 +1,55 @@
+import { useSelector } from "@legendapp/state/react";
 import { createContext, useContext, useMemo } from "react";
 
-type FeedPlaybackContextValue = {
-  activePostId: string;
-  isMuted: boolean;
-  toggleMuted: () => void;
-};
+import {
+  createFeedPlaybackStore,
+  type FeedPlaybackStore,
+  toggleFeedPlaybackMuted,
+} from "~screens/VideoScreen/model/feedPlaybackStore";
 
-const FeedPlaybackContext = createContext<FeedPlaybackContextValue | null>(null);
+const FeedPlaybackContext = createContext<FeedPlaybackStore | null>(null);
 
 export function FeedPlaybackProvider({
-  activePostId,
   children,
-  isMuted,
-  toggleMuted,
 }: {
-  activePostId: string;
   children: React.ReactNode;
-  isMuted: boolean;
-  toggleMuted: () => void;
 }) {
-  const value = useMemo(
-    () => ({
-      activePostId,
-      isMuted,
-      toggleMuted,
-    }),
-    [activePostId, isMuted, toggleMuted],
-  );
+  const store$ = useMemo(() => createFeedPlaybackStore(), []);
 
   return (
-    <FeedPlaybackContext.Provider value={value}>
+    <FeedPlaybackContext.Provider value={store$}>
       {children}
     </FeedPlaybackContext.Provider>
   );
 }
 
-function useFeedPlayback(): FeedPlaybackContextValue {
-  const value = useContext(FeedPlaybackContext);
-  if (value == null) {
-    throw new Error("useFeedPlayback must be used within FeedPlaybackProvider");
+export function useFeedPlaybackStore(): FeedPlaybackStore {
+  const store$ = useContext(FeedPlaybackContext);
+  if (store$ == null) {
+    throw new Error("useFeedPlaybackStore must be used within FeedPlaybackProvider");
   }
-  return value;
+  return store$;
 }
 
 export function useIsFeedPostActive(postId: string): boolean {
-  return useFeedPlayback().activePostId === postId;
+  const store$ = useFeedPlaybackStore();
+
+  return useSelector(() => store$.activePostId.get() === postId);
 }
 
 export function useFeedMuted(): boolean {
-  return useFeedPlayback().isMuted;
+  const store$ = useFeedPlaybackStore();
+
+  return useSelector(() => store$.isMuted.get());
 }
 
 export function useToggleFeedMuted(): () => void {
-  return useFeedPlayback().toggleMuted;
+  const store$ = useFeedPlaybackStore();
+
+  return useMemo(
+    () => () => {
+      toggleFeedPlaybackMuted(store$);
+    },
+    [store$],
+  );
 }

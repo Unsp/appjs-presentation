@@ -1,6 +1,7 @@
 import { LegendList, LegendListRenderItemProps } from "@legendapp/list/react-native";
+import { useSelector } from "@legendapp/state/react";
 import { StatusBar } from "expo-status-bar";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import {
   NativeScrollEvent,
   NativeSyntheticEvent,
@@ -13,98 +14,71 @@ import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PortalHost, PortalProvider } from "react-native-teleport";
 
-import { TeleportFeedProvider } from "~screens/ReactTeleportDemo/model/TeleportFeedContext";
+import {
+  TeleportFeedProvider,
+  useCollapseTeleportVideo,
+  useTeleportFeedExpandedPostId,
+  useTeleportFeedStore,
+  useTeleportFullscreenBackdropStyle,
+} from "~screens/ReactTeleportDemo/model/TeleportFeedContext";
+import {
+  setTeleportListHeight,
+  setTeleportScrollY,
+  syncTeleportActivePost,
+} from "~screens/ReactTeleportDemo/model/teleportFeedStore";
 import { TELEPORT_VIDEO_HOST } from "~screens/ReactTeleportDemo/model/teleportHost";
 import { TeleportFeedPostCard } from "~screens/ReactTeleportDemo/ui/components/TeleportFeedPostCard";
-import { findActivePostIdForViewportCenter } from "~screens/VideoScreen/model/feedPostLayout";
 import {
   FEED_POSTS,
   type FeedPost,
 } from "~screens/VideoScreen/model/feedPosts";
 import { FeedBottomNav } from "~screens/VideoScreen/ui/components/FeedBottomNav";
-import {
-  useFeedVideoFullscreenTransition,
-  type VideoSourceLayout,
-} from "~shared/ui/feedVideoFullscreenTransition";
+import { useFeedVideoFullscreenTransition } from "~shared/ui/feedVideoFullscreenTransition";
 import { FullscreenSwipeDismiss } from "~shared/ui/FullscreenSwipeDismiss";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export function ReactTeleportScreen() {
-  const insets = useSafeAreaInsets();
-  const { height: screenHeight, width: screenWidth } = useWindowDimensions();
-  const {
-    backdropStyle: fullscreenBackdropStyle,
-    chromeStyle: fullscreenChromeStyle,
-    prepareSource,
-    runCollapse,
-    runExpand,
-    videoStyle: fullscreenVideoStyle,
-  } = useFeedVideoFullscreenTransition(screenWidth, screenHeight);
-  const [listHeight, setListHeight] = useState(0);
-  const [activePostId, setActivePostId] = useState<string>(FEED_POSTS[0]?.id ?? "");
-  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
-  const [isMuted, setIsMuted] = useState(true);
-  const scrollYRef = useRef(0);
-  const expandedPostIdRef = useRef<string | null>(null);
-  expandedPostIdRef.current = expandedPostId;
+function TeleportFullscreenOverlay() {
+  const collapseVideo = useCollapseTeleportVideo();
+  const fullscreenBackdropStyle = useTeleportFullscreenBackdropStyle();
 
-  const toggleMuted = useCallback(() => {
-    setIsMuted((current) => !current);
-  }, []);
+  return (
+    <FullscreenSwipeDismiss
+      onDismiss={collapseVideo}
+      style={styles.fullscreenOverlay}
+    >
+      <AnimatedPressable
+        accessibilityLabel="Закрыть полноэкранное видео"
+        accessibilityRole="button"
+        onPress={collapseVideo}
+        style={[StyleSheet.absoluteFill, styles.backdrop, fullscreenBackdropStyle]}
+      />
 
-  const expandVideo = useCallback(
-    (postId: string, layout: VideoSourceLayout) => {
-      prepareSource(layout);
-      setExpandedPostId(postId);
-      setActivePostId(postId);
-      requestAnimationFrame(() => {
-        runExpand();
-      });
-    },
-    [prepareSource, runExpand],
+      <PortalHost
+        name={TELEPORT_VIDEO_HOST}
+        style={StyleSheet.absoluteFill}
+      />
+    </FullscreenSwipeDismiss>
   );
+}
 
-  const collapseVideo = useCallback(() => {
-    runCollapse(() => {
-      setExpandedPostId(null);
-    });
-  }, [runCollapse]);
-
-  const syncActivePost = useCallback(
-    (scrollY: number) => {
-      if (listHeight <= 0 || expandedPostIdRef.current != null) {
-        return;
-      }
-
-      const nextId = findActivePostIdForViewportCenter(
-        scrollY,
-        listHeight,
-        insets.top,
-        screenWidth,
-        FEED_POSTS,
-      );
-
-      setActivePostId((current) => (current === nextId ? current : nextId));
-    },
-    [insets.top, listHeight, screenWidth],
-  );
-
-  useEffect(() => {
-    if (listHeight <= 0) {
-      return;
-    }
-
-    syncActivePost(scrollYRef.current);
-  }, [listHeight, syncActivePost]);
+function TeleportFeedList({
+  safeAreaTop,
+  screenWidth,
+}: {
+  safeAreaTop: number;
+  screenWidth: number;
+}) {
+  const store$ = useTeleportFeedStore();
+  const expandedPostId = useSelector(() => store$.expandedPostId.get());
 
   const onScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const scrollY = event.nativeEvent.contentOffset.y;
-      scrollYRef.current = scrollY;
-      syncActivePost(scrollY);
+      setTeleportScrollY(store$, scrollY);
+      syncTeleportActivePost(store$, scrollY, safeAreaTop, screenWidth);
     },
-    [syncActivePost],
+    [safeAreaTop, screenWidth, store$],
   );
 
   const renderItem = useCallback(
@@ -115,66 +89,105 @@ export function ReactTeleportScreen() {
   );
 
   return (
+    <View
+      onLayout={(event) => {
+        setTeleportListHeight(store$, event.nativeEvent.layout.height);
+      }}
+      style={styles.listWrap}
+    >
+      <LegendList
+        contentContainerStyle={{ paddingTop: safeAreaTop }}
+        data={FEED_POSTS}
+        keyExtractor={(item) => item.id}
+        maintainVisibleContentPosition
+        onScroll={onScroll}
+        renderItem={renderItem}
+        scrollEnabled={expandedPostId == null}
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        style={styles.list}
+      />
+    </View>
+  );
+}
+
+function TeleportFeedBootstrap({
+  safeAreaTop,
+  screenWidth,
+}: {
+  safeAreaTop: number;
+  screenWidth: number;
+}) {
+  const store$ = useTeleportFeedStore();
+
+  useEffect(() => {
+    const listHeight = store$.listHeight.get();
+    if (listHeight <= 0) {
+      return;
+    }
+
+    syncTeleportActivePost(store$, store$.scrollY.get(), safeAreaTop, screenWidth);
+  }, [safeAreaTop, screenWidth, store$]);
+
+  useEffect(() => {
+    return store$.listHeight.onChange(({ value }) => {
+      if (value <= 0) {
+        return;
+      }
+
+      syncTeleportActivePost(store$, store$.scrollY.get(), safeAreaTop, screenWidth);
+    });
+  }, [safeAreaTop, screenWidth, store$]);
+
+  return null;
+}
+
+function TeleportPortalHost() {
+  const expandedPostId = useTeleportFeedExpandedPostId();
+
+  if (expandedPostId != null) {
+    return <TeleportFullscreenOverlay />;
+  }
+
+  return (
+    <PortalHost
+      name={TELEPORT_VIDEO_HOST}
+      style={styles.portalHostHidden}
+    />
+  );
+}
+
+export function ReactTeleportScreen() {
+  const insets = useSafeAreaInsets();
+  const { height: screenHeight, width: screenWidth } = useWindowDimensions();
+  const transition = useFeedVideoFullscreenTransition(screenWidth, screenHeight);
+
+  const layout = useMemo(
+    () => ({
+      safeAreaTop: insets.top,
+      screenWidth,
+    }),
+    [insets.top, screenWidth],
+  );
+
+  return (
     <PortalProvider>
-      <TeleportFeedProvider
-        activePostId={activePostId}
-        collapseVideo={collapseVideo}
-        expandVideo={expandVideo}
-        expandedPostId={expandedPostId}
-        fullscreenBackdropStyle={fullscreenBackdropStyle}
-        fullscreenChromeStyle={fullscreenChromeStyle}
-        fullscreenVideoStyle={fullscreenVideoStyle}
-        isMuted={isMuted}
-        toggleMuted={toggleMuted}
-      >
+      <TeleportFeedProvider transition={transition}>
         <View style={styles.root}>
           <StatusBar style="light" />
 
-          <View
-            onLayout={(event) => {
-              setListHeight(event.nativeEvent.layout.height);
-            }}
-            style={styles.listWrap}
-          >
-            <LegendList
-              contentContainerStyle={{ paddingTop: insets.top }}
-              data={FEED_POSTS}
-              keyExtractor={(item) => item.id}
-              maintainVisibleContentPosition
-              onScroll={onScroll}
-              renderItem={renderItem}
-              scrollEnabled={expandedPostId == null}
-              scrollEventThrottle={16}
-              showsVerticalScrollIndicator={false}
-              style={styles.list}
-            />
-          </View>
+          <TeleportFeedBootstrap
+            safeAreaTop={layout.safeAreaTop}
+            screenWidth={layout.screenWidth}
+          />
+
+          <TeleportFeedList
+            safeAreaTop={layout.safeAreaTop}
+            screenWidth={layout.screenWidth}
+          />
 
           <FeedBottomNav activeTab="home" />
-
-          {expandedPostId != null ? (
-            <FullscreenSwipeDismiss
-              onDismiss={collapseVideo}
-              style={styles.fullscreenOverlay}
-            >
-              <AnimatedPressable
-                accessibilityLabel="Закрыть полноэкранное видео"
-                accessibilityRole="button"
-                onPress={collapseVideo}
-                style={[StyleSheet.absoluteFill, styles.backdrop, fullscreenBackdropStyle]}
-              />
-
-              <PortalHost
-                name={TELEPORT_VIDEO_HOST}
-                style={StyleSheet.absoluteFill}
-              />
-            </FullscreenSwipeDismiss>
-          ) : (
-            <PortalHost
-              name={TELEPORT_VIDEO_HOST}
-              style={styles.portalHostHidden}
-            />
-          )}
+          <TeleportPortalHost />
         </View>
       </TeleportFeedProvider>
     </PortalProvider>
