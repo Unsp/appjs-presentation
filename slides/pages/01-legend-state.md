@@ -684,11 +684,11 @@ layout: full
 Context + Observable = Минимум ререндеров
 </h2>
 
-<div class="grid grid-cols-2 gap-3 flex-1 min-h-0 items-start">
+<div class="grid grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-4 flex-1 min-h-0 items-stretch">
 
-<div class="min-h-0 overflow-hidden">
+<div class="h-full min-h-0 rounded-lg bg-zinc-800/90 border border-zinc-700 p-2 flex flex-col justify-center [&_pre]:!m-0 [&_pre]:!p-2 [&_pre]:!text-xs [&_pre]:!leading-snug [&_pre]:!max-h-none [&_pre]:!overflow-visible [&_pre]:!whitespace-pre">
 
-```tsx {maxHeight:'240px'}
+```tsx
 function ReplyIdProvider({ children }) {
   const replyState$ = useObservable({
     replyId: '',
@@ -713,27 +713,11 @@ function useIsReplyMessage(messageId: string) {
 
 </div>
 
-<div class="flex flex-col gap-1.5 min-h-0">
+<div class="h-full min-h-0 flex flex-col justify-center gap-3 rounded-lg bg-zinc-800/90 border border-zinc-700 px-3 py-3">
 
-<h3 class="!text-white !mt-0 !mb-0 text-sm font-bold">Что происходит?</h3>
+<h3 class="!text-white !mt-0 !mb-0 text-sm font-bold text-center">Главное отличие</h3>
 
-<ul class="!text-white text-xs space-y-1 list-disc pl-4 m-0">
-<li><strong>Context передаёт стабильный Observable</strong>, не меняющийся объект state.</li>
-<li><strong>Provider не ререндерится</strong> — ссылка на Observable неизменна.</li>
-<li><strong><code>useContext()</code> только получает Observable</strong>, не подписывает компонент.</li>
-<li><strong>Подписка через <code>useValue()</code></strong> — там, где данные используются.</li>
-<li><strong>Derived Value</strong> (<code>replyId === messageId</code>) — обновляются только нужные компоненты.</li>
-</ul>
-
-</div>
-
-</div>
-
-<div class="shrink-0 rounded-lg bg-zinc-800/90 border border-zinc-700 px-3 py-2">
-
-<h3 class="!text-white !mt-0 !mb-1.5 text-sm font-bold text-center">Главное отличие</h3>
-
-<div class="grid grid-cols-[1fr_auto_1fr] gap-2 items-center text-xs text-white">
+<div class="flex flex-col items-center gap-2 text-xs text-white">
 
 <div class="flex flex-wrap items-center justify-center gap-1">
 <span class="rounded bg-zinc-700 px-2 py-0.5">Context</span>
@@ -743,7 +727,7 @@ function useIsReplyMessage(messageId: string) {
 <span class="rounded bg-zinc-700 px-2 py-0.5">Render</span>
 </div>
 
-<span class="text-zinc-500 font-bold text-center">vs</span>
+<span class="text-zinc-500 font-bold">vs</span>
 
 <div class="flex flex-wrap items-center justify-center gap-1">
 <span class="rounded bg-sky-900/60 px-2 py-0.5 border border-sky-700/50">Context</span>
@@ -757,13 +741,26 @@ function useIsReplyMessage(messageId: string) {
 
 </div>
 
-<p class="!text-white !mt-1.5 !mb-0 text-xs text-center opacity-90">
+<p class="!text-white !mt-0 !mb-0 text-xs text-center opacity-90">
 <strong>Context становится транспортом данных, а не источником ререндеров.</strong>
 </p>
 
 </div>
 
 </div>
+
+</div>
+
+<!--
+Использование контекста перестает быть болью, и вот почему:
+
+Что происходит?
+- Context передаёт стабильный Observable, не меняющийся объект state.
+- Provider не ререндерится — ссылка на Observable неизменна.
+- useContext() только получает Observable, не подписывает компонент.
+- Подписка через useValue() — там, где данные используются.
+- Derived Value (replyId === messageId) — обновляются только нужные компоненты.
+-->
 
 ---
 layout: full
