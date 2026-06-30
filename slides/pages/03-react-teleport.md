@@ -214,11 +214,83 @@ layout: full
 layout: full
 ---
 
-<div class="flex flex-col items-start justify-center w-full h-full px-8 py-6 box-border leading-snug max-w-3xl">
+<div class="flex flex-col justify-center w-full h-full px-8 py-6 box-border leading-snug gap-6">
 
-<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left">У React нет операции "переместить"</h2>
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">У React нет операции "переместить"</h2>
+
+<div class="flex w-full justify-center">
+
+<div class="flex w-full max-w-xs flex-col items-stretch gap-3">
+
+<div class="flex w-full flex-col items-stretch gap-2">
+<span class="rounded-lg border border-zinc-600 bg-zinc-800/90 px-3 py-2 text-center text-sm font-medium text-white">Parent A</span>
+<span class="text-center text-xs uppercase tracking-wide text-white/45">move</span>
+<span class="text-center text-lg leading-none text-white/45">↓</span>
+<span class="rounded-lg border border-zinc-600 bg-zinc-800/90 px-3 py-2 text-center text-sm font-medium text-white">Parent B</span>
+</div>
+
+<div class="w-full py-1 text-center text-3xl font-light leading-none text-white/40">=</div>
+
+<div class="flex w-full flex-col items-stretch gap-2">
+<span class="rounded-lg border border-red-800/70 bg-red-950/45 px-3 py-2 text-center text-sm font-medium text-red-100">unmount from A</span>
+<span class="text-center text-2xl font-light leading-none text-white/40">+</span>
+<span class="rounded-lg border border-emerald-800/70 bg-emerald-950/45 px-3 py-2 text-center text-sm font-medium text-emerald-100">mount in B</span>
+</div>
 
 </div>
+
+</div>
+
+</div>
+
+<!--
+В React mental model нет операции move.
+Если элемент был у одного parent, а потом должен оказаться у другого parent, React воспринимает это как delete + create.
+Для простого View это не страшно.
+Но для видео, карты, камеры или сложной анимации это уже заметно.
+-->
+
+---
+layout: full
+---
+
+<div class="flex flex-col items-start justify-start w-full h-full px-8 pt-4 pb-6 box-border leading-snug max-w-4xl gap-5">
+
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">Почему remount это действительно проблема</h2>
+
+<div class="grid w-full grid-cols-2 gap-8 items-start pt-12">
+
+<div class="min-w-0">
+<h3 class="!text-white !mt-0 !mb-3 text-lg font-bold">Тяжелые UI компоненты</h3>
+<ul class="!text-white text-base font-normal opacity-90 space-y-2 list-disc pl-5 m-0 leading-relaxed">
+<li>Видео</li>
+<li>Карта</li>
+<li>Камера</li>
+<li>WebView</li>
+<li>High-res изображения</li>
+<li>Анимированные стикеры</li>
+</ul>
+</div>
+
+<div class="min-w-0">
+<h3 class="!text-white !mt-0 !mb-3 text-lg font-bold">Последствия</h3>
+<ul class="!text-white text-base font-normal opacity-90 space-y-2 list-disc pl-5 m-0 leading-relaxed">
+<li>Мерцание</li>
+<li>Черный кадр</li>
+<li>Потеря буфера</li>
+<li>Потеря позиции воспроизведения</li>
+<li>Стоимость повторной инициализации</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+
+<!--
+Когда пересоздается тяжелый native view, пользователь может увидеть flicker, black frame или loading state.
+Для видео это особенно заметно: можно потерять buffer, playback position или получить паузу между inline и fullscreen состоянием.
+-->
 
 ---
 layout: full
