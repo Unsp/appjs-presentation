@@ -300,13 +300,13 @@ layout: full
 layout: full
 ---
 
-<div class="flex flex-col items-center w-full h-full px-6 pt-4 pb-4 box-border min-h-0">
+<div class="grid h-full w-full grid-rows-[auto_1fr] px-8 py-6 box-border min-h-0 overflow-hidden gap-4">
 
-<h2 class="!text-white !mt-0 !mb-3 text-2xl font-bold tracking-tight text-center shrink-0 whitespace-nowrap">Демо</h2>
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight text-center shrink-0 whitespace-nowrap">Демо</h2>
 
-<div class="flex flex-1 w-full min-h-0 items-center justify-center overflow-hidden">
+<div class="flex min-h-0 items-center justify-center overflow-hidden">
 
-<div class="aspect-[9/16] h-full max-w-full w-auto shrink-0">
+<div class="aspect-[402/874] h-full max-h-full max-w-full w-auto shrink-0">
 
 <video
   class="block h-full w-full cursor-pointer rounded-lg object-contain shadow-[0_12px_32px_rgba(0,0,0,0.45)]"
@@ -431,401 +431,96 @@ Portal говорит: вот этот UI должен быть размещен
 layout: full
 ---
 
-<style>
-.rt-demo {
-  --rt-cycle: 11s;
-}
-
-.rt-chat-overlay {
-  transform: translateX(100%);
-  animation: rt-chat-slide var(--rt-cycle) cubic-bezier(0.32, 0.72, 0, 1) infinite;
-}
-
-.rt-menu-on-screen {
-  opacity: 0;
-  animation: rt-menu-pop-teleport var(--rt-cycle) ease-in-out infinite;
-}
-
-.rt-menu-in-chat {
-  opacity: 0;
-  animation: rt-menu-pop-modal var(--rt-cycle) ease-in-out infinite;
-}
-
-.rt-menu-dot {
-  animation: rt-menu-dot-pulse var(--rt-cycle) ease-in-out infinite;
-}
-
-@keyframes rt-chat-slide {
-  0%, 11% {
-    transform: translateX(100%);
-    box-shadow: none;
-  }
-  19%, 44% {
-    transform: translateX(0);
-    box-shadow: none;
-  }
-  52%, 60% {
-    transform: translateX(36%);
-    box-shadow: -5px 0 14px rgb(0 0 0 / 0.12);
-  }
-  68%, 100% {
-    transform: translateX(100%);
-    box-shadow: none;
-  }
-}
-
-@keyframes rt-menu-pop-teleport {
-  0%, 36% {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-  40%, 74% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  80%, 100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-@keyframes rt-menu-pop-modal {
-  0%, 36% {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-  40%, 58% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  64%, 100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-@keyframes rt-menu-dot-pulse {
-  0%, 32% {
-    transform: scale(1);
-    background: transparent;
-  }
-  34%, 38% {
-    transform: scale(1.12);
-    background: rgb(0 0 0 / 0.07);
-  }
-  40%, 100% {
-    transform: scale(1);
-    background: transparent;
-  }
-}
-</style>
-
-<div class="flex flex-col items-start gap-3 w-full h-full pt-2 pb-4 box-border min-h-0 overflow-hidden">
-
-<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight shrink-0 w-full text-left">Illusion of Portals</h2>
-
-<div class="flex flex-1 w-full min-h-0 items-end justify-center">
-
-<div class="grid grid-cols-2 gap-5 items-end justify-items-center max-w-3xl w-full">
-
-<div class="rt-demo flex flex-col items-center gap-2 min-w-0">
-
-<h2 class="!text-[#34e86a] !mt-0 !mb-0 text-sm font-semibold shrink-0 tracking-tight text-center leading-tight">✓ Render on top of screen</h2>
-
-<div class="rt-phone-frame relative w-[min(19vw,155px)] shrink-0 aspect-[9/19.5] rounded-[1.6rem] border-[2px] border-[#6a6a6a] bg-[#2a2a2a] p-[5px] shadow-[0_12px_28px_rgba(0,0,0,0.35)]">
+<div class="grid h-full w-full grid-rows-[auto_1fr] px-8 py-6 box-border min-h-0 overflow-hidden gap-4">
 
-<div class="relative h-full w-full">
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight text-center shrink-0 whitespace-nowrap">Демо с teleport</h2>
 
-<div class="rt-phone-screen relative h-full w-full overflow-hidden rounded-[1.25rem] bg-[#f2f2f2]">
+<div class="flex min-h-0 items-center justify-center overflow-hidden">
 
-<div class="absolute left-1/2 top-[5px] z-40 h-[15px] w-[56px] -translate-x-1/2 rounded-full bg-black"></div>
+<div class="aspect-[402/874] h-full max-h-full max-w-full w-auto shrink-0">
 
-<div class="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-3 pt-[21px] pb-0.5 text-[7px] font-semibold text-black pointer-events-none">
-<span>09:41</span>
-<div class="flex items-center gap-0.5">
-<svg class="h-[6px] w-[8px]" viewBox="0 0 10 8" fill="currentColor"><rect x="0" y="5" width="2" height="3" rx="0.5"/><rect x="3" y="3" width="2" height="5" rx="0.5"/><rect x="6" y="1" width="2" height="7" rx="0.5"/><rect x="9" y="0" width="1" height="8" rx="0.5"/></svg>
-<svg class="h-[6px] w-[8px]" viewBox="0 0 12 9" fill="currentColor"><path d="M6 1.5C4.2 1.5 2.6 2.2 1.4 3.3L0 1.9C1.6 0.7 3.7 0 6 0s4.4 0.7 6 1.9l-1.4 1.4C9.4 2.2 7.8 1.5 6 1.5zm0 3c-1 0-1.9.4-2.6 1l-1.4-1.4c1-0.9 2.3-1.4 4-1.4s3 0.5 4 1.4L9.6 5.5C8.9 4.9 8 4.5 6 4.5zm0 3c-0.6 0-1.1 0.2-1.5 0.6L6 9l1.5-0.9C7.1 7.7 6.6 7.5 6 7.5z"/></svg>
-<div class="flex h-[6px] w-[14px] items-center rounded-[2px] border border-black/70 px-[1px]">
-<div class="h-[4px] w-[9px] rounded-[1px] bg-[#34e86a]"></div>
-</div>
-</div>
-</div>
-
-<div class="absolute inset-0 z-0 flex flex-col pt-[36px] px-1.5 pb-1.5">
-
-<div class="px-1 pb-1.5">
-<span class="text-[11px] font-bold text-black">Chats</span>
-</div>
-
-<div class="flex flex-1 flex-col overflow-hidden rounded-xl bg-white shadow-[0_1px_4px_rgba(0,0,0,0.06)]">
-
-<div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] text-[7px] font-bold text-white">K</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Kirill</span>
-<span class="shrink-0 text-[6px] text-[#999]">09:41</span>
-</div>
-<div class="flex items-center justify-between gap-1">
-<span class="truncate text-[6px] text-[#888]">Sure, let's go for a walk?</span>
-<span class="flex h-3 min-w-3 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] px-0.5 text-[5px] font-bold text-white">2</span>
-</div>
-</div>
-</div>
-
-<div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#9b7fd4] text-[6px] font-bold text-white">DT</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Design Team</span>
-<span class="shrink-0 text-[6px] text-[#999]">08:16</span>
-</div>
-<span class="block truncate text-[6px] text-[#888]">Slides are ready for the conference dry r…</span>
-</div>
-</div>
-
-<div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#d47fa8] text-[7px] font-bold text-white">A</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Anna</span>
-<span class="shrink-0 text-[6px] text-[#999]">Yesterday</span>
-</div>
-<span class="block truncate text-[6px] text-[#888]">Let's keep the sticker animation alive in t…</span>
-</div>
-</div>
-
-<div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#6fbf8a] text-[6px] font-bold text-white">MC</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Mobile Core</span>
-<span class="shrink-0 text-[6px] text-[#999]">Yesterday</span>
-</div>
-<div class="flex items-center justify-between gap-1">
-<span class="truncate text-[6px] text-[#888]">React Native 0.81 build is green on…</span>
-<span class="flex h-3 min-w-3 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] px-0.5 text-[5px] font-bold text-white">5</span>
-</div>
-</div>
-</div>
-
-<div class="flex items-start gap-1.5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#e8a04a] text-[7px] font-bold text-white">E</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Events</span>
-<span class="shrink-0 text-[6px] text-[#999]">Thu</span>
-</div>
-<span class="block truncate text-[6px] text-[#888]">Reminder: speaker check-in opens at 7:30.</span>
-</div>
-</div>
-
-</div>
-</div>
-
-<div class="rt-chat-overlay absolute inset-0 z-10 flex flex-col bg-[#ececec] pt-[36px]">
-
-<div class="relative flex items-center justify-between border-b border-black/5 bg-white px-2.5 py-2">
-<div class="flex items-center gap-0.5 text-[8px] font-medium text-black">
-<svg class="h-2.5 w-2.5" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 1L2 6l4 5"/></svg>
-<span>Back</span>
-</div>
-<span class="text-[9px] font-semibold text-black">Kirill</span>
-<div class="rt-menu-dot flex h-4 w-4 items-center justify-center rounded-full">
-<svg class="h-3 w-3" viewBox="0 0 4 16" fill="currentColor"><circle cx="2" cy="2" r="1.5"/><circle cx="2" cy="8" r="1.5"/><circle cx="2" cy="14" r="1.5"/></svg>
-</div>
-</div>
-
-<div class="flex flex-col gap-1.5 px-2.5 py-2.5">
-
-<div class="max-w-[80%] self-start rounded-2xl rounded-bl-md bg-white px-2.5 py-1.5 text-[7px] leading-snug text-[#333] shadow-sm">Hello, not too bad! You?</div>
-
-<div class="max-w-[80%] self-end rounded-2xl rounded-br-md bg-[#d8f5de] px-2.5 py-1.5 text-[7px] leading-snug text-[#1a1a1a] shadow-sm">What is your plan for evening today?</div>
-
-<div class="max-w-[80%] self-start rounded-2xl rounded-bl-md bg-white px-2.5 py-1.5 text-[7px] leading-snug text-[#333] shadow-sm">I'm not sure yet... Any ideas?</div>
-
-<div class="max-w-[80%] self-end rounded-2xl rounded-br-md bg-[#d8f5de] px-2.5 py-1.5 text-[7px] leading-snug text-[#1a1a1a] shadow-sm">Sure, let's go for a walk?</div>
-
-</div>
-
-<div class="rt-menu-in-chat absolute right-1.5 top-[54px] z-20 w-[94px] overflow-hidden rounded-lg bg-white shadow-[0_8px_20px_rgba(0,0,0,0.16)]">
-
-<div class="flex items-center justify-between border-b border-black/5 px-2 py-1.5 text-[6px] text-black">
-<span>View details</span>
-<svg class="h-2.5 w-2.5 shrink-0 opacity-70" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 1h6v10H3z"/><path d="M5 3h2"/></svg>
-</div>
-
-<div class="flex items-center justify-between border-b border-black/5 px-2 py-1.5 text-[6px] text-black">
-<span>Mute chat</span>
-<svg class="h-2.5 w-2.5 shrink-0 opacity-70" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 2l2 2-6 6-2-2z"/><path d="M2 8l2 2"/></svg>
-</div>
-
-<div class="flex items-center justify-between px-2 py-1.5 text-[6px] font-medium text-[#e53935]">
-<span>Delete chat</span>
-<svg class="h-2.5 w-2.5 shrink-0" viewBox="0 0 12 12" fill="none" stroke="#e53935" stroke-width="1.2"><path d="M2 3h8M4 3V2h4v1M3 3l.5 7h5L9 3"/></svg>
-</div>
-
-</div>
-
-</div>
+<video
+  class="block h-full w-full cursor-pointer rounded-lg object-contain shadow-[0_12px_32px_rgba(0,0,0,0.45)]"
+  src="../assets/react-teleport/good_example.mp4"
+  preload="metadata"
+  playsinline
+  loop
+  @click="$event.currentTarget.paused ? $event.currentTarget.play() : $event.currentTarget.pause()"
+/>
 
 </div>
-</div>
-
-</div>
-
-</div>
-
-<div class="rt-demo flex flex-col items-center gap-2 min-w-0">
-
-<h2 class="!text-[#ef5350] !mt-0 !mb-0 text-sm font-semibold shrink-0 tracking-tight text-center leading-tight">✗ Render in modal</h2>
-
-<div class="rt-phone-frame relative w-[min(19vw,155px)] shrink-0 aspect-[9/19.5] rounded-[1.6rem] border-[2px] border-[#6a6a6a] bg-[#2a2a2a] p-[5px] shadow-[0_12px_28px_rgba(0,0,0,0.35)]">
-
-<div class="relative h-full w-full">
-
-<div class="rt-phone-screen relative h-full w-full overflow-hidden rounded-[1.25rem] bg-[#f2f2f2]">
-
-<div class="absolute left-1/2 top-[5px] z-40 h-[15px] w-[56px] -translate-x-1/2 rounded-full bg-black"></div>
-
-<div class="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-3 pt-[21px] pb-0.5 text-[7px] font-semibold text-black pointer-events-none">
-<span>09:41</span>
-<div class="flex items-center gap-0.5">
-<svg class="h-[6px] w-[8px]" viewBox="0 0 10 8" fill="currentColor"><rect x="0" y="5" width="2" height="3" rx="0.5"/><rect x="3" y="3" width="2" height="5" rx="0.5"/><rect x="6" y="1" width="2" height="7" rx="0.5"/><rect x="9" y="0" width="1" height="8" rx="0.5"/></svg>
-<svg class="h-[6px] w-[8px]" viewBox="0 0 12 9" fill="currentColor"><path d="M6 1.5C4.2 1.5 2.6 2.2 1.4 3.3L0 1.9C1.6 0.7 3.7 0 6 0s4.4 0.7 6 1.9l-1.4 1.4C9.4 2.2 7.8 1.5 6 1.5zm0 3c-1 0-1.9.4-2.6 1l-1.4-1.4c1-0.9 2.3-1.4 4-1.4s3 0.5 4 1.4L9.6 5.5C8.9 4.9 8 4.5 6 4.5zm0 3c-0.6 0-1.1 0.2-1.5 0.6L6 9l1.5-0.9C7.1 7.7 6.6 7.5 6 7.5z"/></svg>
-<div class="flex h-[6px] w-[14px] items-center rounded-[2px] border border-black/70 px-[1px]">
-<div class="h-[4px] w-[9px] rounded-[1px] bg-[#34e86a]"></div>
-</div>
-</div>
-</div>
-
-<div class="absolute inset-0 z-0 flex flex-col pt-[36px] px-1.5 pb-1.5">
-
-<div class="px-1 pb-1.5">
-<span class="text-[11px] font-bold text-black">Chats</span>
-</div>
-
-<div class="flex flex-1 flex-col overflow-hidden rounded-xl bg-white shadow-[0_1px_4px_rgba(0,0,0,0.06)]">
-
-<div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] text-[7px] font-bold text-white">K</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Kirill</span>
-<span class="shrink-0 text-[6px] text-[#999]">09:41</span>
-</div>
-<div class="flex items-center justify-between gap-1">
-<span class="truncate text-[6px] text-[#888]">Sure, let's go for a walk?</span>
-<span class="flex h-3 min-w-3 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] px-0.5 text-[5px] font-bold text-white">2</span>
-</div>
-</div>
-</div>
-
-<div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#9b7fd4] text-[6px] font-bold text-white">DT</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Design Team</span>
-<span class="shrink-0 text-[6px] text-[#999]">08:16</span>
-</div>
-<span class="block truncate text-[6px] text-[#888]">Slides are ready for the conference dry r…</span>
-</div>
-</div>
 
-<div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#d47fa8] text-[7px] font-bold text-white">A</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Anna</span>
-<span class="shrink-0 text-[6px] text-[#999]">Yesterday</span>
 </div>
-<span class="block truncate text-[6px] text-[#888]">Let's keep the sticker animation alive in t…</span>
-</div>
-</div>
-
-<div class="flex items-start gap-1.5 border-b border-black/5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#6fbf8a] text-[6px] font-bold text-white">MC</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Mobile Core</span>
-<span class="shrink-0 text-[6px] text-[#999]">Yesterday</span>
-</div>
-<div class="flex items-center justify-between gap-1">
-<span class="truncate text-[6px] text-[#888]">React Native 0.81 build is green on…</span>
-<span class="flex h-3 min-w-3 shrink-0 items-center justify-center rounded-full bg-[#5b9fd4] px-0.5 text-[5px] font-bold text-white">5</span>
-</div>
-</div>
-</div>
-
-<div class="flex items-start gap-1.5 px-2 py-1.5">
-<div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#e8a04a] text-[7px] font-bold text-white">E</div>
-<div class="min-w-0 flex-1">
-<div class="flex items-baseline justify-between gap-1">
-<span class="text-[7px] font-bold text-black">Events</span>
-<span class="shrink-0 text-[6px] text-[#999]">Thu</span>
-</div>
-<span class="block truncate text-[6px] text-[#888]">Reminder: speaker check-in opens at 7:30.</span>
-</div>
-</div>
-
-</div>
-</div>
 
-<div class="rt-chat-overlay absolute inset-0 z-10 flex flex-col bg-[#ececec] pt-[36px]">
-
-<div class="relative flex items-center justify-between border-b border-black/5 bg-white px-2.5 py-2">
-<div class="flex items-center gap-0.5 text-[8px] font-medium text-black">
-<svg class="h-2.5 w-2.5" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 1L2 6l4 5"/></svg>
-<span>Back</span>
-</div>
-<span class="text-[9px] font-semibold text-black">Kirill</span>
-<div class="rt-menu-dot flex h-4 w-4 items-center justify-center rounded-full">
-<svg class="h-3 w-3" viewBox="0 0 4 16" fill="currentColor"><circle cx="2" cy="2" r="1.5"/><circle cx="2" cy="8" r="1.5"/><circle cx="2" cy="14" r="1.5"/></svg>
 </div>
-</div>
-
-<div class="flex flex-col gap-1.5 px-2.5 py-2.5">
 
-<div class="max-w-[80%] self-start rounded-2xl rounded-bl-md bg-white px-2.5 py-1.5 text-[7px] leading-snug text-[#333] shadow-sm">Hello, not too bad! You?</div>
+<!--
+В версии с Teleport fullscreen mode не создает новый player.
+Мы меняем host, и тот же самый native video view переезжает в fullscreen container.
+Playback продолжается, потому что ничего не было уничтожено.
+-->
 
-<div class="max-w-[80%] self-end rounded-2xl rounded-br-md bg-[#d8f5de] px-2.5 py-1.5 text-[7px] leading-snug text-[#1a1a1a] shadow-sm">What is your plan for evening today?</div>
+---
+layout: full
+---
 
-<div class="max-w-[80%] self-start rounded-2xl rounded-bl-md bg-white px-2.5 py-1.5 text-[7px] leading-snug text-[#333] shadow-sm">I'm not sure yet... Any ideas?</div>
+<div class="flex flex-col items-start justify-start w-full h-full px-8 pt-4 pb-6 box-border leading-snug max-w-4xl gap-5">
 
-<div class="max-w-[80%] self-end rounded-2xl rounded-br-md bg-[#d8f5de] px-2.5 py-1.5 text-[7px] leading-snug text-[#1a1a1a] shadow-sm">Sure, let's go for a walk?</div>
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">Requirements and trade-offs</h2>
 
-</div>
+<div class="grid w-full grid-cols-2 gap-8 items-start pt-2">
 
+<div class="min-w-0">
+<h3 class="!text-white !mt-0 !mb-3 text-lg font-bold">Requirements:</h3>
+<ul class="!text-white text-base font-normal opacity-90 space-y-2 list-disc pl-5 m-0 leading-relaxed">
+<li>React Native New Architecture / Fabric</li>
+<li>Native rebuild</li>
+<li>Custom dev client for Expo</li>
+<li>Careful host architecture</li>
+</ul>
 </div>
 
+<div class="min-w-0">
+<h3 class="!text-white !mt-0 !mb-3 text-lg font-bold">Trade-offs:</h3>
+<ul class="!text-white text-base font-normal opacity-90 space-y-2 list-disc pl-5 m-0 leading-relaxed">
+<li>More complex mental model</li>
+<li>Not needed for simple overlays</li>
+<li>Young ecosystem</li>
+</ul>
 </div>
-
-<div class="rt-menu-on-screen absolute right-1.5 top-[54px] z-[60] w-[94px] overflow-hidden rounded-lg bg-white shadow-[0_8px_20px_rgba(0,0,0,0.16)]">
 
-<div class="flex items-center justify-between border-b border-black/5 px-2 py-1.5 text-[6px] text-black">
-<span>View details</span>
-<svg class="h-2.5 w-2.5 shrink-0 opacity-70" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 1h6v10H3z"/><path d="M5 3h2"/></svg>
 </div>
 
-<div class="flex items-center justify-between border-b border-black/5 px-2 py-1.5 text-[6px] text-black">
-<span>Mute chat</span>
-<svg class="h-2.5 w-2.5 shrink-0 opacity-70" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 2l2 2-6 6-2-2z"/><path d="M2 8l2 2"/></svg>
 </div>
 
-<div class="flex items-center justify-between px-2 py-1.5 text-[6px] font-medium text-[#e53935]">
-<span>Delete chat</span>
-<svg class="h-2.5 w-2.5 shrink-0" viewBox="0 0 12 12" fill="none" stroke="#e53935" stroke-width="1.2"><path d="M2 3h8M4 3V2h4v1M3 3l.5 7h5L9 3"/></svg>
-</div>
+<!--
+У библиотеки есть цена.
+Она требует New Architecture / Fabric, native rebuild, а в Expo — custom dev client.
+Для простых popups это может быть overengineering.
+Но для heavy live UI — видео, карты, preview, сложные transitions — это уже имеет смысл.
+-->
 
-</div>
+---
+layout: full
+---
 
-</div>
-</div>
+<div class="flex flex-col items-start justify-start w-full h-full px-8 pt-4 pb-6 box-border leading-snug max-w-3xl gap-4">
 
-</div>
+<h2 class="!text-white !mt-0 !mb-0 text-2xl font-bold tracking-tight w-full text-left shrink-0">React Native Teleport:</h2>
 
-</div>
+<ul class="!text-white text-lg font-normal opacity-90 space-y-3 list-disc pl-5 m-0 leading-relaxed">
+<li>Сохраняет React-дерево без изменений</li>
+<li>Перемещает нативное представление между контейнерами</li>
+<li>Избегает повторного монтирования компонента</li>
+<li>Сохраняет текущее состояние UI</li>
+<li>Обеспечивает более плавное взаимодействие на разных платформах</li>
+</ul>
 
 </div>
 
-</div>
+<!--
+Главная идея Teleport — добавить missing primitive: move UI.
+React обычно умеет create, update и delete.
+Teleport позволяет на native level сделать move.
+Поэтому мы можем строить interactions, которые раньше требовали костылей, пересоздания UI или платформенных API.
+-->
