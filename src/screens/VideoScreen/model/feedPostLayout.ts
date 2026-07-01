@@ -22,6 +22,39 @@ export function getFeedPostVideoBoundsInPost(screenWidth: number): {
   return { end, start };
 }
 
+export function getFeedPostVideoWindowLayout(
+  postId: string,
+  scrollY: number,
+  contentPaddingTop: number,
+  screenWidth: number,
+  posts: FeedPost[],
+): {
+  height: number;
+  width: number;
+  x: number;
+  y: number;
+} | null {
+  const postIndex = posts.findIndex((post) => post.id === postId);
+  if (postIndex < 0) {
+    return null;
+  }
+
+  let postTop = contentPaddingTop;
+  for (let index = 0; index < postIndex; index += 1) {
+    postTop += getFeedPostHeight(screenWidth);
+  }
+
+  const video = getFeedPostVideoBoundsInPost(screenWidth);
+  const height = screenWidth * FEED_POST_VIDEO_ASPECT;
+
+  return {
+    height,
+    width: screenWidth,
+    x: 0,
+    y: postTop + video.start - scrollY,
+  };
+}
+
 export function findActivePostIdForViewportCenter(
   scrollY: number,
   viewportHeight: number,

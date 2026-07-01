@@ -6,6 +6,8 @@ import {
   collapseTeleportVideo,
   createTeleportFeedStore,
   expandTeleportVideo,
+  isTeleportPostPresentedInHost,
+  isTeleportPostDockedInHost,
   type TeleportFeedStore,
   toggleTeleportFeedMuted,
 } from "~screens/ReactTeleportDemo/model/teleportFeedStore";
@@ -78,6 +80,28 @@ export function useIsTeleportVideoExpanded(postId: string): boolean {
   return useSelector(() => store$.expandedPostId.get() === postId);
 }
 
+export function useIsTeleportPostPresentedInHost(postId: string): boolean {
+  const { store$ } = useTeleportFeedContext();
+
+  return useSelector(() => isTeleportPostPresentedInHost(store$, postId));
+}
+
+export function useIsTeleportPostDockedInHost(postId: string): boolean {
+  const { store$ } = useTeleportFeedContext();
+
+  return useSelector(() => isTeleportPostDockedInHost(store$, postId));
+}
+
+export function useTeleportFeedOverlayVisible(): boolean {
+  const { store$ } = useTeleportFeedContext();
+
+  return useSelector(() => {
+    const expandedPostId = store$.expandedPostId.get();
+    const collapsingPostId = store$.collapsingPostId.get();
+    return expandedPostId != null || collapsingPostId != null;
+  });
+}
+
 export function useTeleportFeedExpandedPostId(): string | null {
   const { store$ } = useTeleportFeedContext();
 
@@ -142,4 +166,10 @@ export function useTeleportFullscreenBackdropStyle(): ViewStyle {
   const { transitionRef } = useTeleportFeedContext();
 
   return transitionRef.current.backdropStyle;
+}
+
+export function useTeleportFeedTransition(): FeedVideoFullscreenTransition {
+  const { transitionRef } = useTeleportFeedContext();
+
+  return transitionRef.current;
 }

@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useObservable, useSelector } from "@legendapp/state/react";
-import { useVideoPlayer, VideoView } from "expo-video";
+import { useVideoPlayer } from "expo-video";
 import { useEffect, useRef } from "react";
 import {
   Pressable,
@@ -9,20 +9,20 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
-import Animated from "react-native-reanimated";
 import { Portal } from "react-native-teleport";
 
 import {
   useExpandTeleportVideo,
   useIsTeleportPostActive,
+  useIsTeleportPostDockedInHost,
+  useIsTeleportPostPresentedInHost,
   useIsTeleportVideoExpanded,
   useTeleportFeedMuted,
-  useTeleportFullscreenChromeStyle,
-  useTeleportFullscreenVideoStyle,
+  useTeleportFeedTransition,
   useToggleTeleportFeedMuted,
 } from "~screens/ReactTeleportDemo/model/TeleportFeedContext";
 import { TELEPORT_VIDEO_HOST } from "~screens/ReactTeleportDemo/model/teleportHost";
-import { TeleportFullscreenChrome } from "~screens/ReactTeleportDemo/ui/components/TeleportFullscreenChrome";
+import { TeleportVideoSurface } from "~screens/ReactTeleportDemo/ui/components/TeleportVideoSurface";
 import type { FeedPost } from "~screens/VideoScreen/model/feedPosts";
 import { FeedActionBar } from "~screens/VideoScreen/ui/components/FeedActionBar";
 import { FeedAvatar } from "~screens/VideoScreen/ui/components/FeedAvatar";
@@ -36,11 +36,12 @@ export function TeleportFeedPostCard({ post }: TeleportFeedPostCardProps) {
   const videoHeight = width * 1.15;
   const isActive = useIsTeleportPostActive(post.id);
   const isExpanded = useIsTeleportVideoExpanded(post.id);
+  const isPresentedInHost = useIsTeleportPostPresentedInHost(post.id);
+  const isDocked = useIsTeleportPostDockedInHost(post.id);
   const isMuted = useTeleportFeedMuted();
   const toggleMuted = useToggleTeleportFeedMuted();
   const expandVideo = useExpandTeleportVideo();
-  const fullscreenVideoStyle = useTeleportFullscreenVideoStyle();
-  const fullscreenChromeStyle = useTeleportFullscreenChromeStyle();
+  const transition = useTeleportFeedTransition();
   const isLiked$ = useObservable(false);
   const isLiked = useSelector(() => isLiked$.get());
   const videoWrapRef = useRef<View>(null);
@@ -65,13 +66,24 @@ export function TeleportFeedPostCard({ post }: TeleportFeedPostCardProps) {
   }, [isActive, player]);
 
   useEffect(() => {
-    const returnedToFeed = wasExpandedRef.current && !isExpanded && isActive;
-    wasExpandedRef.current = isExpanded;
+    const returnedToFeed = wasExpandedRef.current && !isPresentedInHost && isActive;
+    wasExpandedRef.current = isPresentedInHost;
 
     if (returnedToFeed) {
       player.play();
     }
-  }, [isActive, isExpanded, player]);
+  }, [isActive, isPresentedInHost, player]);
+
+  const handleExpand = () => {
+    videoWrapRef.current?.measureInWindow((x, y, measuredWidth, measuredHeight) => {
+      expandVideo(post.id, {
+        height: measuredHeight,
+        width: measuredWidth,
+        x,
+        y,
+      });
+    });
+  };
 
   return (
     <View style={styles.root}>
@@ -104,60 +116,25 @@ export function TeleportFeedPostCard({ post }: TeleportFeedPostCardProps) {
       </View>
 
       <View ref={videoWrapRef} style={[styles.videoWrap, { height: videoHeight, width }]}>
-        {isExpanded ? <View style={styles.videoPlaceholder} /> : null}
+        {isPresentedInHost ? <View style={styles.videoPlaceholder} /> : null}
 
-        <Portal hostName={isExpanded ? TELEPORT_VIDEO_HOST : undefined}>
-          {isExpanded ? (
-            <Animated.View style={fullscreenVideoStyle}>
-              <Pressable
-                accessibilityRole="button"
-                disabled
-                style={styles.videoPressable}
-              >
-                <VideoView
-                  contentFit="cover"
-                  nativeControls={false}
-                  player={player}
-                  style={styles.video}
-                />
-              </Pressable>
-
-              <Animated.View
-                pointerEvents="box-none"
-                style={[StyleSheet.absoluteFill, fullscreenChromeStyle]}
-              >
-                <TeleportFullscreenChrome post={post} />
-              </Animated.View>
-            </Animated.View>
-          ) : (
-            <View style={{ height: videoHeight, width }}>
-              <Pressable
-                accessibilityLabel="Открыть видео через Teleport"
-                accessibilityRole="button"
-                onPress={() => {
-                  videoWrapRef.current?.measureInWindow((x, y, measuredWidth, measuredHeight) => {
-                    expandVideo(post.id, {
-                      height: measuredHeight,
-                      width: measuredWidth,
-                      x,
-                      y,
-                    });
-                  });
-                }}
-                style={styles.videoPressable}
-              >
-                <VideoView
-                  contentFit="cover"
-                  nativeControls={false}
-                  player={player}
-                  style={styles.video}
-                />
-              </Pressable>
-            </View>
-          )}
+        <Portal hostName={isPresentedInHost ? TELEPORT_VIDEO_HOST : undefined}>
+          <TeleportVideoSurface
+            feedHeight={videoHeight}
+            feedWidth={width}
+            isDocked={isDocked}
+            isExpanded={isExpanded}
+            isMuted={isMuted}
+            isPresentedInHost={isPresentedInHost}
+            onExpand={handleExpand}
+            onToggleMuted={toggleMuted}
+            player={player}
+            post={post}
+            transition={transition}
+          />
         </Portal>
 
-        {isActive && !isExpanded ? (
+        {isActive && !isPresentedInHost ? (
           <Pressable
             accessibilityLabel={isMuted ? "Включить звук" : "Выключить звук"}
             accessibilityRole="button"
@@ -270,13 +247,6 @@ const styles = StyleSheet.create({
   videoPlaceholder: {
     ...StyleSheet.absoluteFill,
     backgroundColor: "#111111",
-  },
-  videoPressable: {
-    flex: 1,
-  },
-  video: {
-    height: "100%",
-    width: "100%",
   },
   muteButton: {
     alignItems: "center",

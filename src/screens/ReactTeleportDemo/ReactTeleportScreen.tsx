@@ -17,11 +17,13 @@ import { PortalHost, PortalProvider } from "react-native-teleport";
 import {
   TeleportFeedProvider,
   useCollapseTeleportVideo,
-  useTeleportFeedExpandedPostId,
+  useTeleportFeedOverlayVisible,
   useTeleportFeedStore,
+  useTeleportFeedTransition,
   useTeleportFullscreenBackdropStyle,
 } from "~screens/ReactTeleportDemo/model/TeleportFeedContext";
 import {
+  setTeleportLayoutMetrics,
   setTeleportListHeight,
   setTeleportScrollY,
   syncTeleportActivePost,
@@ -38,7 +40,7 @@ import { FullscreenSwipeDismiss } from "~shared/ui/FullscreenSwipeDismiss";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-function TeleportFullscreenOverlay() {
+function TeleportFullscreenBackdrop() {
   const collapseVideo = useCollapseTeleportVideo();
   const fullscreenBackdropStyle = useTeleportFullscreenBackdropStyle();
 
@@ -53,11 +55,6 @@ function TeleportFullscreenOverlay() {
         onPress={collapseVideo}
         style={[StyleSheet.absoluteFill, styles.backdrop, fullscreenBackdropStyle]}
       />
-
-      <PortalHost
-        name={TELEPORT_VIDEO_HOST}
-        style={StyleSheet.absoluteFill}
-      />
     </FullscreenSwipeDismiss>
   );
 }
@@ -70,15 +67,20 @@ function TeleportFeedList({
   screenWidth: number;
 }) {
   const store$ = useTeleportFeedStore();
-  const expandedPostId = useSelector(() => store$.expandedPostId.get());
+  const transition = useTeleportFeedTransition();
+
+  useEffect(() => {
+    setTeleportLayoutMetrics(store$, safeAreaTop, screenWidth);
+  }, [safeAreaTop, screenWidth, store$]);
 
   const onScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const scrollY = event.nativeEvent.contentOffset.y;
+      transition.syncDockedScrollY(scrollY);
       setTeleportScrollY(store$, scrollY);
-      syncTeleportActivePost(store$, scrollY, safeAreaTop, screenWidth);
+      syncTeleportActivePost(store$, scrollY, safeAreaTop, screenWidth, transition);
     },
-    [safeAreaTop, screenWidth, store$],
+    [safeAreaTop, screenWidth, store$, transition],
   );
 
   const renderItem = useCallback(
@@ -87,6 +89,8 @@ function TeleportFeedList({
     ),
     [],
   );
+
+  const expandedPostId = useSelector(() => store$.expandedPostId.get());
 
   return (
     <View
@@ -103,7 +107,7 @@ function TeleportFeedList({
         onScroll={onScroll}
         renderItem={renderItem}
         scrollEnabled={expandedPostId == null}
-        scrollEventThrottle={16}
+        scrollEventThrottle={1}
         showsVerticalScrollIndicator={false}
         style={styles.list}
       />
@@ -119,6 +123,7 @@ function TeleportFeedBootstrap({
   screenWidth: number;
 }) {
   const store$ = useTeleportFeedStore();
+  const transition = useTeleportFeedTransition();
 
   useEffect(() => {
     const listHeight = store$.listHeight.get();
@@ -126,8 +131,14 @@ function TeleportFeedBootstrap({
       return;
     }
 
-    syncTeleportActivePost(store$, store$.scrollY.get(), safeAreaTop, screenWidth);
-  }, [safeAreaTop, screenWidth, store$]);
+    syncTeleportActivePost(
+      store$,
+      store$.scrollY.get(),
+      safeAreaTop,
+      screenWidth,
+      transition,
+    );
+  }, [safeAreaTop, screenWidth, store$, transition]);
 
   useEffect(() => {
     return store$.listHeight.onChange(({ value }) => {
@@ -135,26 +146,27 @@ function TeleportFeedBootstrap({
         return;
       }
 
-      syncTeleportActivePost(store$, store$.scrollY.get(), safeAreaTop, screenWidth);
+      syncTeleportActivePost(
+        store$,
+        store$.scrollY.get(),
+        safeAreaTop,
+        screenWidth,
+        transition,
+      );
     });
-  }, [safeAreaTop, screenWidth, store$]);
+  }, [safeAreaTop, screenWidth, store$, transition]);
 
   return null;
 }
 
-function TeleportPortalHost() {
-  const expandedPostId = useTeleportFeedExpandedPostId();
+function TeleportFullscreenLayer() {
+  const overlayVisible = useTeleportFeedOverlayVisible();
 
-  if (expandedPostId != null) {
-    return <TeleportFullscreenOverlay />;
+  if (!overlayVisible) {
+    return null;
   }
 
-  return (
-    <PortalHost
-      name={TELEPORT_VIDEO_HOST}
-      style={styles.portalHostHidden}
-    />
-  );
+  return <TeleportFullscreenBackdrop />;
 }
 
 export function ReactTeleportScreen() {
@@ -187,7 +199,13 @@ export function ReactTeleportScreen() {
           />
 
           <FeedBottomNav activeTab="home" />
-          <TeleportPortalHost />
+
+          <TeleportFullscreenLayer />
+
+          <PortalHost
+            name={TELEPORT_VIDEO_HOST}
+            style={styles.portalHost}
+          />
         </View>
       </TeleportFeedProvider>
     </PortalProvider>
@@ -212,9 +230,9 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
     zIndex: 10,
   },
-  portalHostHidden: {
+  portalHost: {
     ...StyleSheet.absoluteFill,
-    pointerEvents: "none",
+    pointerEvents: "box-none",
     zIndex: 20,
   },
 });
