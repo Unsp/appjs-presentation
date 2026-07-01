@@ -143,33 +143,6 @@ layout: full
 layout: full
 ---
 
-<div class="relative w-full h-full p-3 box-border flex flex-1 flex-col gap-4 items-center justify-start">
-
-<h2 class="!text-white !mt-0 !mb-2 text-xl font-bold">Общий state</h2>
-
-```tsx {maxHeight:'360px'}
-function ChatScreen() {
-  const [replyId, setReplyId] = useState('')
-
-  return (
-    <View>
-      <ChatMessages replyId={replyId} />
-      <ChatComposer replyId={replyId} />
-    </View>
-  )
-}
-```
-
-</div>
-
-<!--
-Здесь мы можем увидеть как это будет выглядеть.
--->
-
----
-layout: full
----
-
 <style>
 .chat-tree-box {
   border-style: solid;
@@ -277,34 +250,6 @@ layout: full
 
 ```tsx {maxHeight:'360px'}
 function ChatScreen() {
-  const [isOpen, setIsOpen] = useState(false)
-
-  useEffect(() => {
-    if (isOpen) {
-      dialogRef.current?.showModal()
-    }
-  }, [isOpen])
-
-  return (
-    <Pressable onPress={() => setIsOpen(true)} />
-  )
-}
-```
-
-</div>
-
-<!--
-УБЕРИ
--->
-
----
-layout: full
----
-
-<div class="relative w-full h-full p-3 box-border flex flex-1 flex-col gap-4 items-center justify-center">
-
-```tsx {maxHeight:'360px'}
-function ChatScreen() {
   const [isPaused, setIsPaused] = useState(false)
 
   const { data } = useQuery({
@@ -324,32 +269,9 @@ function ChatScreen() {
 layout: full
 ---
 
-<div class="relative w-full h-full p-3 box-border flex flex-1 flex-col gap-4 items-center justify-center">
+<div class="relative flex h-full w-full items-center justify-center p-3 box-border">
 
-```tsx {maxHeight:'360px'}
-function ChatScreen() {
-  const isFocused = useIsFocused()
-
-  useEffect(() => {
-    if (isFocused) {
-      markConversationRead(conversationId)
-    }
-  }, [isFocused, conversationId])
-}
-```
-
-</div>
-
-<!--
-УБЕРИ
--->
-
----
-layout: full
----
-
-<div class="relative w-full h-full p-3 box-border flex flex-1 flex-col gap-4 items-start">
-  <h2 class="!text-white !mt-0 !mb-2 text-xl font-bold">Render для координации</h2>
+<h2 class="!text-white !mt-0 !mb-0 text-xl font-bold text-center">Render для координации</h2>
 
 </div>
 
@@ -483,12 +405,12 @@ layout: full
 </div>
 
 <!--
-1 — только создает Observable.
-2 — любой компонент может использовать useValue() или observer()
-3 — компонент может владеть состоянием, не являясь его подписчиком.
-4 — Observable не меняет свою ссылку при обновлении
-5 — обновляются только компоненты, которым действительно нужны данные
-6 — большие контейнерные компоненты могут вообще не ререндериться.
+1. Не подписывается на состояние, а только создает его.
+2. Подписка происходит отдельно - любой компонент может использовать useValue() или observer()
+3. Разделяет ownership и subscription компонент может владеть состоянием, не являясь его подписчиком.
+4. Поддерживает стабильные ссылки -Observable не меняет свою ссылку при обновлении
+5. Позволяет переносить подписку вниз по дереву - обновляются только компоненты, которым действительно нужны данные
+6. минимизирует ререндеры - большие контейнерные компоненты могут вообще не ререндериться.
 -->
 
 ---
